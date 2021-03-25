@@ -1,5 +1,13 @@
-export type ResultItemType = {
-  metadata: { tags: { sys: { [key: string]: string } }[] };
-  sys: { [key: string]: any };
-  fields: { title: string; body: any; slug: string };
+export type Slug = {
+  title: string;
+  body: any;
+  slug: string;
+};
+
+export type Metadata = {
+  tags: {
+    sys: {
+      id: string;
+    };
+  }[];
 };

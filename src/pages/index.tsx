@@ -1,7 +1,7 @@
 import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
-import type { ResultItemType } from '../types/Contentful';
+import { Slug } from '../types/Contentful';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -10,8 +10,8 @@ const Home: React.FC<Props> = (props) => {
 
   return (
     <>
-      {((items as unknown) as ResultItemType[]).map((item, i) => (
-        <Link href={`/post/${item.fields.slug}`} key={i}>
+      {items.map((item, i) => (
+        <Link href={`/entry/${item.fields.slug}`} key={i}>
           <a>{item.fields.title}</a>
         </Link>
       ))}
@@ -27,7 +27,7 @@ export const getStaticProps = async () => {
     accessToken: accessToken,
   });
 
-  const entries = await client.getEntries();
+  const entries = await client.getEntries<Slug>();
   if (entries != null) return { props: entries };
   else throw new Error();
 };

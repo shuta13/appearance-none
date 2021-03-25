@@ -1,7 +1,7 @@
-import { ContentfulCollection } from 'contentful';
-import { ResultItemType } from '../types/Contentful';
+import type { EntryCollection } from 'contentful';
+import type { Slug, Metadata } from '../types/Contentful';
 
-type Props = ContentfulCollection<ResultItemType>['items'][number];
+type Props = EntryCollection<Slug>['items'][number] & { metadata: Metadata };
 
 export const BlogTemplate: React.FC<Props> = (props) => {
   const { metadata, fields } = props;

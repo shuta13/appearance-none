@@ -2,7 +2,7 @@ import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
 import { BlogTemplate } from '../../components/BlogTemplate';
 import { useRouter } from 'next/router';
-import type { ResultItemType } from '../../types/Contentful';
+import type { Metadata, Slug } from '../../types/Contentful';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -12,14 +12,16 @@ const BlogPost: React.FC<Props> = (props) => {
   const { slug } = router.query;
   return (
     <>
-      {((items as unknown) as ResultItemType[]).map(
+      {items.map(
         (item, i) =>
           item.fields.slug === slug && (
             <BlogTemplate
               key={i}
-              metadata={item.metadata}
+              metadata={((item as unknown) as { metadata: Metadata }).metadata}
               sys={item.sys}
               fields={item.fields}
+              toPlainObject={item.toPlainObject}
+              update={item.update}
             />
           )
       )}
@@ -35,7 +37,7 @@ export const getStaticProps = async () => {
     accessToken: accessToken,
   });
 
-  const entries = await client.getEntries();
+  const entries = await client.getEntries<Slug>();
   if (entries != null) return { props: entries };
   else throw new Error();
 };
@@ -48,11 +50,11 @@ export const getStaticPaths = async () => {
     accessToken: accessToken,
   });
 
-  const entries = await client.getEntries();
+  const entries = await client.getEntries<Slug>();
   if (entries != null) {
     const paths = entries.items.map((item) => ({
       params: {
-        slug: (item.fields as any).slug,
+        slug: item.fields.slug,
       },
     }));
     return { paths, fallback: false };
