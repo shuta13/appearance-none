@@ -1,7 +1,9 @@
 import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
-import { Slug } from '../types/Contentful';
+import type { Slug } from '../types/Contentful';
+import Head from 'next/head';
+import { BlogTitle } from '../config';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -10,6 +12,9 @@ const Home: React.FC<Props> = (props) => {
 
   return (
     <>
+      <Head>
+        <title>{BlogTitle}</title>
+      </Head>
       {items.map((item, i) => (
         <Link href={`/entry/${item.fields.slug}`} key={i}>
           <a>{item.fields.title}</a>

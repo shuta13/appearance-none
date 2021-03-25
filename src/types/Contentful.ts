@@ -1,3 +1,5 @@
+import { TagsMap } from '../config';
+
 export type Slug = {
   title: string;
   body: any;
@@ -7,7 +9,7 @@ export type Slug = {
 export type Metadata = {
   tags: {
     sys: {
-      id: string;
+      id: keyof typeof TagsMap;
     };
   }[];
 };

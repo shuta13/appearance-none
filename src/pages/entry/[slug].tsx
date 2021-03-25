@@ -3,6 +3,7 @@ import type { InferGetStaticPropsType } from 'next';
 import { BlogTemplate } from '../../components/BlogTemplate';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/Contentful';
+import { Head } from 'next/document';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
