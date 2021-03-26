@@ -1,7 +1,7 @@
 import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
-import type { Slug } from '../types/Contentful';
+import type { Slug } from '../types/contentful-types';
 import Head from 'next/head';
 import { BlogTitle } from '../config';
 
