@@ -5,20 +5,33 @@ import Head from 'next/head';
 import MarkdownIt from 'markdown-it';
 import Prism from 'prismjs';
 import { useEffect } from 'react';
-import dayjs from 'dayjs';
-import ja from 'dayjs/locale/ja';
+import { Day } from './Day';
 
 type Props = EntryCollection<Slug>['items'][number] & { metadata: Metadata };
-
-dayjs.locale(ja);
 
 const markdown = new MarkdownIt({
   html: true,
   linkify: false,
 });
 
-export const BlogTemplate: React.FC<Props> = (props) => {
+const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys } = props;
+  return (
+    <>
+      <h1>{fields.title}</h1>
+      {metadata.tags.map((tag, i) => (
+        <p key={i}>{TagsMap[tag.sys.id]}</p>
+      ))}
+      <Day sys={sys} />
+      <article
+        dangerouslySetInnerHTML={{ __html: markdown.render(fields.body) }}
+      />
+    </>
+  );
+};
+
+export const Template: React.FC<Props> = (props) => {
+  const { fields } = props;
 
   useEffect(() => {
     Prism.highlightAll();
@@ -27,16 +40,9 @@ export const BlogTemplate: React.FC<Props> = (props) => {
   return (
     <>
       <Head>
-        <title>{`${fields.title} - ${BlogTitle}`}</title>
+        <title>{`${fields.title} | ${BlogTitle}`}</title>
       </Head>
-      <h1>{fields.title}</h1>
-      {metadata.tags.map((tag, i) => (
-        <p key={i}>{TagsMap[tag.sys.id]}</p>
-      ))}
-      <p>{dayjs(sys.updatedAt).format('YYYY年M月DD日')}</p>
-      <article
-        dangerouslySetInnerHTML={{ __html: markdown.render(fields.body) }}
-      />
+      <Article {...props} />
     </>
   );
 };

@@ -1,4 +1,4 @@
-export const BlogTitle = 'blog.did0es.me';
+export const BlogTitle = '{ appearance: none } | did0es';
 
 export const TagsMap = {
   engineering: '技術',

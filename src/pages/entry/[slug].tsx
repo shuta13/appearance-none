@@ -1,6 +1,6 @@
 import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
-import { BlogTemplate } from '../../components/BlogTemplate';
+import { Template } from '../../components/Template';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
 
@@ -15,13 +15,10 @@ const BlogPost: React.FC<Props> = (props) => {
       {items.map(
         (item, i) =>
           item.fields.slug === slug && (
-            <BlogTemplate
+            <Template
               key={i}
+              {...item}
               metadata={((item as unknown) as { metadata: Metadata }).metadata}
-              sys={item.sys}
-              fields={item.fields}
-              toPlainObject={item.toPlainObject}
-              update={item.update}
             />
           )
       )}
