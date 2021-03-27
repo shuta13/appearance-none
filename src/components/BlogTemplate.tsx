@@ -5,8 +5,12 @@ import Head from 'next/head';
 import MarkdownIt from 'markdown-it';
 import Prism from 'prismjs';
 import { useEffect } from 'react';
+import dayjs from 'dayjs';
+import ja from 'dayjs/locale/ja';
 
 type Props = EntryCollection<Slug>['items'][number] & { metadata: Metadata };
+
+dayjs.locale(ja);
 
 const markdown = new MarkdownIt({
   html: true,
@@ -14,7 +18,7 @@ const markdown = new MarkdownIt({
 });
 
 export const BlogTemplate: React.FC<Props> = (props) => {
-  const { metadata, fields } = props;
+  const { metadata, fields, sys } = props;
 
   useEffect(() => {
     Prism.highlightAll();
@@ -29,6 +33,7 @@ export const BlogTemplate: React.FC<Props> = (props) => {
       {metadata.tags.map((tag, i) => (
         <p key={i}>{TagsMap[tag.sys.id]}</p>
       ))}
+      <p>{dayjs(sys.updatedAt).format('YYYY年M月DD日')}</p>
       <article
         dangerouslySetInnerHTML={{ __html: markdown.render(fields.body) }}
       />
