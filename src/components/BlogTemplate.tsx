@@ -1,13 +1,25 @@
 import type { EntryCollection } from 'contentful';
 import type { Slug, Metadata } from '../types/contentful-types';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BlogTitle, TagsMap } from '../config';
 import Head from 'next/head';
+import MarkdownIt from 'markdown-it';
+import Prism from 'prismjs';
+import { useEffect } from 'react';
 
 type Props = EntryCollection<Slug>['items'][number] & { metadata: Metadata };
 
+const markdown = new MarkdownIt({
+  html: true,
+  linkify: false,
+});
+
 export const BlogTemplate: React.FC<Props> = (props) => {
   const { metadata, fields } = props;
+
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
+
   return (
     <>
       <Head>
@@ -17,11 +29,9 @@ export const BlogTemplate: React.FC<Props> = (props) => {
       {metadata.tags.map((tag, i) => (
         <p key={i}>{TagsMap[tag.sys.id]}</p>
       ))}
-      {/* 
-        TODO: correspond strike-through, code block
-        see: https://www.contentful.com/developers/docs/tutorials/general/migrate-to-rich-text/#11-what-about-unsupported-markdown
-      */}
-      <article>{documentToReactComponents(fields.body)}</article>
+      <article
+        dangerouslySetInnerHTML={{ __html: markdown.render(fields.body) }}
+      />
     </>
   );
 };

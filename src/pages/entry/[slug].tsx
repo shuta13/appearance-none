@@ -49,7 +49,6 @@ export const getStaticPaths = async () => {
     space: spaceId,
     accessToken: accessToken,
   });
-
   const entries = await client.getEntries<Slug>();
   if (entries != null) {
     const paths = entries.items.map((item) => ({
