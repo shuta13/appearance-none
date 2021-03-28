@@ -37,13 +37,13 @@ const createFeed = (item: Entry<Slug>) => ` <item>
     <title>${item.fields.title}</title>
     <link>${entryUrl}/${item.fields.slug}</link>
     <guid>${entryUrl}/${item.fields.slug}</guid>
-    <pubDate>${dayjs(item.sys.createdAt)}</pubDate>
+    <pubDate>${dayjs(item.sys.createdAt).toString()}</pubDate>
   </item>`;
 
 (async () => {
   const entries = await getEntries();
   const feeds = entries.items.map((item) => createFeed(item));
-  const lastBuildData = dayjs();
+  const lastBuildData = dayjs().toString();
 
   const rss = `<?xml version="1.0" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
