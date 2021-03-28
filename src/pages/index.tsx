@@ -5,6 +5,8 @@ import type { Metadata, Slug } from '../types/contentful-types';
 import { BlogTitle } from '../config';
 import { Card } from '../components/Card';
 import Link from 'next/link';
+import { generateRss } from '../utils/rss';
+import fs from 'fs';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -45,8 +47,12 @@ export const getStaticProps = async () => {
   });
 
   const entries = await client.getEntries<Slug>();
-  if (entries != null) return { props: entries };
-  else throw new Error();
+  if (entries != null) {
+    const rss = generateRss(entries);
+    fs.writeFileSync(process.cwd() + '/public/rss.xml', rss);
+
+    return { props: entries };
+  } else throw new Error();
 };
 
 export default Home;

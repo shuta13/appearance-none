@@ -1,37 +1,15 @@
-// see: https://oldbigbuddha.dev/posts/generate-rss
-// see: https://github.com/TypeStrong/ts-node/issues/922#issuecomment-667076602
+// https://github.com/emilioschepis/website/blob/main/pages/blog.tsx
 
-import * as dotenv from 'dotenv';
-import { createClient, Entry } from 'contentful';
+import type { Entry, EntryCollection } from 'contentful';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
-import * as fs from 'fs';
-import { join } from 'path';
-import { BlogHost, BlogTitle } from '../src/config';
-import { Slug } from '../src/types/contentful-types';
-
-dotenv.config();
+import { BlogHost, BlogTitle } from '../config';
+import { Slug } from '../types/contentful-types';
 
 dayjs.locale(ja);
 
 const entryUrl = `${BlogHost}/entry`;
 const rssUrl = `${BlogHost}/rss.xml`;
-
-// const outputEntryDirPath = join(process.cwd(), 'out/entry');
-const outputFeedXmlPath = join(process.cwd(), 'out/rss.xml');
-
-const getEntries = async () => {
-  const spaceId = process.env.SPACE_ID!;
-  const accessToken = process.env.DELIVERY_KEY!;
-  const client = createClient({
-    space: spaceId,
-    accessToken: accessToken,
-  });
-
-  const entries = await client.getEntries<Slug>();
-  if (entries != null) return entries;
-  else throw new Error();
-};
 
 const createFeed = (item: Entry<Slug>) => ` <item>
     <title>${item.fields.title}</title>
@@ -40,8 +18,7 @@ const createFeed = (item: Entry<Slug>) => ` <item>
     <pubDate>${dayjs(item.sys.createdAt).toString()}</pubDate>
   </item>`;
 
-(async () => {
-  const entries = await getEntries();
+export const generateRss = (entries: EntryCollection<Slug>) => {
   const feeds = entries.items.map((item) => createFeed(item));
   const lastBuildData = dayjs().toString();
 
@@ -59,9 +36,5 @@ ${feeds.join('\n')}
   </channel>
 </rss>`;
 
-  try {
-    await fs.promises.writeFile(outputFeedXmlPath, rss, 'utf-8');
-  } catch (error) {
-    throw error;
-  }
-})();
+  return rss;
+};

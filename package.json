@@ -11,8 +11,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next export && yarn rss",
-    "rss": "yarn ts-node -O '{\"module\":\"commonjs\"}' scripts/rss.ts",
+    "export": "next export",
     "start": "npx budo --dir out/"
   },
   "dependencies": {
