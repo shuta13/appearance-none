@@ -4,6 +4,7 @@ import type { InferGetStaticPropsType } from 'next';
 import type { Slug } from '../types/contentful-types';
 import { BlogTitle } from '../config';
 import { Card } from '../components/Card';
+import Link from 'next/link';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -18,6 +19,9 @@ const Home: React.FC<Props> = (props) => {
       {items.map((item, i) => (
         <Card item={item} key={i} />
       ))}
+      <Link href="/rss.xml">
+        <a>RSS</a>
+      </Link>
     </>
   );
 };
