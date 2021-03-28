@@ -3,7 +3,7 @@ import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
 import type { Metadata, Slug } from '../types/contentful-types';
 import { BlogTitle } from '../config';
-import { Card } from '../components/Card';
+import { Card } from '../components/Card/Card';
 import Link from 'next/link';
 import { generateRss } from '../utils/rss';
 import fs from 'fs';

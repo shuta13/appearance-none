@@ -1,9 +1,10 @@
 import type { EntryCollection } from 'contentful';
-import type { Metadata, Slug } from '../types/contentful-types';
+import type { Metadata, Slug } from '../../types/contentful-types';
 import Link from 'next/link';
-import { Day } from './Day';
+import { Day } from '../Day/Day';
 import removeMd from 'remove-markdown';
-import { Tag } from './Tag';
+import { Tag } from '../Tag/Tag';
+import styles from './Card.module.scss';
 
 type Props = { item: EntryCollection<Slug>['items'][number] } & {
   metadata: Metadata;
@@ -25,7 +26,7 @@ export const Card: React.FC<Props> = (props) => {
   const { item, metadata } = props;
   const text = removeMd(item.fields.body);
   return (
-    <>
+    <div className={styles.wrap}>
       <Link href={`/entry/${item.fields.slug}`}>
         <a>{item.fields.title}</a>
       </Link>
@@ -34,6 +35,6 @@ export const Card: React.FC<Props> = (props) => {
       ))}
       <Day sys={item.sys} />
       <Snippet text={text} />
-    </>
+    </div>
   );
 };

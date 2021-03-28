@@ -1,6 +1,6 @@
 import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
-import { Template } from '../../components/Template';
+import { Template } from '../../components/Template/Template';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
 

@@ -11,7 +11,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "npx budo --dir out/",
-    "export": "next export"
+    "export": "next export",
+    "tcm": "tcm -p 'src/components/**/*.module.scss'"
   },
   "dependencies": {
     "contentful": "^8.2.0",
@@ -22,6 +23,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "remove-markdown": "^0.3.0",
+    "sass": "^1.32.8",
     "ts-node": "^9.1.1"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "@types/remove-markdown": "^0.1.1",
     "babel-plugin-styled-components": "^1.12.0",
     "dotenv": "^8.2.0",
+    "typed-css-modules": "^0.6.5",
     "typescript": "^4.2.3",
     "typescript-styled-plugin": "^0.15.0"
   }

@@ -1,13 +1,13 @@
 import type { EntryCollection } from 'contentful';
-import type { Slug, Metadata } from '../types/contentful-types';
-import { BlogTitle } from '../config';
+import type { Slug, Metadata } from '../../types/contentful-types';
+import { BlogTitle } from '../../config';
 import Head from 'next/head';
 import MarkdownIt from 'markdown-it';
 import Prism from 'prismjs';
 import { useEffect } from 'react';
-import { Day } from './Day';
-import { Nav } from './Nav';
-import { Tag } from './Tag';
+import { Day } from '../Day/Day';
+import { Nav } from '../Nav/Nav';
+import { Tag } from '../Tag/Tag';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
