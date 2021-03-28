@@ -4,13 +4,6 @@ import type { AppProps } from 'next/dist/next-server/lib/router/router';
 import 'prismjs/themes/prism-tomorrow.css';
 import Link from 'next/link';
 import { BlogTitle } from '../config';
-import styled from 'styled-components';
-
-const Container = styled.div`
-  margin: auto;
-  max-width: 960px;
-  width: 95%;
-`;
 
 const Header: React.FC = () => (
   <header>
@@ -32,11 +25,11 @@ const Footer: React.FC = () => (
 
 const BlogApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <Container>
+    <div className="container">
       <Header />
       <Component {...pageProps} />
       <Footer />
-    </Container>
+    </div>
   );
 };
 

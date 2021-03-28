@@ -11,3 +11,9 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.container {
+  margin: auto;
+  max-width: 960px;
+  width: 95%;
+}

@@ -10,9 +10,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "export": "next export",
-    "start": "npx budo --dir out/"
+    "start": "npx budo --dir out/",
+    "export": "next export"
   },
   "dependencies": {
     "contentful": "^8.2.0",
@@ -23,7 +22,6 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "remove-markdown": "^0.3.0",
-    "styled-components": "^5.2.1",
     "ts-node": "^9.1.1"
   },
   "devDependencies": {
@@ -32,7 +30,6 @@
     "@types/prismjs": "^1.16.4",
     "@types/react": "^17.0.3",
     "@types/remove-markdown": "^0.1.1",
-    "@types/styled-components": "^5.1.9",
     "babel-plugin-styled-components": "^1.12.0",
     "dotenv": "^8.2.0",
     "typescript": "^4.2.3",
