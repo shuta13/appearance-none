@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
-import type { Slug } from '../types/contentful-types';
+import type { Metadata, Slug } from '../types/contentful-types';
 import { BlogTitle } from '../config';
 import { Card } from '../components/Card';
 import Link from 'next/link';
@@ -17,7 +17,11 @@ const Home: React.FC<Props> = (props) => {
         <title>{BlogTitle}</title>
       </Head>
       {items.map((item, i) => (
-        <Card item={item} key={i} />
+        <Card
+          item={item}
+          key={i}
+          metadata={((item as unknown) as { metadata: Metadata }).metadata}
+        />
       ))}
       <Link href="/rss.xml">
         <a>RSS</a>

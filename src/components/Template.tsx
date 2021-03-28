@@ -1,12 +1,13 @@
 import type { EntryCollection } from 'contentful';
 import type { Slug, Metadata } from '../types/contentful-types';
-import { BlogTitle, TagsMap } from '../config';
+import { BlogTitle } from '../config';
 import Head from 'next/head';
 import MarkdownIt from 'markdown-it';
 import Prism from 'prismjs';
 import { useEffect } from 'react';
 import { Day } from './Day';
-import Link from 'next/link';
+import { Nav } from './Nav';
+import { Tag } from './Tag';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
@@ -19,34 +20,13 @@ const markdown = new MarkdownIt({
   linkify: false,
 });
 
-const Nav: React.FC<{
-  prevSlug: Props['prevSlug'];
-  nextSlug: Props['nextSlug'];
-}> = (props) => {
-  const { prevSlug, nextSlug } = props;
-  return (
-    <nav>
-      {prevSlug !== '' && (
-        <Link href={prevSlug}>
-          <a>{prevSlug}</a>
-        </Link>
-      )}
-      {nextSlug !== '' && (
-        <Link href={nextSlug}>
-          <a>{nextSlug}</a>
-        </Link>
-      )}
-    </nav>
-  );
-};
-
 const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys, prevSlug, nextSlug } = props;
   return (
     <>
       <h1>{fields.title}</h1>
       {metadata.tags.map((tag, i) => (
-        <p key={i}>{TagsMap[tag.sys.id]}</p>
+        <Tag tagName={tag.sys.id} key={i} />
       ))}
       <Day sys={sys} />
       <article

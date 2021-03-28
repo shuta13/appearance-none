@@ -37,7 +37,7 @@ export const getStaticProps = async () => {
   });
 
   const entries = await client.getEntries<Slug>();
-  if (entries != null) return { props: entries };
+  if (entries != null) return { props: entries, revalidate: 60 };
   else throw new Error();
 };
 
@@ -55,7 +55,7 @@ export const getStaticPaths = async () => {
         slug: item.fields.slug,
       },
     }));
-    return { paths, fallback: false };
+    return { paths, fallback: true };
   } else throw new Error();
 };
 
