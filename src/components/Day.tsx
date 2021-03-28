@@ -11,7 +11,7 @@ export const Day: React.FC<Props> = (props) => {
   return (
     <p>
       <span>
-        Published:
+        Created:
         <time dateTime={dayjs(sys.createdAt).format('YYYY-MM-DD')}>
           {dayjs(sys.createdAt).format('YYYY/MM/DD')}
         </time>
