@@ -19,6 +19,8 @@ const BlogPost: React.FC<Props> = (props) => {
               key={i}
               {...item}
               metadata={((item as unknown) as { metadata: Metadata }).metadata}
+              prevSlug={items[i - 1]?.fields.slug ?? ''}
+              nextSlug={items[i + 1]?.fields.slug ?? ''}
             />
           )
       )}
