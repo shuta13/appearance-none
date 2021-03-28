@@ -12,7 +12,7 @@ const BlogPost: React.FC<Props> = (props) => {
   const { slug } = router.query;
   return (
     <>
-      {items.map(
+      {items?.map(
         (item, i) =>
           item.fields.slug === slug && (
             <Template
