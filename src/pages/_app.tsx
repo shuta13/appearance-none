@@ -8,13 +8,8 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   margin: auto;
-  width: 50%;
-  @media screen and (max-width: 1200px) {
-    width: 80%;
-  }
-  @media screen and (max-width: 768px) {
-    width: 95%;
-  }
+  max-width: 960px;
+  width: 95%;
 `;
 
 const Header: React.FC = () => (
