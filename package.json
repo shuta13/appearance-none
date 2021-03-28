@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "{ appearance: none } は did0es のブログ",
   "main": "index.js",
-  "repository": "https://github.com/shuta13/blog.git",
+  "repository": "https://github.com/shuta13/appearance-none-did0es.git",
   "author": "shuta13(did0es)",
   "license": "MIT",
   "private": true,
