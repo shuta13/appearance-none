@@ -23,6 +23,12 @@ const Home: React.FC<Props> = (props) => {
           metadata={((item as unknown) as { metadata: Metadata }).metadata}
         />
       ))}
+      <Link href="https://twitter.com/did0es" passHref={true}>
+        <a>Twitter</a>
+      </Link>
+      <Link href="https://github.com/shuta13" passHref={true}>
+        <a>GitHub</a>
+      </Link>
       <Link href="/rss.xml">
         <a>RSS</a>
       </Link>
