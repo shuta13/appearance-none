@@ -19,7 +19,7 @@ export const Day: React.FC<Props> = (props) => {
       <span>
         Updated:
         <time dateTime={dayjs(sys.updatedAt).format('YYYY-MM-DD')}>
-          {dayjs(sys.updatedAt).format('YYYY-MM-DD')}
+          {dayjs(sys.updatedAt).format('YYYY/MM/DD')}
         </time>
       </span>
     </p>
