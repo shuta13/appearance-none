@@ -1,5 +1,6 @@
 import '../assets/styles/layout.css';
 import '../assets/styles/markdown.css';
+import '../assets/styles/theme.css';
 import type { AppProps } from 'next/dist/next-server/lib/router/router';
 import 'prismjs/themes/prism-tomorrow.css';
 import Link from 'next/link';
