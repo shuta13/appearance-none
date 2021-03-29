@@ -3,11 +3,12 @@ import type { InferGetStaticPropsType } from 'next';
 import { Template } from '../../components/Template/Template';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
+import fs from 'fs';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const BlogPost: React.FC<Props> = (props) => {
-  const { items, widgetsJs } = props;
+  const { items } = props;
   const router = useRouter();
   const { slug } = router.query;
   return (
@@ -21,7 +22,6 @@ const BlogPost: React.FC<Props> = (props) => {
               metadata={((item as unknown) as { metadata: Metadata }).metadata}
               prevSlug={items[i - 1]?.fields.slug ?? ''}
               nextSlug={items[i + 1]?.fields.slug ?? ''}
-              widgetsJs={widgetsJs}
             />
           )
       )}
@@ -44,7 +44,8 @@ export const getStaticProps = async () => {
      */
     const res = await fetch('https://platform.twitter.com/widgets.js');
     const widgetsJs = await res.text();
-    return { props: { ...entries, widgetsJs }, revalidate: 60 };
+    fs.writeFileSync(process.cwd() + '/public/widgets.js', widgetsJs);
+    return { props: { ...entries }, revalidate: 60 };
   } else throw new Error();
 };
 

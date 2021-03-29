@@ -5,21 +5,20 @@ import MarkdownIt from 'markdown-it';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx.min';
 import 'prismjs/components/prism-tsx.min';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Day } from '../Day/Day';
-import { Nav } from '../Nav/Nav';
 import { Tag } from '../Tag/Tag';
 import styles from './Template.module.scss';
 import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
 import { ShareButtonContainer } from '../ShareButtonContainer/ShareButtonContainer';
 import Head from 'next/head';
+// import { Nav } from '../Nav/Nav';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
   prevSlug: string;
   nextSlug: string;
-  widgetsJs: string;
 };
 
 const md = new MarkdownIt({
@@ -40,14 +39,14 @@ const Article: React.FC<Props> = (props) => {
         dangerouslySetInnerHTML={{ __html: md.render(fields.body) }}
         className={styles.blog_article}
       />
-      <Nav prevSlug={prevSlug} nextSlug={nextSlug} />
+      {/* <Nav prevSlug={prevSlug} nextSlug={nextSlug} /> */}
       <ShareButtonContainer title={fields.title} slug={fields.slug} />
     </section>
   );
 };
 
 export const Template: React.FC<Props> = (props) => {
-  const { fields, widgetsJs } = props;
+  const { fields } = props;
 
   useEffect(() => {
     Prism.highlightAll();
@@ -68,9 +67,7 @@ export const Template: React.FC<Props> = (props) => {
     <>
       <SEO title={title} description={description} propsJsonLd={jsonLd} />
       <Head>
-        <script type="text/javascript" charSet="utf-8">
-          {widgetsJs}
-        </script>
+        <script src="/widgets.js" />
       </Head>
       <Article {...props} />
     </>
