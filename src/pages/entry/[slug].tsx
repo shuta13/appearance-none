@@ -3,11 +3,12 @@ import type { InferGetStaticPropsType } from 'next';
 import { Template } from '../../components/Template/Template';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
+import { generateWidgetsJs } from '../../utils/widgetsJs';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const BlogPost: React.FC<Props> = (props) => {
-  const { items } = props;
+  const { items, widgetsJs } = props;
   const router = useRouter();
   const { slug } = router.query;
   return (
@@ -21,6 +22,7 @@ const BlogPost: React.FC<Props> = (props) => {
               metadata={((item as unknown) as { metadata: Metadata }).metadata}
               prevSlug={items[i - 1]?.fields.slug ?? ''}
               nextSlug={items[i + 1]?.fields.slug ?? ''}
+              widgetsJs={widgetsJs}
             />
           )
       )}
@@ -37,8 +39,10 @@ export const getStaticProps = async () => {
   });
 
   const entries = await client.getEntries<Slug>();
-  if (entries != null) return { props: entries, revalidate: 60 };
-  else throw new Error();
+  if (entries != null) {
+    const widgetsJs = await generateWidgetsJs();
+    return { props: { ...entries, widgetsJs }, revalidate: 60 };
+  } else throw new Error();
 };
 
 export const getStaticPaths = async () => {

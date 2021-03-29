@@ -14,12 +14,6 @@ import { Day } from '../Day/Day';
 import { Nav } from '../Nav/Nav';
 import { Tag } from '../Tag/Tag';
 import styles from './Template.module.scss';
-import {
-  HatenaIcon,
-  HatenaShareButton,
-  TwitterIcon,
-  TwitterShareButton,
-} from 'react-share';
 import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
 import { ShareButtonContainer } from '../ShareButtonContainer/ShareButtonContainer';
@@ -28,9 +22,10 @@ type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
   prevSlug: string;
   nextSlug: string;
+  widgetsJs: string;
 };
 
-const markdown = new MarkdownIt({
+const md = new MarkdownIt({
   html: true,
   linkify: false,
 });
@@ -45,7 +40,7 @@ const Article: React.FC<Props> = (props) => {
         <Tag tagName={tag.sys.id} key={i} />
       ))}
       <article
-        dangerouslySetInnerHTML={{ __html: markdown.render(fields.body) }}
+        dangerouslySetInnerHTML={{ __html: md.render(fields.body) }}
         className={styles.blog_article}
       />
       <Nav prevSlug={prevSlug} nextSlug={nextSlug} />
@@ -55,7 +50,7 @@ const Article: React.FC<Props> = (props) => {
 };
 
 export const Template: React.FC<Props> = (props) => {
-  const { fields } = props;
+  const { fields, widgetsJs } = props;
 
   useEffect(() => {
     Prism.highlightAll();
@@ -74,7 +69,12 @@ export const Template: React.FC<Props> = (props) => {
 
   return (
     <>
-      <SEO title={title} description={description} propsJsonLd={jsonLd} />
+      <SEO
+        title={title}
+        description={description}
+        propsJsonLd={jsonLd}
+        widgetsJs={widgetsJs}
+      />
       <Article {...props} />
     </>
   );

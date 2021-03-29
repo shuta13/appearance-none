@@ -5,13 +5,13 @@ type Props = {
   title?: string;
   description?: string;
   propsJsonLd?: typeof DefaultJsonId;
+  widgetsJs?: string;
 };
 
 // see: https://github.com/vercel/next.js/issues/2213#issuecomment-307478160
 // see: https://technicalseo.com/tools/schema-markup-generator/
 const jsonLd = (args: typeof DefaultJsonId) => {
   const { title, updated, url, imageUrl, description } = args;
-
   const json = [
     {
       '@context': 'http://schema.org',
@@ -68,7 +68,9 @@ export const SEO: React.FC<Props> = (props) => {
     title = BlogTitle,
     description = BlogDescription,
     propsJsonLd = DefaultJsonId,
+    widgetsJs,
   } = props;
+
   return (
     <Head>
       <link rel="icon" href="/images/icon.png" />
@@ -117,6 +119,9 @@ export const SEO: React.FC<Props> = (props) => {
           __html: jsonLd({ ...propsJsonLd }),
         }}
       />
+      <script type="text/javascript" charSet="utf-8">
+        {widgetsJs}
+      </script>
     </Head>
   );
 };

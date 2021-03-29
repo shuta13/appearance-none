@@ -1,14 +1,9 @@
-import Head from 'next/head';
 import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
 import type { Metadata, Slug } from '../types/contentful-types';
-import { BlogTitle } from '../config';
 import { Card } from '../components/Card/Card';
 import { generateRss } from '../utils/rss';
 import fs from 'fs';
-import { SocialButton } from '../components/SocialButton/SocialButton';
-import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faRss } from '@fortawesome/free-solid-svg-icons';
 import { SocialButtonContainer } from '../components/SocialButtonContainer/SocialButtonContainer';
 import { SEO } from '../components/SEO';
 
