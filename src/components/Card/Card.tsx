@@ -26,12 +26,14 @@ export const Card: React.FC<Props> = (props) => {
   const { item, metadata } = props;
   const text = removeMd(item.fields.body);
   return (
-    <Link href={`/entry/${item.fields.slug}`}>
-      <a className={styles.wrap}>
-        <Day sys={item.sys} />
-        <h2>{item.fields.title}</h2>
-        <Snippet text={text} />
-      </a>
-    </Link>
+    <p className={styles.wrap}>
+      <Link href={`/entry/${item.fields.slug}`}>
+        <a className={styles.box}>
+          <Day sys={item.sys} />
+          <h2 className={styles.title}>{item.fields.title}</h2>
+          <Snippet text={text} />
+        </a>
+      </Link>
+    </p>
   );
 };

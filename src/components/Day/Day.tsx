@@ -10,12 +10,9 @@ type Props = { sys: Sys };
 export const Day: React.FC<Props> = (props) => {
   const { sys } = props;
   return (
-    <p>
+    <p className={styles.wrap}>
       <span>
-        <time
-          dateTime={dayjs(sys.updatedAt).format('YYYY-MM-DD')}
-          className={styles.text}
-        >
+        <time dateTime={dayjs(sys.updatedAt).format('YYYY-MM-DD')}>
           {dayjs(sys.updatedAt).format('YYYY/MM/DD')}
         </time>
       </span>

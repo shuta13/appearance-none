@@ -34,6 +34,10 @@ a {
   color: var(--accent-blue);
 }
 
+h1 {
+  font-size: 1.7rem;
+}
+
 code {
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   padding: 4px;

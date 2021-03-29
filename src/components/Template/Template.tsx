@@ -24,9 +24,9 @@ const markdown = new MarkdownIt({
 const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys, prevSlug, nextSlug } = props;
   return (
-    <>
+    <main className={styles.wrap}>
       <Day sys={sys} />
-      <h1>{fields.title}</h1>
+      <h1 className={styles.title}>{fields.title}</h1>
       {metadata.tags.map((tag, i) => (
         <Tag tagName={tag.sys.id} key={i} />
       ))}
@@ -35,7 +35,7 @@ const Article: React.FC<Props> = (props) => {
         className={styles.blog_article}
       />
       <Nav prevSlug={prevSlug} nextSlug={nextSlug} />
-    </>
+    </main>
   );
 };
 
