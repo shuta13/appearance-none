@@ -66,7 +66,7 @@ export const Template: React.FC<Props> = (props) => {
     <>
       <SEO title={title} description={description} propsJsonLd={jsonLd} />
       <Head>
-        <script src="/widgets.js" />
+        <script async src="/widgets.js" />
       </Head>
       <Article {...props} />
     </>
