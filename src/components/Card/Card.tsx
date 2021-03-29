@@ -12,7 +12,7 @@ type Props = { item: EntryCollection<Slug>['items'][number] } & {
 const Snippet: React.FC<{ body: string }> = (props) => {
   const { body } = props;
   return (
-    <p
+    <div
       dangerouslySetInnerHTML={{
         __html: generateSnippet(body),
       }}
