@@ -50,6 +50,11 @@ h6 {
   margin: 0.5em 0;
 }
 
+p,
+ul {
+  margin-bottom: 1em;
+}
+
 code {
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   padding: 4px;
