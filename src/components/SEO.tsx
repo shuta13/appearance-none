@@ -16,7 +16,7 @@ const jsonLd = ({ title, updated, url, imageUrl, description }: JsonLd) => {
     '@type': 'Website',
     name: title,
     headline: title,
-    datePublished: dayjs.toString(),
+    datePublished: dayjs().toString(),
     dateModified: updated,
     url: url,
     mainEntityOfPage: url,
