@@ -3,7 +3,7 @@ import { BlogTitle } from '../../config';
 import styles from './Header.module.scss';
 
 export const Header: React.FC = () => (
-  <header>
+  <header className={styles.wrap}>
     <h1>
       <Link href="/">
         <a className={styles.text}>{BlogTitle}</a>
