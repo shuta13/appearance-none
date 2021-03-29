@@ -4,6 +4,7 @@ import { Template } from '../../components/Template/Template';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
 import fs from 'fs';
+import Head from 'next/head';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -13,6 +14,9 @@ const BlogPost: React.FC<Props> = (props) => {
   const { slug } = router.query;
   return (
     <>
+      <Head>
+        <script src="/widgets.js" />
+      </Head>
       {items?.map(
         (item, i) =>
           item.fields.slug === slug && (

@@ -12,7 +12,6 @@ import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
 import { ShareButtonContainer } from '../ShareButtonContainer/ShareButtonContainer';
 // import { Nav } from '../Nav/Nav';
-import Head from 'next/head';
 import * as commonmark from 'commonmark';
 
 type Props = EntryCollection<Slug>['items'][number] & {
@@ -65,9 +64,6 @@ export const Template: React.FC<Props> = (props) => {
   return (
     <>
       <SEO title={title} description={description} propsJsonLd={jsonLd} />
-      <Head>
-        <script async src="/widgets.js" />
-      </Head>
       <Article {...props} />
     </>
   );
