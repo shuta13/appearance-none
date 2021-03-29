@@ -25,7 +25,9 @@ const Article: React.FC<Props> = (props) => {
       {metadata.tags.map((tag, i) => (
         <Tag tagName={tag.sys.id} key={i} />
       ))}
-      <ReactMarkdown allowDangerousHtml={true}>{fields.body}</ReactMarkdown>
+      <ReactMarkdown allowDangerousHtml={true} className={styles.blog_article}>
+        {fields.body}
+      </ReactMarkdown>
       <ShareButtonContainer title={fields.title} slug={fields.slug} />
     </article>
   );
