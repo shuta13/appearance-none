@@ -17,6 +17,7 @@ import styles from './Template.module.scss';
 import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
 import { ShareButtonContainer } from '../ShareButtonContainer/ShareButtonContainer';
+import Head from 'next/head';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
@@ -69,12 +70,12 @@ export const Template: React.FC<Props> = (props) => {
 
   return (
     <>
-      <SEO
-        title={title}
-        description={description}
-        propsJsonLd={jsonLd}
-        widgetsJs={widgetsJs}
-      />
+      <SEO title={title} description={description} propsJsonLd={jsonLd} />
+      <Head>
+        <script type="text/javascript" charSet="utf-8">
+          {widgetsJs}
+        </script>
+      </Head>
       <Article {...props} />
     </>
   );

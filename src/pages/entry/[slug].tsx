@@ -3,7 +3,6 @@ import type { InferGetStaticPropsType } from 'next';
 import { Template } from '../../components/Template/Template';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
-import { generateWidgetsJs } from '../../utils/widgetsJs';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -40,7 +39,11 @@ export const getStaticProps = async () => {
 
   const entries = await client.getEntries<Slug>();
   if (entries != null) {
-    const widgetsJs = await generateWidgetsJs();
+    /**
+     * tweet embed
+     */
+    const res = await fetch('https://platform.twitter.com/widgets.js');
+    const widgetsJs = await res.text();
     return { props: { ...entries, widgetsJs }, revalidate: 60 };
   } else throw new Error();
 };
