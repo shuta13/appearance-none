@@ -30,7 +30,7 @@ const markdown = new MarkdownIt({
 const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys, prevSlug, nextSlug } = props;
   return (
-    <main className={styles.wrap}>
+    <section className={styles.wrap}>
       <Day sys={sys} />
       <h1 className={styles.title}>{fields.title}</h1>
       {metadata.tags.map((tag, i) => (
@@ -41,20 +41,22 @@ const Article: React.FC<Props> = (props) => {
         className={styles.blog_article}
       />
       <Nav prevSlug={prevSlug} nextSlug={nextSlug} />
-      <span className={styles.share_btn_wrap}>
-        <TwitterShareButton
-          url={`${BlogHost}/entry/${fields.slug}`}
-          title={`${fields.title} | ${BlogTitle}`}
-        >
-          <TwitterIcon size="2rem" borderRadius={8} />
-        </TwitterShareButton>
-      </span>
-      <span className={styles.share_btn_wrap}>
-        <HatenaShareButton url={`${BlogHost}/entry/${fields.slug}`}>
-          <HatenaIcon size="2rem" borderRadius={8} />
-        </HatenaShareButton>
-      </span>
-    </main>
+      <p className={styles.share_btn_wrap}>
+        <span className={styles.share_btn_box}>
+          <TwitterShareButton
+            url={`${BlogHost}/entry/${fields.slug}`}
+            title={`${fields.title} | ${BlogTitle}`}
+          >
+            <TwitterIcon size="2rem" borderRadius={8} />
+          </TwitterShareButton>
+        </span>
+        <span className={styles.share_btn_box}>
+          <HatenaShareButton url={`${BlogHost}/entry/${fields.slug}`}>
+            <HatenaIcon size="2rem" borderRadius={8} />
+          </HatenaShareButton>
+        </span>
+      </p>
+    </section>
   );
 };
 

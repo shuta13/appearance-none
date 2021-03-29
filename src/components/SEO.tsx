@@ -29,6 +29,7 @@ const jsonLd = ({ title, updated, url, imageUrl, description }: JsonLd) => {
 export const SEO: React.FC = () => (
   <Head>
     <link rel="icon" href="/images/icon.png" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <meta
       name="description"
       content="{ appearance: none } は did0es のブログ"
