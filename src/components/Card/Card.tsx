@@ -26,7 +26,7 @@ export const Card: React.FC<Props> = (props) => {
   const { item, metadata } = props;
   const text = removeMd(item.fields.body);
   return (
-    <p className={styles.wrap}>
+    <div className={styles.wrap}>
       <Link href={`/entry/${item.fields.slug}`}>
         <a className={styles.box}>
           <Day sys={item.sys} />
@@ -34,6 +34,6 @@ export const Card: React.FC<Props> = (props) => {
           <Snippet text={text} />
         </a>
       </Link>
-    </p>
+    </div>
   );
 };

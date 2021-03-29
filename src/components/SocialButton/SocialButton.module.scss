@@ -1,0 +1,11 @@
+.icon {
+  width: 2rem;
+  margin: 0 0.5em;
+  color: var(--theme-color-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .icon {
+    color: var(--theme-color-light);
+  }
+}

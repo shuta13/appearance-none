@@ -4,9 +4,11 @@ import type { InferGetStaticPropsType } from 'next';
 import type { Metadata, Slug } from '../types/contentful-types';
 import { BlogTitle } from '../config';
 import { Card } from '../components/Card/Card';
-import Link from 'next/link';
 import { generateRss } from '../utils/rss';
 import fs from 'fs';
+import { SocialButton } from '../components/SocialButton/SocialButton';
+import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faRss } from '@fortawesome/free-solid-svg-icons';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -25,15 +27,12 @@ const Home: React.FC<Props> = (props) => {
           metadata={((item as unknown) as { metadata: Metadata }).metadata}
         />
       ))}
-      <Link href="https://twitter.com/did0es" passHref={true}>
-        <a>Twitter</a>
-      </Link>
-      <Link href="https://github.com/shuta13" passHref={true}>
-        <a>GitHub</a>
-      </Link>
-      <Link href="/rss.xml">
-        <a>RSS</a>
-      </Link>
+      {/* FIXME: split */}
+      <div style={{ textAlign: 'center', marginTop: '4em' }}>
+        <SocialButton href="https://twitter.com/did0es" icon={faTwitter} />
+        <SocialButton href="https://github.com/shuta13" icon={faGithub} />
+        <SocialButton href="/rss.xml" icon={faRss} />
+      </div>
     </>
   );
 };
