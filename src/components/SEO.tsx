@@ -52,6 +52,11 @@ export const SEO: React.FC = () => (
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Source+Code+Pro&display=swap"
+      rel="stylesheet"
+    />
 
     <script
       type="application/ld+json"
