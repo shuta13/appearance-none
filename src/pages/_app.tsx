@@ -1,36 +1,26 @@
-import '../assets/styles/layout.css';
-import '../assets/styles/markdown.css';
-import '../assets/styles/theme.css';
+import '../assets/styles/global.css';
 import type { AppProps } from 'next/dist/next-server/lib/router/router';
 import 'prismjs/themes/prism-tomorrow.css';
-import Link from 'next/link';
-import { BlogTitle } from '../config';
-
-const Header: React.FC = () => (
-  <header>
-    <h1>
-      <Link href="/">
-        <a>{BlogTitle}</a>
-      </Link>
-    </h1>
-  </header>
-);
-
-const Footer: React.FC = () => (
-  <footer>
-    <Link href="https://did0es.me" passHref={true}>
-      <a>© 2021 did0es</a>
-    </Link>
-  </footer>
-);
+import { Header } from '../components/Header/Header';
+import { Footer } from '../components/Footer/Footer';
+import Head from 'next/head';
 
 const BlogApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <div className="container">
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
-    </div>
+    <>
+      <Head>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
+      <div className="container">
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
+      </div>
+    </>
   );
 };
 

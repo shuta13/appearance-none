@@ -1,3 +1,14 @@
 .wrap {
   margin-bottom: 1em;
+  background: var(--theme-color-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .wrap {
+    color: var(--theme-color-light);
+  }
+}
+
+.snippet {
+  line-height: 2;
 }

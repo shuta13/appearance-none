@@ -1,0 +1,9 @@
+.text {
+  color: var(--theme-color-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .text {
+    color: var(--theme-color-light);
+  }
+}

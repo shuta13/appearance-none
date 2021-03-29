@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { Day } from '../Day/Day';
 import { Nav } from '../Nav/Nav';
 import { Tag } from '../Tag/Tag';
+import styles from './Template.module.scss';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
@@ -24,13 +25,14 @@ const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys, prevSlug, nextSlug } = props;
   return (
     <>
+      <Day sys={sys} />
       <h1>{fields.title}</h1>
       {metadata.tags.map((tag, i) => (
         <Tag tagName={tag.sys.id} key={i} />
       ))}
-      <Day sys={sys} />
       <article
         dangerouslySetInnerHTML={{ __html: markdown.render(fields.body) }}
+        className={styles.blog_article}
       />
       <Nav prevSlug={prevSlug} nextSlug={nextSlug} />
     </>

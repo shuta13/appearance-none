@@ -1,6 +1,7 @@
 import { Sys } from 'contentful';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
+import styles from './Day.module.scss';
 
 dayjs.locale(ja);
 
@@ -11,14 +12,10 @@ export const Day: React.FC<Props> = (props) => {
   return (
     <p>
       <span>
-        Created:
-        <time dateTime={dayjs(sys.createdAt).format('YYYY-MM-DD')}>
-          {dayjs(sys.createdAt).format('YYYY/MM/DD')}
-        </time>
-      </span>
-      <span>
-        Updated:
-        <time dateTime={dayjs(sys.updatedAt).format('YYYY-MM-DD')}>
+        <time
+          dateTime={dayjs(sys.updatedAt).format('YYYY-MM-DD')}
+          className={styles.text}
+        >
           {dayjs(sys.updatedAt).format('YYYY/MM/DD')}
         </time>
       </span>

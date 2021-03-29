@@ -1,0 +1,15 @@
+.wrap {
+  margin-top: 2em;
+  text-align: center;
+}
+
+.text {
+  color: var(--theme-color-dark);
+  font-size: 0.8rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .text {
+    color: var(--theme-color-light);
+  }
+}
