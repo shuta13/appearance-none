@@ -1,11 +1,6 @@
 import RemoveMarkdown from 'remove-markdown';
 
-export const generateSnippet = (
-  body: string,
-  removeLineBreak: boolean,
-  limit = 160
-) => {
-  const planeText = RemoveMarkdown(body);
-  const text = removeLineBreak ? planeText.replace(/\n/g, ' ') : planeText;
+export const generateSnippet = (body: string, limit = 160) => {
+  const text = RemoveMarkdown(body).replace(/\n/g, ' ');
   return text.length > limit ? text.substr(0, limit) + '...' : text;
 };

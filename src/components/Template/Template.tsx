@@ -75,7 +75,7 @@ export const Template: React.FC<Props> = (props) => {
   }, []);
 
   const title = fields.title;
-  const description = generateSnippet(fields.body, true);
+  const description = generateSnippet(fields.body);
 
   const jsonLd: typeof DefaultJsonId = {
     title: title,

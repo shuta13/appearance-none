@@ -7,6 +7,14 @@
   --theme-color-light: #f2f2f2;
   --theme-color-dark: #1d1d1d;
   --accent-blue: #6890c4;
+  --font-size-h1: 1.3rem;
+  --font-size-h2: 1.2rem;
+  --font-size-article: 1rem;
+  --font-size-header-xl: 2rem;
+  --font-size-header-md: 1.6rem;
+  --font-size-header-xs: 1.3rem;
+  --font-family-code: 'Source Code Pro', monospace;
+  --font-family-sans-serif: 'Noto Sans JP', sans-serif;
 }
 
 html,
@@ -18,7 +26,7 @@ body {
   font-size: 16px;
   background: var(--theme-color-light);
   color: var(--theme-color-dark);
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: var(--font-family-sans-serif);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,12 +43,13 @@ a {
 }
 
 h1 {
-  font-size: 1.2rem;
+  font-size: var(--font-size-h1);
 }
 
 h2 {
   margin-top: 1em;
   margin-bottom: 0.5em;
+  font-size: var(--font-size-h2);
 }
 
 h3,
@@ -48,15 +57,17 @@ h4,
 h5,
 h6 {
   margin: 0.5em 0;
+  font-size: var(--font-size-article);
 }
 
 p,
 ul {
   margin-bottom: 1em;
+  font-size: var(--font-size-article);
 }
 
 code {
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-family: var(--font-family-code);
   padding: 4px;
   border-radius: 4px;
 }

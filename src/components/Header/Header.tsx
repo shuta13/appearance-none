@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BlogTitle } from '../../config';
+import { BlogDescription, BlogTitle } from '../../config';
 import styles from './Header.module.scss';
 
 export const Header: React.FC = () => (

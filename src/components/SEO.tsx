@@ -100,7 +100,11 @@ export const SEO: React.FC<Props> = (props) => {
       <meta property="og:image:height" content="630" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Source+Code+Pro&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap&text={%20appearance:%20none%20}"
+        rel="stylesheet"
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap"
         rel="stylesheet"
       />
       <title>
