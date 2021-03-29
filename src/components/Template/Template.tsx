@@ -1,19 +1,19 @@
 import type { EntryCollection } from 'contentful';
 import type { Slug, Metadata } from '../../types/contentful-types';
 import { BlogHost, DateNow, DefaultJsonId, OgImageUrl } from '../../config';
-import MarkdownIt from 'markdown-it';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx.min';
 import 'prismjs/components/prism-tsx.min';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Day } from '../Day/Day';
 import { Tag } from '../Tag/Tag';
 import styles from './Template.module.scss';
 import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
 import { ShareButtonContainer } from '../ShareButtonContainer/ShareButtonContainer';
-import Head from 'next/head';
 // import { Nav } from '../Nav/Nav';
+import Head from 'next/head';
+import * as commonmark from 'commonmark';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
@@ -21,10 +21,8 @@ type Props = EntryCollection<Slug>['items'][number] & {
   nextSlug: string;
 };
 
-const md = new MarkdownIt({
-  html: true,
-  linkify: false,
-});
+const reader = new commonmark.Parser();
+const writer = new commonmark.HtmlRenderer();
 
 const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys, prevSlug, nextSlug } = props;
@@ -36,10 +34,11 @@ const Article: React.FC<Props> = (props) => {
         <Tag tagName={tag.sys.id} key={i} />
       ))}
       <div
-        dangerouslySetInnerHTML={{ __html: md.render(fields.body) }}
         className={styles.blog_article}
+        dangerouslySetInnerHTML={{
+          __html: writer.render(reader.parse(fields.body)),
+        }}
       />
-      {/* <Nav prevSlug={prevSlug} nextSlug={nextSlug} /> */}
       <ShareButtonContainer title={fields.title} slug={fields.slug} />
     </article>
   );
