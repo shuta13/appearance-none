@@ -1,14 +1,10 @@
 import type { EntryCollection } from 'contentful';
 import type { Slug, Metadata } from '../../types/contentful-types';
-import {
-  BlogHost,
-  BlogTitle,
-  DateNow,
-  DefaultJsonId,
-  OgImageUrl,
-} from '../../config';
+import { BlogHost, DateNow, DefaultJsonId, OgImageUrl } from '../../config';
 import MarkdownIt from 'markdown-it';
 import Prism from 'prismjs';
+import 'prismjs/components/prism-jsx.min';
+import 'prismjs/components/prism-tsx.min';
 import { useEffect } from 'react';
 import { Day } from '../Day/Day';
 import { Nav } from '../Nav/Nav';
