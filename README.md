@@ -1,3 +1,3 @@
-# appearance-none-did0es
+# appearance-none
 
-> This is blog
+> { appearance: none } は did0es のブログ
