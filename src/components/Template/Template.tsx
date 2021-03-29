@@ -7,17 +7,14 @@ import styles from './Template.module.scss';
 import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
 import { ShareButtonContainer } from '../ShareButtonContainer/ShareButtonContainer';
+import ReactMarkdown from 'react-markdown';
 // import { Nav } from '../Nav/Nav';
-import * as commonmark from 'commonmark';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
   prevSlug: string;
   nextSlug: string;
 };
-
-const reader = new commonmark.Parser();
-const writer = new commonmark.HtmlRenderer();
 
 const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys, prevSlug, nextSlug } = props;
@@ -28,12 +25,7 @@ const Article: React.FC<Props> = (props) => {
       {metadata.tags.map((tag, i) => (
         <Tag tagName={tag.sys.id} key={i} />
       ))}
-      <div
-        className={styles.blog_article}
-        dangerouslySetInnerHTML={{
-          __html: writer.render(reader.parse(fields.body)),
-        }}
-      />
+      <ReactMarkdown allowDangerousHtml={true}>{fields.body}</ReactMarkdown>
       <ShareButtonContainer title={fields.title} slug={fields.slug} />
     </article>
   );

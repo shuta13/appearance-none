@@ -54,12 +54,6 @@ export const getStaticProps = async () => {
 
   const entries = await client.getEntries<Slug>();
   if (entries != null) {
-    /**
-     * tweet embed
-     */
-    // const res = await fetch('https://platform.twitter.com/widgets.js');
-    // const widgetsJs = await res.text();
-    // fs.writeFileSync(process.cwd() + '/public/widgets.js', widgetsJs);
     return { props: { ...entries }, revalidate: 60 };
   } else throw new Error();
 };
