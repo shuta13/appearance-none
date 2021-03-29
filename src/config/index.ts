@@ -1,4 +1,4 @@
-export const BlogTitle = '{ appearance: none } | did0es';
+export const BlogTitle = '{ appearance: none }';
 
 export const BlogHost = 'blog.did0es.me';
 
