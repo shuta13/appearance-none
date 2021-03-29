@@ -5,15 +5,9 @@
     <link>https://blog.did0es.me</link>
     <description>{ appearance: none } は did0es のブログ</description>
     <language>ja</language>
-    <lastBuildDate>Mon, 29 Mar 2021 22:07:08 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 29 Mar 2021 22:11:00 GMT</lastBuildDate>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <atom:link href="https://blog.did0es.me/rss.xml" rel="self" type="application/rss+xml" />
- <item>
-    <title>ライブラリを使わずに SPA 上で Embedded Tweet を表示してみる</title>
-    <link>https://blog.did0es.me/entry/spa-embedded-tweet-without-library</link>
-    <guid>https://blog.did0es.me/entry/spa-embedded-tweet-without-library</guid>
-    <pubDate>Mon, 29 Mar 2021 16:38:24 GMT</pubDate>
-  </item>
  <item>
     <title>ブログを始めた</title>
     <link>https://blog.did0es.me/entry/first-post</link>

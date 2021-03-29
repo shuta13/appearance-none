@@ -1,10 +1,6 @@
 import type { EntryCollection } from 'contentful';
 import type { Slug, Metadata } from '../../types/contentful-types';
 import { BlogHost, DateNow, DefaultJsonId, OgImageUrl } from '../../config';
-import Prism from 'prismjs';
-import 'prismjs/components/prism-jsx.min';
-import 'prismjs/components/prism-tsx.min';
-import { useEffect } from 'react';
 import { Day } from '../Day/Day';
 import { Tag } from '../Tag/Tag';
 import styles from './Template.module.scss';
@@ -45,10 +41,6 @@ const Article: React.FC<Props> = (props) => {
 
 export const Template: React.FC<Props> = (props) => {
   const { fields } = props;
-
-  useEffect(() => {
-    Prism.highlightAll();
-  }, []);
 
   const title = fields.title;
   const description = generateSnippet(fields.body);

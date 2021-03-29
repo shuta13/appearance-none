@@ -5,6 +5,10 @@ import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
 import fs from 'fs';
 import Head from 'next/head';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-jsx.min';
+import 'prismjs/components/prism-tsx.min';
+import { useEffect } from 'react';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -12,10 +16,13 @@ const BlogPost: React.FC<Props> = (props) => {
   const { items } = props;
   const router = useRouter();
   const { slug } = router.query;
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
   return (
     <>
       <Head>
-        <script src="/widgets.js" />
+        <script src="https://blog.did0es.me/widgets.js" />
       </Head>
       {items?.map(
         (item, i) =>
