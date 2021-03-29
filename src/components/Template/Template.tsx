@@ -22,6 +22,7 @@ import {
 } from 'react-share';
 import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
+import { ShareButtonContainer } from '../ShareButtonContainer/ShareButtonContainer';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
@@ -48,21 +49,7 @@ const Article: React.FC<Props> = (props) => {
         className={styles.blog_article}
       />
       <Nav prevSlug={prevSlug} nextSlug={nextSlug} />
-      <p className={styles.share_btn_wrap}>
-        <span className={styles.share_btn_box}>
-          <TwitterShareButton
-            url={`${BlogHost}/entry/${fields.slug}`}
-            title={`${fields.title} | ${BlogTitle}`}
-          >
-            <TwitterIcon size="2rem" borderRadius={8} />
-          </TwitterShareButton>
-        </span>
-        <span className={styles.share_btn_box}>
-          <HatenaShareButton url={`${BlogHost}/entry/${fields.slug}`}>
-            <HatenaIcon size="2rem" borderRadius={8} />
-          </HatenaShareButton>
-        </span>
-      </p>
+      <ShareButtonContainer title={fields.title} slug={fields.slug} />
     </section>
   );
 };

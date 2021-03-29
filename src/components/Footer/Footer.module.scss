@@ -1,11 +1,16 @@
 .wrap {
-  margin-top: 2em;
+  margin-top: 3em;
   text-align: center;
+  padding-bottom: 1em;
 }
 
 .text {
   color: var(--theme-color-dark);
   font-size: 0.8rem;
+}
+
+.icon_wrap {
+  margin-bottom: 1rem;
 }
 
 @media (prefers-color-scheme: dark) {
