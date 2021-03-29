@@ -1,9 +1,9 @@
 {
-  "name": "appearance-none-did0es",
+  "name": "appearance-none",
   "version": "1.0.0",
   "description": "{ appearance: none } は did0es のブログ",
   "main": "index.js",
-  "repository": "https://github.com/shuta13/appearance-none-did0es.git",
+  "repository": "https://github.com/shuta13/appearance-none.git",
   "author": "shuta13(did0es)",
   "license": "MIT",
   "private": true,
