@@ -22,7 +22,11 @@ const BlogPost: React.FC<Props> = (props) => {
   return (
     <>
       <Head>
-        <script src="https://blog.did0es.me/widgets.js" />
+        <script
+          async
+          src="https://platform.twitter.com/widgets.js"
+          charSet="utf-8"
+        />
       </Head>
       {items?.map(
         (item, i) =>
@@ -53,9 +57,9 @@ export const getStaticProps = async () => {
     /**
      * tweet embed
      */
-    const res = await fetch('https://platform.twitter.com/widgets.js');
-    const widgetsJs = await res.text();
-    fs.writeFileSync(process.cwd() + '/public/widgets.js', widgetsJs);
+    // const res = await fetch('https://platform.twitter.com/widgets.js');
+    // const widgetsJs = await res.text();
+    // fs.writeFileSync(process.cwd() + '/public/widgets.js', widgetsJs);
     return { props: { ...entries }, revalidate: 60 };
   } else throw new Error();
 };
