@@ -2,20 +2,19 @@ import type { EntryCollection } from 'contentful';
 import type { Metadata, Slug } from '../../types/contentful-types';
 import Link from 'next/link';
 import { Day } from '../Day/Day';
-import removeMd from 'remove-markdown';
 import styles from './Card.module.scss';
+import { generateSnippet } from '../../utils/snippet';
 
 type Props = { item: EntryCollection<Slug>['items'][number] } & {
   metadata: Metadata;
 };
 
-const Snippet: React.FC<{ text: string }> = (props) => {
-  const { text } = props;
-  const limit = 160;
+const Snippet: React.FC<{ body: string }> = (props) => {
+  const { body } = props;
   return (
     <p
       dangerouslySetInnerHTML={{
-        __html: text.length > limit ? text.substr(0, limit) + '...' : text,
+        __html: generateSnippet(body),
       }}
       className={styles.snippet}
     />
@@ -23,15 +22,14 @@ const Snippet: React.FC<{ text: string }> = (props) => {
 };
 
 export const Card: React.FC<Props> = (props) => {
-  const { item, metadata } = props;
-  const text = removeMd(item.fields.body);
+  const { item } = props;
   return (
     <div className={styles.wrap}>
       <Link href={`/entry/${item.fields.slug}`}>
         <a className={styles.box}>
           <Day sys={item.sys} />
           <h2 className={styles.title}>{item.fields.title}</h2>
-          <Snippet text={text} />
+          <Snippet body={item.fields.body} />
         </a>
       </Link>
     </div>

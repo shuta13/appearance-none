@@ -2,7 +2,7 @@ import { TagsMap } from '../config';
 
 export type Slug = {
   title: string;
-  body: any;
+  body: string;
   slug: string;
 };
 

@@ -10,6 +10,7 @@ import { SocialButton } from '../components/SocialButton/SocialButton';
 import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faRss } from '@fortawesome/free-solid-svg-icons';
 import { SocialButtonContainer } from '../components/SocialButtonContainer/SocialButtonContainer';
+import { SEO } from '../components/SEO';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -18,9 +19,7 @@ const Home: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Head>
-        <title>{BlogTitle}</title>
-      </Head>
+      <SEO />
       {items.map((item, i) => (
         <Card
           item={item}

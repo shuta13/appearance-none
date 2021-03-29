@@ -1,7 +1,12 @@
 import type { EntryCollection } from 'contentful';
 import type { Slug, Metadata } from '../../types/contentful-types';
-import { BlogHost, BlogTitle } from '../../config';
-import Head from 'next/head';
+import {
+  BlogHost,
+  BlogTitle,
+  DateNow,
+  DefaultJsonId,
+  OgImageUrl,
+} from '../../config';
 import MarkdownIt from 'markdown-it';
 import Prism from 'prismjs';
 import { useEffect } from 'react';
@@ -15,6 +20,8 @@ import {
   TwitterIcon,
   TwitterShareButton,
 } from 'react-share';
+import { SEO } from '../SEO';
+import { generateSnippet } from '../../utils/snippet';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
@@ -67,11 +74,20 @@ export const Template: React.FC<Props> = (props) => {
     Prism.highlightAll();
   }, []);
 
+  const title = fields.title;
+  const description = generateSnippet(fields.body, true);
+
+  const jsonLd: typeof DefaultJsonId = {
+    title: title,
+    description: description,
+    url: BlogHost + `/entry/${fields.slug}`,
+    imageUrl: OgImageUrl,
+    updated: DateNow,
+  };
+
   return (
     <>
-      <Head>
-        <title>{`${fields.title} | ${BlogTitle}`}</title>
-      </Head>
+      <SEO title={title} description={description} propsJsonLd={jsonLd} />
       <Article {...props} />
     </>
   );
