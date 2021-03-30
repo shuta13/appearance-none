@@ -64,7 +64,7 @@ export const getStaticPaths = async () => {
         slug: item.fields.slug,
       },
     }));
-    return { paths, fallback: false };
+    return { paths, fallback: true };
   } else throw new Error();
 };
 

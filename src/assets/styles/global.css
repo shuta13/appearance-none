@@ -7,10 +7,10 @@
   --theme-color-light: #f2f2f2;
   --theme-color-dark: #1d1d1d;
   --accent-blue: #6890c4;
-  --font-size-h1: 1.3rem;
+  --font-size-h1: 1.6rem;
   --font-size-h2: 1.2rem;
-  --font-size-article: 1rem;
-  --font-size-header-xl: 2rem;
+  --font-size-article: 1.1rem;
+  --font-size-header-xl: 1.6rem;
   --font-size-header-md: 1.6rem;
   --font-size-header-xs: 1.3rem;
   --font-family-code: 'Source Code Pro', monospace;
@@ -28,6 +28,7 @@ body {
   background: var(--theme-color-light);
   color: var(--theme-color-dark);
   font-family: var(--font-family-sans-serif);
+  letter-spacing: 0.05em;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -61,9 +62,8 @@ h6 {
   font-size: var(--font-size-article);
 }
 
-p,
-ul {
-  margin-bottom: 1em;
+p {
+  margin: 1em 0;
   font-size: var(--font-size-article);
 }
 
@@ -79,8 +79,8 @@ img {
 
 .container {
   margin: auto;
-  max-width: 800px;
+  max-width: 880px;
   height: 100%;
-  width: 95%;
+  width: 98%;
   padding: 2em;
 }
