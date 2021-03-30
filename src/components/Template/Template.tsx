@@ -12,6 +12,7 @@ import ReactMarkdown from 'react-markdown';
 import { useEffect } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import gfm from 'remark-gfm';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
@@ -31,6 +32,7 @@ const Article: React.FC<Props> = (props) => {
       <ReactMarkdown
         allowDangerousHtml={true}
         className={styles.blog_article}
+        plugins={[gfm]}
         renderers={{
           link: (props) => {
             if (props.href?.match('http')) {

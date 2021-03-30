@@ -5,15 +5,9 @@
     <link>https://blog.did0es.me</link>
     <description>{ appearance: none } は did0es のブログ</description>
     <language>ja</language>
-    <lastBuildDate>Tue, 30 Mar 2021 10:03:49 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 30 Mar 2021 10:16:19 GMT</lastBuildDate>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <atom:link href="https://blog.did0es.me/rss.xml" rel="self" type="application/rss+xml" />
- <item>
-    <title>GAS + Spreadsheet の Query Builder のようなものを書いている</title>
-    <link>https://blog.did0es.me/entry/gas-spreadsheet-mapper</link>
-    <guid>https://blog.did0es.me/entry/gas-spreadsheet-mapper</guid>
-    <pubDate>Thu, 25 Mar 2021 21:56:28 GMT</pubDate>
-  </item>
  <item>
     <title>ブログを始めた</title>
     <link>https://blog.did0es.me/entry/first-post</link>
