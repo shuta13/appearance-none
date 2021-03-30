@@ -1,3 +1,7 @@
+// import { Nav } from '../Nav/Nav';
+// import Prism from 'prismjs';
+// import 'prismjs/components/prism-jsx.min';
+// import 'prismjs/components/prism-tsx.min';
 import type { EntryCollection } from 'contentful';
 import type { Slug, Metadata } from '../../types/contentful-types';
 import { BlogHost, DateNow, DefaultJsonId, OgImageUrl } from '../../config';
@@ -8,13 +12,19 @@ import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
 import { ShareButtonContainer } from '../ShareButtonContainer/ShareButtonContainer';
 import ReactMarkdown from 'react-markdown';
-// import { Nav } from '../Nav/Nav';
+import MarkdownIt from 'markdown-it';
+import { useEffect } from 'react';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
   prevSlug: string;
   nextSlug: string;
 };
+
+const md = new MarkdownIt({
+  html: true,
+  linkify: false,
+});
 
 const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys, prevSlug, nextSlug } = props;
@@ -25,9 +35,32 @@ const Article: React.FC<Props> = (props) => {
       {metadata.tags.map((tag, i) => (
         <Tag tagName={tag.sys.id} key={i} />
       ))}
-      <ReactMarkdown allowDangerousHtml={true} className={styles.blog_article}>
+      <ReactMarkdown
+        allowDangerousHtml={true}
+        className={styles.blog_article}
+        renderers={{
+          link: (props) => {
+            if (props.href.match('http')) {
+              return (
+                <a
+                  href={props.href}
+                  target="_blank"
+                  rel="nofollow noreferrer noopener"
+                >
+                  {props.children}
+                </a>
+              );
+            }
+            return <a href={props.href}>{props.children}</a>;
+          },
+        }}
+      >
         {fields.body}
       </ReactMarkdown>
+      {/* <div
+        dangerouslySetInnerHTML={{ __html: md.render(fields.body) }}
+        className={styles.blog_article}
+      /> */}
       <ShareButtonContainer title={fields.title} slug={fields.slug} />
     </article>
   );
@@ -35,6 +68,10 @@ const Article: React.FC<Props> = (props) => {
 
 export const Template: React.FC<Props> = (props) => {
   const { fields } = props;
+
+  useEffect(() => {
+    // Prism.highlightAll();
+  }, []);
 
   const title = fields.title;
   const description = generateSnippet(fields.body);
