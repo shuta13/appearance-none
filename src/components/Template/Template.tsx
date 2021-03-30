@@ -1,7 +1,4 @@
 // import { Nav } from '../Nav/Nav';
-// import Prism from 'prismjs';
-// import 'prismjs/components/prism-jsx.min';
-// import 'prismjs/components/prism-tsx.min';
 import type { EntryCollection } from 'contentful';
 import type { Slug, Metadata } from '../../types/contentful-types';
 import { BlogHost, DateNow, DefaultJsonId, OgImageUrl } from '../../config';
@@ -12,19 +9,15 @@ import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
 import { ShareButtonContainer } from '../ShareButtonContainer/ShareButtonContainer';
 import ReactMarkdown from 'react-markdown';
-import MarkdownIt from 'markdown-it';
 import { useEffect } from 'react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
   prevSlug: string;
   nextSlug: string;
 };
-
-const md = new MarkdownIt({
-  html: true,
-  linkify: false,
-});
 
 const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys, prevSlug, nextSlug } = props;
@@ -40,7 +33,7 @@ const Article: React.FC<Props> = (props) => {
         className={styles.blog_article}
         renderers={{
           link: (props) => {
-            if (props.href.match('http')) {
+            if (props.href?.match('http')) {
               return (
                 <a
                   href={props.href}
@@ -53,14 +46,19 @@ const Article: React.FC<Props> = (props) => {
             }
             return <a href={props.href}>{props.children}</a>;
           },
+          code: ({ language, value }) => {
+            return (
+              <SyntaxHighlighter
+                style={tomorrow}
+                language={language}
+                children={value}
+              />
+            );
+          },
         }}
       >
         {fields.body}
       </ReactMarkdown>
-      {/* <div
-        dangerouslySetInnerHTML={{ __html: md.render(fields.body) }}
-        className={styles.blog_article}
-      /> */}
       <ShareButtonContainer title={fields.title} slug={fields.slug} />
     </article>
   );
