@@ -8,12 +8,12 @@ import { SEO } from '../components/SEO';
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Home: React.FC<Props> = (props) => {
-  const { items } = props;
+  const { entries } = props;
 
   return (
     <>
       <SEO />
-      {items.map((item, i) => (
+      {entries.items.map((item, i) => (
         <Card
           item={item}
           key={i}
@@ -36,7 +36,7 @@ export const getStaticProps = async () => {
   const entries = await client.getEntries<Slug>();
 
   if (entries != null) {
-    return { props: entries, revalidate: 1 };
+    return { props: { entries }, revalidate: 1 };
   } else throw new Error();
 };
 

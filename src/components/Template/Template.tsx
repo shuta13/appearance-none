@@ -12,6 +12,7 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import gfm from 'remark-gfm';
+import { TagLinkContainer } from '../TagLinkContainer/TagLinkContainer';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
@@ -25,9 +26,7 @@ const Article: React.FC<Props> = (props) => {
     <article className={styles.wrap}>
       <Day sys={sys} />
       <h1 className={styles.title}>{fields.title}</h1>
-      {metadata.tags.map((tag, i) => (
-        <Tag tagName={tag.sys.id} key={i} />
-      ))}
+      <TagLinkContainer metadata={metadata} />
       <ReactMarkdown
         allowDangerousHtml={true}
         className={styles.blog_article}

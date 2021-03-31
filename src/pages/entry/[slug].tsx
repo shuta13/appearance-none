@@ -39,8 +39,7 @@ const BlogPost: React.FC<Props> = (props) => {
   );
 };
 
-export const getStaticProps = async (params: { slug: string }) => {
-  const { slug } = params;
+export const getStaticProps = async () => {
   const spaceId = process.env.SPACE_ID!;
   const accessToken = process.env.DELIVERY_KEY!;
   const client = createClient({
