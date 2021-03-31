@@ -7,14 +7,12 @@ import Head from 'next/head';
 import ErrorPage from '../../pages/_error';
 
 // type Props = InferGetStaticPropsType<typeof getStaticProps>;
-type Props = { article: Entry<Slug> };
+type Props = { article: Entry<Slug> | undefined };
 
 const BlogPost: React.FC<Props> = (props) => {
   const { article } = props;
 
-  const router = useRouter();
-
-  if (!router.isFallback && !article.sys.id)
+  if (!article || !article?.sys.id)
     return <ErrorPage statusCode={404} message="not found" />;
 
   return (
@@ -26,14 +24,12 @@ const BlogPost: React.FC<Props> = (props) => {
           charSet="utf-8"
         />
       </Head>
-      {article != null && (
-        <Template
-          {...article}
-          metadata={((article as unknown) as { metadata: Metadata }).metadata}
-          prevSlug={''}
-          nextSlug={''}
-        />
-      )}
+      <Template
+        {...article}
+        metadata={((article as unknown) as { metadata: Metadata }).metadata}
+        prevSlug={''}
+        nextSlug={''}
+      />
     </>
   );
 };
@@ -46,7 +42,6 @@ export const getStaticProps = async (props: { slug: string }) => {
     space: spaceId,
     accessToken: accessToken,
   });
-
   const entries = await client.getEntries<Slug>();
 
   if (entries != null) {
@@ -67,6 +62,7 @@ export const getStaticPaths = async () => {
     accessToken: accessToken,
   });
   const entries = await client.getEntries<Slug>();
+
   if (entries != null) {
     const paths = entries.items.map((item) => ({
       params: {
@@ -75,7 +71,6 @@ export const getStaticPaths = async () => {
     }));
     return { paths, fallback: true };
   } else throw new Error();
-  // return { paths: [], fallback: true };
 };
 
 export default BlogPost;
