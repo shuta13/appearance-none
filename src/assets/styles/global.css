@@ -8,7 +8,7 @@
   --theme-color-dark: #1d1d1d;
   --accent-blue: #6890c4;
   --font-size-h1: 1.6rem;
-  --font-size-h2: 1.2rem;
+  --font-size-h2: 1.4rem;
   --font-size-article: 1.1rem;
   --font-size-header-xl: 1.6rem;
   --font-size-header-md: 1.6rem;
@@ -29,6 +29,13 @@ body {
   color: var(--theme-color-dark);
   font-family: var(--font-family-sans-serif);
   letter-spacing: 0.05em;
+}
+
+@media screen and (max-width: 768px) {
+  html,
+  body {
+    font-size: 14px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -63,7 +70,7 @@ h6 {
 }
 
 p {
-  margin: 1em 0;
+  margin: 1rem 0;
   font-size: var(--font-size-article);
 }
 
