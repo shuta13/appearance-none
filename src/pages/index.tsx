@@ -2,8 +2,6 @@ import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
 import type { Metadata, Slug } from '../types/contentful-types';
 import { Card } from '../components/Card/Card';
-import { generateRss } from '../utils/rss';
-import * as fs from 'fs';
 import { SocialButtonContainer } from '../components/SocialButtonContainer/SocialButtonContainer';
 import { SEO } from '../components/SEO';
 
@@ -36,9 +34,6 @@ export const getStaticProps = async () => {
   });
 
   const entries = await client.getEntries<Slug>();
-
-  const rss = generateRss(entries);
-  await fs.promises.writeFile(process.cwd() + '/public/rss.xml', rss);
 
   if (entries != null) {
     return { props: entries, revalidate: 1 };

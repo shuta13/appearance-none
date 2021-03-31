@@ -12,7 +12,8 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "tcm": "tcm -p 'src/components/**/*.module.scss'"
+    "tcm": "tcm -p 'src/components/**/*.module.scss'",
+    "gen:rss": "yarn ts-node -O '{\"module\":\"commonjs\"}' scripts/rss.ts"
   },
   "dependencies": {
     "contentful": "^8.2.0",
@@ -39,7 +40,6 @@
     "@types/react-syntax-highlighter": "^13.5.0",
     "@types/remove-markdown": "^0.1.1",
     "dotenv": "^8.2.0",
-    "node-fetch": "^2.6.1",
     "react-share": "^4.4.0",
     "typed-css-modules": "^0.6.5",
     "typescript": "^4.2.3",
