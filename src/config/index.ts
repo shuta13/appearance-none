@@ -15,6 +15,7 @@ export const DateNow = dayjs().toISOString();
 export const TagsMap = {
   engineering: '技術',
   lifestyle: '生活',
+  frontend: 'フロントエンド',
 };
 
 export const DefaultJsonId = {

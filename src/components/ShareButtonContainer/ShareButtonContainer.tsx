@@ -19,12 +19,12 @@ export const ShareButtonContainer: React.FC<Props> = (props) => {
           url={`${BlogHost}/entry/${slug}`}
           title={`${title} | ${BlogTitle}`}
         >
-          <TwitterIcon size="2rem" borderRadius={8} />
+          <TwitterIcon size={48} borderRadius={8} />
         </TwitterShareButton>
       </span>
       <span className={styles.box}>
         <HatenaShareButton url={`${BlogHost}/entry/${slug}`}>
-          <HatenaIcon size="2rem" borderRadius={8} />
+          <HatenaIcon size={48} borderRadius={8} />
         </HatenaShareButton>
       </span>
     </p>

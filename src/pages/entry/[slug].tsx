@@ -1,16 +1,21 @@
-import { createClient, Entry } from 'contentful';
-import type { InferGetStaticPropsType } from 'next';
+import { createClient, EntryCollection } from 'contentful';
 import { Template } from '../../components/Template/Template';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
 import Head from 'next/head';
 import ErrorPage from '../../pages/_error';
 
-// type Props = InferGetStaticPropsType<typeof getStaticProps>;
-type Props = { article: Entry<Slug> | undefined };
+type Props = { entries: EntryCollection<Slug> | undefined };
 
 const BlogPost: React.FC<Props> = (props) => {
-  const { article } = props;
+  const { entries } = props;
+  const router = useRouter();
+  const { slug } = router.query;
+
+  const article = entries?.items.reduce((prev, cur) => {
+    if (cur.fields.slug === slug) return cur;
+    return prev;
+  });
 
   if (!article || !article?.sys.id)
     return <ErrorPage statusCode={404} message="not found" />;
@@ -34,8 +39,8 @@ const BlogPost: React.FC<Props> = (props) => {
   );
 };
 
-export const getStaticProps = async (props: { slug: string }) => {
-  const { slug } = props;
+export const getStaticProps = async (params: { slug: string }) => {
+  const { slug } = params;
   const spaceId = process.env.SPACE_ID!;
   const accessToken = process.env.DELIVERY_KEY!;
   const client = createClient({
@@ -45,12 +50,7 @@ export const getStaticProps = async (props: { slug: string }) => {
   const entries = await client.getEntries<Slug>();
 
   if (entries != null) {
-    const article = entries.items.reduce((prev, cur) => {
-      if (cur.fields.slug === slug) return cur;
-      return prev;
-    });
-
-    return { props: { article }, revalidate: 1 };
+    return { props: { entries }, revalidate: 1 };
   }
 };
 

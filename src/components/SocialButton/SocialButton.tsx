@@ -11,8 +11,19 @@ export const SocialButton: React.FC<Props> = (props) => {
   const { href, icon } = props;
   return (
     <Link href={href}>
-      <a rel="nofollow noreferrer noopener" target="_blank">
-        <FontAwesomeIcon icon={icon} className={styles.icon} size="2x" />
+      <a
+        rel="nofollow noreferrer noopener"
+        target="_blank"
+        className={styles.wrap}
+      >
+        <span className={styles.box}>
+          <FontAwesomeIcon
+            icon={icon}
+            className={styles.icon}
+            width={30}
+            height={30}
+          />
+        </span>
       </a>
     </Link>
   );

@@ -1,11 +1,31 @@
-.icon {
-  width: 2rem;
+.wrap {
   margin: var(--margin-button);
-  color: var(--theme-color-dark);
+}
+
+.box {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background: transparent;
+  overflow: hidden;
+  background: var(--theme-color-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .box {
+    background: var(--theme-color-light);
+  }
+}
+
+.icon {
+  color: var(--theme-color-light);
 }
 
 @media (prefers-color-scheme: dark) {
   .icon {
-    color: var(--theme-color-light);
+    color: var(--theme-color-dark);
   }
 }

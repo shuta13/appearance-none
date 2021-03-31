@@ -103,10 +103,6 @@ export const SEO: React.FC<Props> = (props) => {
         href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap&text={%20appearance:%20none%20}"
         rel="stylesheet"
       />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&display=swap"
-        rel="stylesheet"
-      />
       <title>
         {title === BlogTitle ? BlogTitle : `${title} | ${BlogTitle}`}
       </title>
