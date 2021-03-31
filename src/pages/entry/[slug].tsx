@@ -1,16 +1,22 @@
-import { createClient } from 'contentful';
+import { createClient, Entry } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
 import { Template } from '../../components/Template/Template';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
 import Head from 'next/head';
+import ErrorPage from '../../pages/_error';
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>;
+// type Props = InferGetStaticPropsType<typeof getStaticProps>;
+type Props = { article: Entry<Slug> };
 
 const BlogPost: React.FC<Props> = (props) => {
-  const { items } = props;
+  const { article } = props;
+
   const router = useRouter();
-  const { slug } = router.query;
+
+  if (!router.isFallback && !article.sys.id)
+    return <ErrorPage statusCode={404} message="not found" />;
+
   return (
     <>
       <Head>
@@ -20,23 +26,20 @@ const BlogPost: React.FC<Props> = (props) => {
           charSet="utf-8"
         />
       </Head>
-      {items?.map(
-        (item, i) =>
-          item.fields.slug === slug && (
-            <Template
-              key={i}
-              {...item}
-              metadata={((item as unknown) as { metadata: Metadata }).metadata}
-              prevSlug={items[i - 1]?.fields.slug ?? ''}
-              nextSlug={items[i + 1]?.fields.slug ?? ''}
-            />
-          )
+      {article != null && (
+        <Template
+          {...article}
+          metadata={((article as unknown) as { metadata: Metadata }).metadata}
+          prevSlug={''}
+          nextSlug={''}
+        />
       )}
     </>
   );
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps = async (props: { slug: string }) => {
+  const { slug } = props;
   const spaceId = process.env.SPACE_ID!;
   const accessToken = process.env.DELIVERY_KEY!;
   const client = createClient({
@@ -45,9 +48,15 @@ export const getStaticProps = async () => {
   });
 
   const entries = await client.getEntries<Slug>();
+
   if (entries != null) {
-    return { props: { ...entries }, revalidate: 1 };
-  } else throw new Error();
+    const article = entries.items.reduce((prev, cur) => {
+      if (cur.fields.slug === slug) return cur;
+      return prev;
+    });
+
+    return { props: { article }, revalidate: 1 };
+  }
 };
 
 export const getStaticPaths = async () => {
@@ -66,6 +75,7 @@ export const getStaticPaths = async () => {
     }));
     return { paths, fallback: true };
   } else throw new Error();
+  // return { paths: [], fallback: true };
 };
 
 export default BlogPost;

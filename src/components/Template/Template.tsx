@@ -9,7 +9,6 @@ import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
 import { ShareButtonContainer } from '../ShareButtonContainer/ShareButtonContainer';
 import ReactMarkdown from 'react-markdown';
-import { useEffect } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import gfm from 'remark-gfm';
@@ -68,10 +67,6 @@ const Article: React.FC<Props> = (props) => {
 
 export const Template: React.FC<Props> = (props) => {
   const { fields } = props;
-
-  useEffect(() => {
-    // Prism.highlightAll();
-  }, []);
 
   const title = fields.title;
   const description = generateSnippet(fields.body);

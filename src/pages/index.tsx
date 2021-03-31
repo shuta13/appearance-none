@@ -40,7 +40,7 @@ export const getStaticProps = async () => {
     const rss = generateRss(entries);
     fs.writeFileSync(process.cwd() + '/public/rss.xml', rss);
 
-    return { props: entries };
+    return { props: entries, revalidate: 1 };
   } else throw new Error();
 };
 
