@@ -3,7 +3,7 @@ import type { InferGetStaticPropsType } from 'next';
 import type { Metadata, Slug } from '../types/contentful-types';
 import { Card } from '../components/Card/Card';
 import { generateRss } from '../utils/rss';
-import fs from 'fs';
+import * as fs from 'fs';
 import { SocialButtonContainer } from '../components/SocialButtonContainer/SocialButtonContainer';
 import { SEO } from '../components/SEO';
 
@@ -36,10 +36,11 @@ export const getStaticProps = async () => {
   });
 
   const entries = await client.getEntries<Slug>();
-  if (entries != null) {
-    const rss = generateRss(entries);
-    fs.writeFileSync(process.cwd() + '/public/rss.xml', rss);
 
+  const rss = generateRss(entries);
+  await fs.promises.writeFile(process.cwd() + '/public/rss.xml', rss);
+
+  if (entries != null) {
     return { props: entries, revalidate: 1 };
   } else throw new Error();
 };
