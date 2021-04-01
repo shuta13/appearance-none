@@ -3,7 +3,6 @@ import type { EntryCollection } from 'contentful';
 import type { Slug, Metadata } from '../../types/contentful-types';
 import { BlogHost, DateNow, DefaultJsonId, OgImageUrl } from '../../config';
 import { Day } from '../Day/Day';
-import { Tag } from '../Tag/Tag';
 import styles from './Template.module.scss';
 import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
@@ -13,6 +12,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import gfm from 'remark-gfm';
 import { TagLinkContainer } from '../TagLinkContainer/TagLinkContainer';
+import toc from 'remark-toc';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
@@ -22,6 +22,7 @@ type Props = EntryCollection<Slug>['items'][number] & {
 
 const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys, prevSlug, nextSlug } = props;
+
   return (
     <article className={styles.wrap}>
       <Day sys={sys} />
@@ -30,7 +31,7 @@ const Article: React.FC<Props> = (props) => {
       <ReactMarkdown
         allowDangerousHtml={true}
         className={styles.blog_article}
-        plugins={[gfm]}
+        plugins={[gfm, toc]}
         renderers={{
           link: (props) => {
             if (props.href?.match('http')) {
