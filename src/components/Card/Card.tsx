@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Day } from '../Day/Day';
 import styles from './Card.module.scss';
 import { generateSnippet } from '../../utils/snippet';
+import * as gtag from '../../utils/gtag';
 
 type Props = { item: EntryCollection<Slug>['items'][number] } & {
   metadata: Metadata;
