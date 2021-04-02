@@ -8,14 +8,14 @@ const renderToC = (depth: number, value: string) => {
   switch (depth) {
     case 2:
       return (
-        <li>
+        <li className={styles.li_text}>
           <a href={`#${value}`}>{value}</a>
         </li>
       );
     case 3:
       return (
         <ul>
-          <li>
+          <li className={styles.li_text}>
             <a href={`#${value}`}>{value}</a>
           </li>
         </ul>

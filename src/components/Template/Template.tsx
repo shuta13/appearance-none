@@ -94,7 +94,6 @@ const Article: React.FC<Props> = (props) => {
             );
           },
           heading: (props) => {
-            console.log(props);
             const { node } = props;
             switch (node.depth) {
               case 1:
