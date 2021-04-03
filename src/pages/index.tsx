@@ -7,6 +7,10 @@ import { SEO } from '../components/SEO';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
+export const config = {
+  unstable_runtimeJS: false,
+};
+
 const Home: React.FC<Props> = (props) => {
   const { entries } = props;
 

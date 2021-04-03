@@ -7,6 +7,10 @@ import ErrorPage from '../../pages/_error';
 
 type Props = { entries: EntryCollection<Slug> | undefined };
 
+export const config = {
+  unstable_runtimeJS: false,
+};
+
 const BlogPost: React.FC<Props> = (props) => {
   const { entries } = props;
   const router = useRouter();
