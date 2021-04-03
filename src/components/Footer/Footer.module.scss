@@ -13,6 +13,10 @@
   margin-bottom: 1rem;
 }
 
+.icon {
+  width: auto;
+}
+
 @media (prefers-color-scheme: dark) {
   .text {
     color: var(--theme-color-light);
