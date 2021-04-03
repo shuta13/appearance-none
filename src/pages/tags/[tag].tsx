@@ -6,9 +6,12 @@ import { SocialButtonContainer } from '../../components/SocialButtonContainer/So
 import { SEO } from '../../components/SEO';
 import { useRouter } from 'next/router';
 import ErrorPage from '../_error';
-import { TagsMap } from '../../config';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
+
+export const config = {
+  unstable_runtimeJS: false,
+};
 
 const BlogTag: React.FC<Props> = (props) => {
   const { entries } = props;
@@ -16,7 +19,7 @@ const BlogTag: React.FC<Props> = (props) => {
   const router = useRouter();
   const tag = router.query.tag;
 
-  if (!entries) return <></>;
+  if (!entries) return <ErrorPage statusCode={404} message="not found" />;
 
   const items = entries.items.filter((item) =>
     ((item as unknown) as { metadata: Metadata }).metadata.tags.some(
