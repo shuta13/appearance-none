@@ -1,8 +1,27 @@
 import React from 'react';
 import styles from './ToC.module.scss';
-type Props = { nodes: Array<{ depth: number; value: string }> };
+import type { Node } from 'unist';
+import visit from 'unist-util-visit';
+import remark from 'remark';
+import type { Slug } from '../../types/contentful-types';
 
-// const HoToC: React.FC = () => {};
+type Props = { fields: Slug };
+
+const createHeadingNodes = (fields: Slug) => {
+  const mdast = (fields.body && remark().parse(fields.body)) ?? '';
+
+  if (typeof mdast !== 'string') {
+    const headingNodes: { depth: number; value: string }[] = [];
+    visit(mdast, 'heading', (child) => {
+      const headingNode = {
+        depth: child.depth as number,
+        value: (child.children as Array<Node>)[0].value as string,
+      };
+      headingNodes.push(headingNode);
+    });
+    return headingNodes;
+  }
+};
 
 const renderToC = (depth: number, value: string) => {
   switch (depth) {
@@ -24,10 +43,10 @@ const renderToC = (depth: number, value: string) => {
 };
 
 export const ToC: React.FC<Props> = (props) => {
-  const { nodes } = props;
+  const { fields } = props;
   return (
     <ul className={styles.wrap}>
-      {nodes.map((node, i) => (
+      {createHeadingNodes(fields)?.map((node, i) => (
         <React.Fragment key={i}>
           {renderToC(node.depth, node.value)}
         </React.Fragment>

@@ -12,10 +12,6 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import gfm from 'remark-gfm';
 import { TagLinkContainer } from '../TagLinkContainer/TagLinkContainer';
-import remark from 'remark';
-import { useEffect, useState } from 'react';
-import type { Node } from 'unist';
-import visit from 'unist-util-visit';
 import { ToC } from '../ToC/ToC';
 
 type Props = EntryCollection<Slug>['items'][number] & {
@@ -40,31 +36,13 @@ const Heading: React.FC<{ node: any }> = (props) => {
 const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys, prevSlug, nextSlug } = props;
 
-  const [headingNodes, setHeadingNodes] = useState<
-    Array<{ depth: number; value: string }>
-  >([]);
-
-  useEffect(() => {
-    const mdast = (fields.body && remark().parse(fields.body)) ?? '';
-
-    if (typeof mdast !== 'string') {
-      visit(mdast, 'heading', (child) => {
-        const headerNode = {
-          depth: child.depth as number,
-          value: (child.children as Array<Node>)[0].value as string,
-        };
-        setHeadingNodes((prevState) => [...prevState, headerNode]);
-      });
-    }
-  }, [fields.body]);
-
   return (
     <article className={styles.wrap}>
       <Day sys={sys} />
       <h1 className={styles.title}>{fields.title}</h1>
       <TagLinkContainer metadata={metadata} />
       <h2 className={styles.toc}>目次</h2>
-      {headingNodes && headingNodes.length > 0 && <ToC nodes={headingNodes} />}
+      {fields?.body && <ToC fields={fields} />}
       <ReactMarkdown
         allowDangerousHtml={true}
         className={styles.blog_article}
