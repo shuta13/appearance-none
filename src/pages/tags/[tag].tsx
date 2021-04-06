@@ -9,10 +9,6 @@ import ErrorPage from '../_error';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-export const config = {
-  unstable_runtimeJS: false,
-};
-
 const BlogTag: React.FC<Props> = (props) => {
   const { entries } = props;
 
