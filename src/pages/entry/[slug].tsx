@@ -1,5 +1,5 @@
 import { createClient, EntryCollection } from 'contentful';
-import { Template } from '../../components/Template/Template';
+import { Template } from '../../components/Template';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
 import Head from 'next/head';

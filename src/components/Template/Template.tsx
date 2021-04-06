@@ -2,17 +2,17 @@
 import type { EntryCollection } from 'contentful';
 import type { Slug, Metadata } from '../../types/contentful-types';
 import { BlogHost, DateNow, DefaultJsonId, OgImageUrl } from '../../config';
-import { Day } from '../Day/Day';
+import { Day } from '../Day';
 import styles from './Template.module.scss';
 import { SEO } from '../SEO';
 import { generateSnippet } from '../../utils/snippet';
-import { ShareButtonContainer } from '../ShareButtonContainer/ShareButtonContainer';
+import { ShareButtonContainer } from '../ShareButtonContainer';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import gfm from 'remark-gfm';
-import { TagLinkContainer } from '../TagLinkContainer/TagLinkContainer';
-import { ToC } from '../ToC/ToC';
+import { TagLinkContainer } from '../TagLinkContainer';
+import { ToC } from '../ToC';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;

@@ -1,5 +1,5 @@
 import type { Metadata } from '../../types/contentful-types';
-import { Tag } from '../Tag/Tag';
+import { Tag } from '../Tag';
 import styles from './TagLinkContainer.module.scss';
 
 type Props = { metadata: Metadata };

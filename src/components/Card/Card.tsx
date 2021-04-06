@@ -1,7 +1,7 @@
 import type { EntryCollection } from 'contentful';
 import type { Metadata, Slug } from '../../types/contentful-types';
 import Link from 'next/link';
-import { Day } from '../Day/Day';
+import { Day } from '../Day';
 import styles from './Card.module.scss';
 import { generateSnippet } from '../../utils/snippet';
 

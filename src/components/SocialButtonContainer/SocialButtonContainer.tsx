@@ -1,6 +1,6 @@
 import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faRss } from '@fortawesome/free-solid-svg-icons';
-import { SocialButton } from '../SocialButton/SocialButton';
+import { SocialButton } from '../SocialButton';
 import styles from './SocialButtonContainer.module.scss';
 
 export const SocialButtonContainer: React.FC = () => {

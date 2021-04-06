@@ -1,8 +1,8 @@
 import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
 import type { Metadata, Slug } from '../types/contentful-types';
-import { Card } from '../components/Card/Card';
-import { SocialButtonContainer } from '../components/SocialButtonContainer/SocialButtonContainer';
+import { Card } from '../components/Card';
+import { SocialButtonContainer } from '../components/SocialButtonContainer';
 import { SEO } from '../components/SEO';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
