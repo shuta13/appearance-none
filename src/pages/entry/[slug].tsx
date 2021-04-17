@@ -49,7 +49,7 @@ export const getStaticProps = async () => {
   const entries = await client.getEntries<Slug>();
 
   if (entries != null) {
-    return { props: { entries }, revalidate: 1 };
+    return { props: { entries }, revalidate: 60 };
   }
 };
 
