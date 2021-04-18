@@ -1,12 +1,17 @@
 import Link from 'next/link';
-import { BlogTitle } from '../../config';
 import styles from './Header.module.scss';
 
-export const Header: React.FC = () => (
+type Props = { title: string };
+
+export const Header: React.FC<Props> = (props) => (
   <header className={styles.wrap}>
     <h1>
       <Link href="/">
-        <a className={styles.text}>{BlogTitle}</a>
+        <img
+          alt="Blog Title"
+          src={`/images/${props.title}.svg`}
+          className={styles.title}
+        />
       </Link>
     </h1>
   </header>

@@ -3,26 +3,8 @@
   margin: 4em 0;
 }
 
-.text {
-  font-family: var(--font-family-code);
-  color: var(--theme-color-dark);
-  font-size: var(--font-size-header-xl);
-}
-
-@media (prefers-color-scheme: dark) {
-  .text {
-    color: var(--theme-color-light);
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .text {
-    font-size: var(--font-size-header-md);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .text {
-    font-size: var(--font-size-header-xs);
-  }
+.title {
+  max-width: 400px;
+  width: 100%;
+  cursor: pointer;
 }

@@ -99,10 +99,6 @@ export const SEO: React.FC<Props> = (props) => {
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap&text={%20appearance:%20none%20}"
-        rel="stylesheet"
-      />
       <title>
         {title === BlogTitle ? BlogTitle : `${title} | ${BlogTitle}`}
       </title>
