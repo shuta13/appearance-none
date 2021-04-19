@@ -14,7 +14,7 @@ export const Footer: React.FC = () => (
         className={styles.icon}
       />
     </div>
-    <Link href="https://did0es.me" passHref={true}>
+    <Link href="https://studio.did0es.me" passHref={true}>
       <a className={styles.text}>© 2021 did0es</a>
     </Link>
   </footer>
