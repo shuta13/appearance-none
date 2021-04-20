@@ -9,13 +9,6 @@ import { useEffect, useState } from 'react';
 
 const BlogApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
-  const [titleSvg, setTitleSvg] = useState('title-light');
-
-  useEffect(() => {
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? setTitleSvg('title-light')
-      : setTitleSvg('title-dark');
-  }, []);
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
@@ -30,7 +23,7 @@ const BlogApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <div className="container">
-        <Header title={titleSvg} />
+        <Header />
         <Component {...pageProps} />
         <Footer />
       </div>

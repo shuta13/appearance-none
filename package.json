@@ -42,6 +42,7 @@
     "@types/react": "^17.0.3",
     "@types/react-syntax-highlighter": "^13.5.0",
     "@types/remove-markdown": "^0.1.1",
+    "babel-plugin-inline-react-svg": "^2.0.1",
     "dotenv": "^8.2.0",
     "react-share": "^4.4.0",
     "typed-css-modules": "^0.6.5",

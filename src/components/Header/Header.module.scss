@@ -4,7 +4,14 @@
 }
 
 .title {
-  max-width: 400px;
+  max-width: 320px;
   width: 80%;
   cursor: pointer;
+  fill: var(--theme-color-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  .title {
+    fill: var(--theme-color-light);
+  }
 }
