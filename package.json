@@ -13,7 +13,7 @@
     "start": "next start",
     "export": "next export",
     "tcm": "tcm -p 'src/components/**/*.module.scss'",
-    "gen:rss": "yarn ts-node -O '{\"module\":\"commonjs\"}' scripts/rss.ts"
+    "rssgen": "yarn ts-node -O '{\"module\":\"commonjs\"}' scripts/rss.ts"
   },
   "dependencies": {
     "contentful": "^8.2.0",
