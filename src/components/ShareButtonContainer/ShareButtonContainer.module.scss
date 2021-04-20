@@ -1,8 +1,13 @@
 .wrap {
-  text-align: center;
   margin-top: 4em;
+  border-radius: 50%;
 }
 
 .box {
+  padding: 0;
   margin: var(--margin-button);
+  margin-left: 0;
+  border: none;
+  background-color: transparent;
+  outline: inherit;
 }

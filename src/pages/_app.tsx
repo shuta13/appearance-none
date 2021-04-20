@@ -5,7 +5,7 @@ import { Header } from '../components/Header/Header';
 import { Footer } from '../components/Footer';
 import * as gtag from '../utils/gtag';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const BlogApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -19,6 +19,16 @@ const BlogApp = ({ Component, pageProps }: AppProps) => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
+
+  useEffect(() => {
+    const bookmarkButtonScript = document.createElement('script');
+    bookmarkButtonScript.src = 'https://b.st-hatena.com/js/bookmark_button.js';
+    document.body.appendChild(bookmarkButtonScript);
+
+    return () => {
+      document.body.removeChild(bookmarkButtonScript);
+    };
+  }, []);
 
   return (
     <>
