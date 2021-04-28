@@ -4,8 +4,8 @@
 }
 
 :root {
-  --theme-color-light: #f2f2f2;
-  --theme-color-dark: #1d1d1d;
+  --theme-color-primary: #f2f2f2;
+  --theme-color-secondary: #1d1d1d;
   --accent-blue: #6890c4;
   --font-size-h1: 1.6rem;
   --font-size-h2: 1.4rem;
@@ -19,6 +19,13 @@
   --margin-button: 0 0.5em;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --theme-color-primary: #1d1d1d;
+    --theme-color-secondary: #f2f2f2;
+  }
+}
+
 html,
 body {
   padding: 0;
@@ -26,8 +33,8 @@ body {
   width: 100%;
   min-height: 100%;
   font-size: 16px;
-  background: var(--theme-color-light);
-  color: var(--theme-color-dark);
+  background: var(--theme-color-primary);
+  color: var(--theme-color-secondary);
   font-family: var(--font-family-sans-serif);
   letter-spacing: 0.05em;
 }
@@ -42,8 +49,8 @@ body {
 @media (prefers-color-scheme: dark) {
   html,
   body {
-    background: var(--theme-color-dark);
-    color: var(--theme-color-light);
+    background: var(--theme-color-primary);
+    color: var(--theme-color-secondary);
   }
 }
 

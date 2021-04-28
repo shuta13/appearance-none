@@ -3,13 +3,7 @@
 }
 
 .box {
-  color: var(--theme-color-dark);
-}
-
-@media (prefers-color-scheme: dark) {
-  .box {
-    color: var(--theme-color-light);
-  }
+  color: var(--theme-color-secondary);
 }
 
 .title {

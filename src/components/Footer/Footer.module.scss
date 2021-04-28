@@ -5,7 +5,7 @@
 }
 
 .text {
-  color: var(--theme-color-dark);
+  color: var(--theme-color-secondary);
   font-size: 0.8rem;
 }
 
@@ -15,10 +15,4 @@
 
 .icon {
   width: auto;
-}
-
-@media (prefers-color-scheme: dark) {
-  .text {
-    color: var(--theme-color-light);
-  }
 }

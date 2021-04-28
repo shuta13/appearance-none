@@ -7,13 +7,7 @@
 }
 
 .heading {
-  color: var(--theme-color-dark);
-}
-
-@media (prefers-color-scheme: dark) {
-  .heading {
-    color: var(--theme-color-light);
-  }
+  color: var(--theme-color-secondary);
 }
 
 .blog_article {

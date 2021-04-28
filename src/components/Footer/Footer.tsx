@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import styles from './Footer.module.scss';
-import Image from 'next/image';
 
 export const Footer: React.FC = () => (
   <footer className={styles.wrap}>
