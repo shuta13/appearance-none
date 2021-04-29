@@ -17,6 +17,8 @@ const BlogTag: React.FC<Props> = (props) => {
 
   if (!entries) return <ErrorPage statusCode={404} message="not found" />;
 
+  if (router.isFallback) return <div>Loading...</div>;
+
   const items = entries.items.filter((item) =>
     ((item as unknown) as { metadata: Metadata }).metadata.tags.some(
       (t) => t.sys.id === tag
@@ -76,7 +78,7 @@ export const getStaticPaths = async () => {
           tag: tag.sys.id,
         },
       }));
-      return { paths, fallback: 'blocking' };
+      return { paths, fallback: true };
     }
   } else throw new Error();
 };

@@ -12,8 +12,8 @@ export const Day: React.FC<Props> = (props) => {
   return (
     <p className={styles.wrap}>
       <span>
-        <time dateTime={dayjs(sys.updatedAt).format('YYYY-MM-DD')}>
-          {dayjs(sys.updatedAt).format('YYYY/MM/DD')}
+        <time dateTime={dayjs(sys.createdAt).format('YYYY-MM-DD')}>
+          {dayjs(sys.createdAt).format('YYYY/MM/DD')}
         </time>
       </span>
     </p>

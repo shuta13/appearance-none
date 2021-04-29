@@ -20,6 +20,8 @@ const BlogPost: React.FC<Props> = (props) => {
   if (!article || !article?.sys.id)
     return <ErrorPage statusCode={404} message="not found" />;
 
+  if (router.isFallback) return <div>Loading...</div>;
+
   return (
     <>
       <Head>
@@ -68,7 +70,7 @@ export const getStaticPaths = async () => {
         slug: item.fields.slug,
       },
     }));
-    return { paths, fallback: 'blocking' };
+    return { paths, fallback: true };
   } else throw new Error();
 };
 
