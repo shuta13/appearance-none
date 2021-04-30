@@ -17,8 +17,6 @@ const BlogTag: React.FC<Props> = (props) => {
 
   if (!entries) return <ErrorPage statusCode={404} message="not found" />;
 
-  if (router.isFallback) return <div>Loading...</div>;
-
   const items = entries.items.filter((item) =>
     ((item as unknown) as { metadata: Metadata }).metadata.tags.some(
       (t) => t.sys.id === tag

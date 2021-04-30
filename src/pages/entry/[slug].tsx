@@ -20,8 +20,6 @@ const BlogPost: React.FC<Props> = (props) => {
   if (!article || !article?.sys.id)
     return <ErrorPage statusCode={404} message="not found" />;
 
-  if (router.isFallback) return <div>Loading...</div>;
-
   return (
     <>
       <Head>
