@@ -16,8 +16,6 @@ import { ToC } from '../ToC';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
-  prevSlug: string;
-  nextSlug: string;
 };
 
 const Heading: React.FC<{ node: any }> = (props) => {
@@ -34,7 +32,7 @@ const Heading: React.FC<{ node: any }> = (props) => {
 };
 
 const Article: React.FC<Props> = (props) => {
-  const { metadata, fields, sys, prevSlug, nextSlug } = props;
+  const { metadata, fields, sys } = props;
 
   return (
     <article className={styles.wrap}>

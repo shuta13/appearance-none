@@ -1,22 +1,29 @@
 import Link from 'next/link';
+import { generateSnippet } from '../../utils/snippet';
 
 export const Nav: React.FC<{
   prevSlug: string;
   nextSlug: string;
+  prevTitle: string;
+  nextTitle: string;
 }> = (props) => {
-  const { prevSlug, nextSlug } = props;
+  const { prevSlug, nextSlug, prevTitle, nextTitle } = props;
   return (
     <nav>
-      {prevSlug !== '' && (
-        <Link href={prevSlug}>
-          <a>{prevSlug}</a>
-        </Link>
-      )}
-      {nextSlug !== '' && (
-        <Link href={nextSlug}>
-          <a>{nextSlug}</a>
-        </Link>
-      )}
+      <span>
+        {prevSlug !== '' && (
+          <Link href={prevSlug}>
+            <a>Prev: {generateSnippet(prevTitle, 20)}</a>
+          </Link>
+        )}
+      </span>
+      <span>
+        {nextSlug !== '' && (
+          <Link href={nextSlug}>
+            <a>Next: {generateSnippet(nextTitle, 20)}</a>
+          </Link>
+        )}
+      </span>
     </nav>
   );
 };
