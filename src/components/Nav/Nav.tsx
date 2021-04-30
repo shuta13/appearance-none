@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { generateSnippet } from '../../utils/snippet';
+import styles from './Nav.module.scss';
 
 export const Nav: React.FC<{
   prevSlug: string;
@@ -10,20 +11,26 @@ export const Nav: React.FC<{
   const { prevSlug, nextSlug, prevTitle, nextTitle } = props;
   return (
     <nav>
-      <span>
-        {prevSlug !== '' && (
-          <Link href={prevSlug}>
-            <a>Prev: {generateSnippet(prevTitle, 20)}</a>
-          </Link>
-        )}
-      </span>
-      <span>
-        {nextSlug !== '' && (
-          <Link href={nextSlug}>
-            <a>Next: {generateSnippet(nextTitle, 20)}</a>
-          </Link>
-        )}
-      </span>
+      <div className={styles.wrap}>
+        <span className={styles.prev}>
+          {prevSlug !== '' && (
+            <Link href={prevSlug}>
+              <a className={styles.prev_text}>
+                {generateSnippet(prevTitle, 20)}
+              </a>
+            </Link>
+          )}
+        </span>
+        <span className={styles.next}>
+          {nextSlug !== '' && (
+            <Link href={nextSlug}>
+              <a className={styles.next_text}>
+                {generateSnippet(nextTitle, 20)}
+              </a>
+            </Link>
+          )}
+        </span>
+      </div>
     </nav>
   );
 };
