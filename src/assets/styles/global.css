@@ -90,6 +90,7 @@ code {
 }
 
 img {
+  max-width: 560px;
   width: 100%;
 }
 
@@ -109,6 +110,12 @@ blockquote > :last-child {
 
 blockquote > p {
   font-style: italic;
+}
+
+/* youtube embed */
+iframe {
+  max-width: 560px;
+  width: 100%;
 }
 
 .container {
