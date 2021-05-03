@@ -40,8 +40,8 @@ const BlogPost: React.FC<Props> = (props) => {
           }
 
           if (index > 0) {
-            console.log(index);
-            console.log(navData);
+            index;
+            navData;
             setNextSlug(navData[index - 1].slug);
             setNextTitle(navData[index - 1].title);
           } else {
@@ -50,15 +50,23 @@ const BlogPost: React.FC<Props> = (props) => {
           }
         }
       });
-      // if (navData.indexOf(slug) < slugNames.length) {
-      //   setPrevSlug(slugNames[slugNames.indexOf(slug) + 1]);
-      // }
-
-      // if (slugNames.indexOf(slug) > 0) {
-      //   setNextSlug(slugNames[slugNames.indexOf(slug) - 1]);
-      // }
     }
   }, [slug]);
+
+  useEffect(() => {
+    const bookmarkButtonScript = document.createElement('script');
+    bookmarkButtonScript.src = 'https://b.st-hatena.com/js/bookmark_button.js';
+    document.body.appendChild(bookmarkButtonScript);
+
+    const widgetsScript = document.createElement('script');
+    widgetsScript.src = 'https://platform.twitter.com/widgets.js';
+    document.body.appendChild(widgetsScript);
+
+    return () => {
+      document.body.removeChild(bookmarkButtonScript);
+      document.body.removeChild(widgetsScript);
+    };
+  }, [router]);
 
   const article = entries?.items.reduce((prev, cur) => {
     if (cur.fields.slug === slug) return cur;
@@ -70,13 +78,6 @@ const BlogPost: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Head>
-        <script
-          async
-          src="https://platform.twitter.com/widgets.js"
-          charSet="utf-8"
-        />
-      </Head>
       <Template
         {...article}
         metadata={((article as unknown) as { metadata: Metadata }).metadata}

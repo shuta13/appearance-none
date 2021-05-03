@@ -34,16 +34,6 @@ const BlogApp = ({ Component, pageProps }: AppProps) => {
     };
   }, [router.events]);
 
-  useEffect(() => {
-    const bookmarkButtonScript = document.createElement('script');
-    bookmarkButtonScript.src = 'https://b.st-hatena.com/js/bookmark_button.js';
-    document.body.appendChild(bookmarkButtonScript);
-
-    return () => {
-      document.body.removeChild(bookmarkButtonScript);
-    };
-  }, []);
-
   return (
     <>
       <div className="container">
