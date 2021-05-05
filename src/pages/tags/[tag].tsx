@@ -6,6 +6,7 @@ import { SocialButtonContainer } from '../../components/SocialButtonContainer';
 import { SEO } from '../../components/SEO';
 import { useRouter } from 'next/router';
 import ErrorPage from '../_error';
+import { getBlogPost } from '../../utils/contentful-client';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -39,14 +40,7 @@ const BlogTag: React.FC<Props> = (props) => {
 };
 
 export const getStaticProps = async () => {
-  const spaceId = process.env.SPACE_ID!;
-  const accessToken = process.env.DELIVERY_KEY!;
-  const client = createClient({
-    space: spaceId,
-    accessToken: accessToken,
-  });
-
-  const entries = await client.getEntries<Slug>();
+  const entries = await getBlogPost();
 
   if (entries != null) {
     return { props: { entries }, revalidate: 60 };
@@ -54,13 +48,7 @@ export const getStaticProps = async () => {
 };
 
 export const getStaticPaths = async () => {
-  const spaceId = process.env.SPACE_ID!;
-  const accessToken = process.env.DELIVERY_KEY!;
-  const client = createClient({
-    space: spaceId,
-    accessToken: accessToken,
-  });
-  const entries = await client.getEntries<Slug>();
+  const entries = await getBlogPost();
 
   if (entries != null) {
     const item = entries.items.reduce((prev, cur) => {

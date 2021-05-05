@@ -1,11 +1,11 @@
-import { createClient, EntryCollection } from 'contentful';
+import { EntryCollection } from 'contentful';
 import { Template } from '../../components/Template';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
-import Head from 'next/head';
 import ErrorPage from '../../pages/_error';
 import { useEffect, useState } from 'react';
 import { Nav } from '../../components/Nav';
+import { getBlogPost } from '../../utils/contentful-client';
 
 type Props = {
   entries: EntryCollection<Slug> | undefined;
@@ -93,15 +93,7 @@ const BlogPost: React.FC<Props> = (props) => {
 };
 
 export const getStaticProps = async () => {
-  const spaceId = process.env.SPACE_ID!;
-  const accessToken = process.env.DELIVERY_KEY!;
-  const client = createClient({
-    space: spaceId,
-    accessToken: accessToken,
-  });
-  const entries = (await client.getEntries<Slug>()) as
-    | EntryCollection<Slug>
-    | undefined;
+  const entries = await getBlogPost();
 
   const navData = entries?.items.map((item) => {
     return {
@@ -116,13 +108,7 @@ export const getStaticProps = async () => {
 };
 
 export const getStaticPaths = async () => {
-  const spaceId = process.env.SPACE_ID!;
-  const accessToken = process.env.DELIVERY_KEY!;
-  const client = createClient({
-    space: spaceId,
-    accessToken: accessToken,
-  });
-  const entries = await client.getEntries<Slug>();
+  const entries = await getBlogPost();
 
   if (entries != null) {
     const paths = entries.items.map((item) => ({

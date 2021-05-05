@@ -1,9 +1,9 @@
-import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
-import type { Metadata, Slug } from '../types/contentful-types';
+import type { Metadata } from '../types/contentful-types';
 import { Card } from '../components/Card';
 import { SocialButtonContainer } from '../components/SocialButtonContainer';
 import { SEO } from '../components/SEO';
+import { getBlogPost } from '../utils/contentful-client';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -26,14 +26,7 @@ const Home: React.FC<Props> = (props) => {
 };
 
 export const getStaticProps = async () => {
-  const spaceId = process.env.SPACE_ID!;
-  const accessToken = process.env.DELIVERY_KEY!;
-  const client = createClient({
-    space: spaceId,
-    accessToken: accessToken,
-  });
-
-  const entries = await client.getEntries<Slug>();
+  const entries = await getBlogPost();
 
   if (entries != null) {
     return { props: { entries }, revalidate: 60 };

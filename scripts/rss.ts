@@ -3,11 +3,12 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 import * as fs from 'fs';
 
-import { createClient, Entry, EntryCollection } from 'contentful';
+import { Entry, EntryCollection } from 'contentful';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
 import { BlogHost, BlogTitle } from '../src/config';
 import type { Slug } from '../src/types/contentful-types';
+import { getBlogPost } from '../src/utils/contentful-client';
 
 dayjs.locale(ja);
 
@@ -43,14 +44,7 @@ ${feeds.join('\n')}
 };
 
 (async () => {
-  const spaceId = process.env.SPACE_ID!;
-  const accessToken = process.env.DELIVERY_KEY!;
-  const client = createClient({
-    space: spaceId,
-    accessToken: accessToken,
-  });
-
-  const entries = await client.getEntries<Slug>();
+  const entries = await getBlogPost();
 
   const rss = generateRss(entries);
   await fs.promises.writeFile(process.cwd() + '/public/rss.xml', rss);
