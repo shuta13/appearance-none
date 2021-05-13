@@ -25,7 +25,7 @@ export const Card: React.FC<Props> = (props) => {
   const { item } = props;
   return (
     <div className={styles.wrap}>
-      <Link href={`/entry/${item.fields.slug}`}>
+      <Link href={`/entry/${item.fields.slug}`} prefetch={false}>
         <a className={styles.box}>
           <Day sys={item.sys} />
           <h2 className={styles.title}>{item.fields.title}</h2>

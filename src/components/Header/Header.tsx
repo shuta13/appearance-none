@@ -4,7 +4,7 @@ import Title from './internal/Title';
 
 export const Header: React.FC = () => (
   <header className={styles.wrap}>
-    <Link href="/">
+    <Link href="/" prefetch={false}>
       <a>
         <Title className={styles.title} viewBox="0 0 288 22" />
       </a>
