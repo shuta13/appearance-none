@@ -80,7 +80,7 @@ const BlogPost: React.FC<Props> = (props) => {
     <>
       <Template
         {...article}
-        metadata={((article as unknown) as { metadata: Metadata }).metadata}
+        metadata={(article as unknown as { metadata: Metadata }).metadata}
       />
       <Nav
         prevSlug={prevSlug}
@@ -116,7 +116,7 @@ export const getStaticPaths = async () => {
         slug: item.fields.slug,
       },
     }));
-    return { paths, fallback: true };
+    return { paths, fallback: 'blocking' };
   } else throw new Error();
 };
 

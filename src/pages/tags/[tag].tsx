@@ -64,7 +64,7 @@ export const getStaticPaths = async () => {
           tag: tag.sys.id,
         },
       }));
-      return { paths, fallback: true };
+      return { paths, fallback: 'blocking' };
     }
   } else throw new Error();
 };
