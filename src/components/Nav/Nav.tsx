@@ -12,21 +12,17 @@ export const Nav: React.FC<{
   return (
     <nav>
       <div className={styles.wrap}>
-        <span className={styles.prev}>
+        <span>
           {prevSlug !== '' && (
             <Link href={prevSlug}>
-              <a className={styles.prev_text}>
-                {generateSnippet(prevTitle, 20)}
-              </a>
+              <a>{generateSnippet(prevTitle, 20)}</a>
             </Link>
           )}
         </span>
-        <span className={styles.next}>
+        <span>
           {nextSlug !== '' && (
             <Link href={nextSlug}>
-              <a className={styles.next_text}>
-                {generateSnippet(nextTitle, 20)}
-              </a>
+              <a>{generateSnippet(nextTitle, 20)}</a>
             </Link>
           )}
         </span>
