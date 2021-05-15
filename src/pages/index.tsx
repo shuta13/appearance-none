@@ -17,7 +17,7 @@ const Home: React.FC<Props> = (props) => {
         <Card
           item={item}
           key={i}
-          metadata={((item as unknown) as { metadata: Metadata }).metadata}
+          metadata={(item as unknown as { metadata: Metadata }).metadata}
         />
       ))}
       <SocialButtonContainer />
@@ -29,7 +29,7 @@ export const getStaticProps = async () => {
   const entries = await getBlogPost();
 
   if (entries != null) {
-    return { props: { entries }, revalidate: 60 };
+    return { props: { entries } };
   } else throw new Error();
 };
 

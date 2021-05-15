@@ -12,6 +12,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
+    "deploy:static": "yarn rssgen && yarn build && yarn export",
     "tcm": "tcm -p 'src/components/**/*.module.scss'",
     "rssgen": "yarn ts-node -O '{\"module\":\"commonjs\"}' scripts/rss.ts"
   },

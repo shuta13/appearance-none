@@ -19,7 +19,7 @@ const BlogTag: React.FC<Props> = (props) => {
   if (!entries) return <ErrorPage statusCode={404} message="not found" />;
 
   const items = entries.items.filter((item) =>
-    ((item as unknown) as { metadata: Metadata }).metadata.tags.some(
+    (item as unknown as { metadata: Metadata }).metadata.tags.some(
       (t) => t.sys.id === tag
     )
   );
@@ -31,7 +31,7 @@ const BlogTag: React.FC<Props> = (props) => {
         <Card
           item={item}
           key={i}
-          metadata={((item as unknown) as { metadata: Metadata }).metadata}
+          metadata={(item as unknown as { metadata: Metadata }).metadata}
         />
       ))}
       <SocialButtonContainer />
@@ -43,7 +43,7 @@ export const getStaticProps = async () => {
   const entries = await getBlogPost();
 
   if (entries != null) {
-    return { props: { entries }, revalidate: 60 };
+    return { props: { entries } };
   } else throw new Error();
 };
 
@@ -57,14 +57,16 @@ export const getStaticPaths = async () => {
     });
 
     if (item) {
-      const paths = ((item as unknown) as {
-        metadata: Metadata;
-      }).metadata.tags.map((tag) => ({
+      const paths = (
+        item as unknown as {
+          metadata: Metadata;
+        }
+      ).metadata.tags.map((tag) => ({
         params: {
           tag: tag.sys.id,
         },
       }));
-      return { paths, fallback: true };
+      return { paths, fallback: false };
     }
   } else throw new Error();
 };

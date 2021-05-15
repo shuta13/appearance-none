@@ -80,7 +80,7 @@ const BlogPost: React.FC<Props> = (props) => {
     <>
       <Template
         {...article}
-        metadata={((article as unknown) as { metadata: Metadata }).metadata}
+        metadata={(article as unknown as { metadata: Metadata }).metadata}
       />
       <Nav
         prevSlug={prevSlug}
@@ -103,7 +103,7 @@ export const getStaticProps = async () => {
   });
 
   if (entries != null) {
-    return { props: { entries, navData }, revalidate: 60 };
+    return { props: { entries, navData } };
   }
 };
 
@@ -116,7 +116,7 @@ export const getStaticPaths = async () => {
         slug: item.fields.slug,
       },
     }));
-    return { paths, fallback: true };
+    return { paths, fallback: false };
   } else throw new Error();
 };
 
