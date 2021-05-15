@@ -14,7 +14,7 @@ export const Nav: React.FC<{
       <div className={styles.wrap}>
         <span className={styles.prev}>
           {prevSlug !== '' && (
-            <Link href={prevSlug}>
+            <Link href={prevSlug} prefetch={false}>
               <a className={styles.prev_text}>
                 {generateSnippet(prevTitle, 20)}
               </a>
@@ -23,7 +23,7 @@ export const Nav: React.FC<{
         </span>
         <span className={styles.next}>
           {nextSlug !== '' && (
-            <Link href={nextSlug}>
+            <Link href={nextSlug} prefetch={false}>
               <a className={styles.next_text}>
                 {generateSnippet(nextTitle, 20)}
               </a>
