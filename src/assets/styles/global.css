@@ -1,12 +1,8 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-}
-
 :root {
   --theme-color-primary: #f2f2f2;
   --theme-color-secondary: #1d1d1d;
   --accent-blue: #6890c4;
+  --accent-light-blue: #88abda;
   --accent-purple: #8868c4;
   --font-size-h1: 1.6rem;
   --font-size-h2: 1.4rem;
@@ -18,6 +14,7 @@
   --font-family-sans-serif: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --margin-button: 0 0.5em;
+  --animate-duration-fast: 0.1s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,6 +22,12 @@
     --theme-color-primary: #1d1d1d;
     --theme-color-secondary: #f2f2f2;
   }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  transition: outline var(--animate-duration-fast) ease-in-out;
 }
 
 html,
@@ -53,6 +56,10 @@ body {
     background: var(--theme-color-primary);
     color: var(--theme-color-secondary);
   }
+}
+
+*:focus-visible {
+  outline: solid 4px var(--accent-light-blue);
 }
 
 a {

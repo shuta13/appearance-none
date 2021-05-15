@@ -26,10 +26,12 @@ export const Card: React.FC<Props> = (props) => {
   return (
     <div className={styles.wrap}>
       <Link href={`/entry/${item.fields.slug}`}>
-        <a className={styles.box}>
-          <Day sys={item.sys} />
-          <h2 className={styles.title}>{item.fields.title}</h2>
-          <Snippet body={item.fields.body} />
+        <a>
+          <div className={styles.box}>
+            <Day sys={item.sys} />
+            <h2 className={styles.title}>{item.fields.title}</h2>
+            <Snippet body={item.fields.body} />
+          </div>
         </a>
       </Link>
     </div>
