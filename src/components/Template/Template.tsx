@@ -97,7 +97,7 @@ const Article: React.FC<Props> = (props) => {
           image: (props) => {
             const { alt, src } = props;
             console.log(props);
-            return <img src={src} alt={alt} loading="lazy" />;
+            return <img width={560} src={src} alt={alt} loading="lazy" />;
           },
         }}
       >
