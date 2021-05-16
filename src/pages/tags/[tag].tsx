@@ -45,8 +45,6 @@ const BlogTag: React.FC<Props> = (props) => {
 export const getStaticProps = async () => {
   const entries = await getBlogPost();
 
-  console.log(entries);
-
   if (entries != null) {
     return { props: { entries } };
   } else throw new Error();
@@ -59,7 +57,6 @@ export const getStaticPaths = async () => {
     const entryItemTags = entries.items.flatMap(
       (item) => (item as unknown as { metadata: Metadata }).metadata.tags
     );
-    console.log(entryItemTags);
     const tagNames = [
       ...new Set(entryItemTags.map((entryItemTag) => entryItemTag.sys.id)),
     ];
