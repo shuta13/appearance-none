@@ -1,33 +1,20 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
-import { GA_TRACKING_ID } from '../utils/gtag';
 
 class BlogDocument extends Document {
   render() {
     return (
       <Html lang="ja">
-        <Head>
-          {/* Global Site Tag (gtag.js) - Google Analytics */}
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', '${GA_TRACKING_ID}', {
-                page_path: window.location.pathname,
-              });
-              `,
-            }}
-          />
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />
+          {/* <!-- Cloudflare Web Analytics --> */}
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={`{"token": "${process.env.CLOUDFLARE_ANALYTICS_ID}"}`}
+          ></script>
+          {/* <!-- End Cloudflare Web Analytics --> */}
         </body>
       </Html>
     );
