@@ -8,13 +8,6 @@ class BlogDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          {/* <!-- Cloudflare Web Analytics --> */}
-          <script
-            defer
-            src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon={`{"token": "${process.env.CLOUDFLARE_ANALYTICS_ID}"}`}
-          ></script>
-          {/* <!-- End Cloudflare Web Analytics --> */}
         </body>
       </Html>
     );
