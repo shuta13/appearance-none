@@ -22,6 +22,7 @@ export const SocialButton: React.FC<Props> = (props) => {
             className={styles.icon}
             width={30}
             height={30}
+            title={href}
           />
         </span>
       </a>
