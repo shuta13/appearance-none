@@ -6,7 +6,6 @@ type Props = { metadata: Metadata };
 
 export const TagLinkContainer: React.FC<Props> = (props) => {
   const { metadata } = props;
-  console.log(metadata);
   return (
     <>
       {metadata.tags.map((tag) => (

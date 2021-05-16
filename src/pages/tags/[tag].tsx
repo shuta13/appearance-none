@@ -56,23 +56,19 @@ export const getStaticPaths = async () => {
   const entries = await getBlogPost();
 
   if (entries != null) {
-    const item = entries.items.reduce((prev, cur) => {
-      if (Object.prototype.hasOwnProperty.call(cur, 'metadata')) return cur;
-      return prev;
-    });
-
-    if (item) {
-      const paths = (
-        item as unknown as {
-          metadata: Metadata;
-        }
-      ).metadata.tags.map((tag) => ({
-        params: {
-          tag: tag.sys.id,
-        },
-      }));
-      return { paths, fallback: false };
-    }
+    const entryItemTags = entries.items.flatMap(
+      (item) => (item as unknown as { metadata: Metadata }).metadata.tags
+    );
+    console.log(entryItemTags);
+    const tagNames = [
+      ...new Set(entryItemTags.map((entryItemTag) => entryItemTag.sys.id)),
+    ];
+    const paths = tagNames.map((tag) => ({
+      params: {
+        tag,
+      },
+    }));
+    return { paths, fallback: false };
   } else throw new Error();
 };
 
