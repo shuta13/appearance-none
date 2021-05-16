@@ -1,7 +1,5 @@
 import dayjs from 'dayjs';
 
-type PartialItemListElement = { title: string; url: string } | undefined;
-
 export const BlogTitle = '{ appearance: none }';
 
 export const BlogDescription = '{ appearance: none } は did0es のブログ';
@@ -16,6 +14,11 @@ export const TagsMap = {
   engineering: '技術',
   lifestyle: '生活',
   frontend: 'フロントエンド',
+  react: 'React',
+  webgl: 'WebGL',
+  vj: 'VJ',
+  nextjs: 'Next.js',
+  others: 'その他',
 };
 
 export const DefaultJsonId = {
