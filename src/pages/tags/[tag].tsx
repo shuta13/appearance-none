@@ -1,4 +1,3 @@
-import { createClient } from 'contentful';
 import type { InferGetStaticPropsType } from 'next';
 import type { Metadata, Slug } from '../../types/contentful-types';
 import { Card } from '../../components/Card';
@@ -9,6 +8,10 @@ import ErrorPage from '../_error';
 import { getBlogPost } from '../../utils/contentful-client';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
+
+export const config = {
+  unstable_runtimeJS: false,
+};
 
 const BlogTag: React.FC<Props> = (props) => {
   const { entries } = props;
@@ -41,6 +44,8 @@ const BlogTag: React.FC<Props> = (props) => {
 
 export const getStaticProps = async () => {
   const entries = await getBlogPost();
+
+  console.log(entries);
 
   if (entries != null) {
     return { props: { entries } };

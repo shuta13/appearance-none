@@ -6,10 +6,11 @@ type Props = { metadata: Metadata };
 
 export const TagLinkContainer: React.FC<Props> = (props) => {
   const { metadata } = props;
+  console.log(metadata);
   return (
     <>
-      {metadata.tags.map((tag, i) => (
-        <span className={styles.wrap} key={i}>
+      {metadata.tags.map((tag) => (
+        <span className={styles.wrap} key={tag.sys.id}>
           <Tag tagName={tag.sys.id} />
         </span>
       ))}

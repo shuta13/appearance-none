@@ -1,28 +1,28 @@
+import type { Entry } from 'contentful';
 import Link from 'next/link';
+import type { Slug } from '../../types/contentful-types';
 import { generateSnippet } from '../../utils/snippet';
 import styles from './Nav.module.scss';
 
 export const Nav: React.FC<{
-  prevSlug: string;
-  nextSlug: string;
-  prevTitle: string;
-  nextTitle: string;
+  prevArticle: Entry<Slug> | null;
+  nextArticle: Entry<Slug> | null;
 }> = (props) => {
-  const { prevSlug, nextSlug, prevTitle, nextTitle } = props;
+  const { prevArticle, nextArticle } = props;
   return (
     <nav>
       <div className={styles.wrap}>
         <span>
-          {prevSlug !== '' && (
-            <Link href={prevSlug}>
-              <a>{generateSnippet(prevTitle, 20)}</a>
+          {prevArticle && (
+            <Link href={prevArticle.fields.slug}>
+              <a>{generateSnippet(prevArticle.fields.title, 20)}</a>
             </Link>
           )}
         </span>
         <span>
-          {nextSlug !== '' && (
-            <Link href={nextSlug}>
-              <a>{generateSnippet(nextTitle, 20)}</a>
+          {nextArticle && (
+            <Link href={nextArticle.fields.slug}>
+              <a>{generateSnippet(nextArticle.fields.title, 20)}</a>
             </Link>
           )}
         </span>

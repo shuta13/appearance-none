@@ -4,6 +4,10 @@ interface Props {
   message: string;
 }
 
+export const config = {
+  unstable_runtimeJS: false,
+};
+
 const BlogError: NextPage<Props> = (props) => {
   const { statusCode, message } = props;
   return <p>{statusCode && `Error - ${statusCode} ${message}`}</p>;

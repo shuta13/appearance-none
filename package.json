@@ -13,6 +13,7 @@
     "start": "next start",
     "export": "next export",
     "deploy:static": "yarn rssgen && yarn build && yarn export",
+    "serve": "serve out",
     "tcm": "tcm -p 'src/components/**/*.module.scss'",
     "rssgen": "yarn ts-node -O '{\"module\":\"commonjs\"}' scripts/rss.ts"
   },
@@ -39,12 +40,11 @@
     "@types/commonmark": "^0.27.4",
     "@types/node": "^14.14.35",
     "@types/node-fetch": "^2.5.8",
-    "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.3",
     "@types/react-syntax-highlighter": "^13.5.0",
     "@types/remove-markdown": "^0.1.1",
     "dotenv": "^8.2.0",
-    "nprogress": "^0.2.0",
+    "serve": "^11.3.2",
     "typed-css-modules": "^0.6.5",
     "typescript": "^4.2.3",
     "typescript-styled-plugin": "^0.15.0"

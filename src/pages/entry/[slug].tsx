@@ -3,13 +3,12 @@ import { Template } from '../../components/Template';
 import { useRouter } from 'next/router';
 import type { Metadata, Slug } from '../../types/contentful-types';
 import ErrorPage from '../../pages/_error';
-import { useEffect, useState } from 'react';
 import { Nav } from '../../components/Nav';
 import { getBlogPost } from '../../utils/contentful-client';
 
 type Props = {
   entries: EntryCollection<Slug> | undefined;
-  navData:
+  entryItems:
     | {
         slug: string;
         title: string;
@@ -17,63 +16,34 @@ type Props = {
     | undefined;
 };
 
+export const config = {
+  unstable_runtimeJS: false,
+};
+
 const BlogPost: React.FC<Props> = (props) => {
-  const { entries, navData } = props;
+  const { entries, entryItems } = props;
   const router = useRouter();
   const { slug } = router.query;
 
-  const [prevSlug, setPrevSlug] = useState('');
-  const [prevTitle, setPrevTitle] = useState('');
-  const [nextSlug, setNextSlug] = useState('');
-  const [nextTitle, setNextTitle] = useState('');
+  if (!entries) return <ErrorPage statusCode={404} message="not found" />;
 
-  useEffect(() => {
-    if (typeof slug === 'string' && navData != null) {
-      navData.forEach((data, index) => {
-        if (data.slug === slug) {
-          if (index < navData.length - 1) {
-            setPrevSlug(navData[index + 1].slug);
-            setPrevTitle(navData[index + 1].title);
-          } else {
-            setPrevSlug('');
-            setPrevTitle('');
-          }
-
-          if (index > 0) {
-            index;
-            navData;
-            setNextSlug(navData[index - 1].slug);
-            setNextTitle(navData[index - 1].title);
-          } else {
-            setNextSlug('');
-            setNextTitle('');
-          }
-        }
-      });
-    }
-  }, [slug]);
-
-  useEffect(() => {
-    const bookmarkButtonScript = document.createElement('script');
-    bookmarkButtonScript.src = 'https://b.st-hatena.com/js/bookmark_button.js';
-    document.body.appendChild(bookmarkButtonScript);
-
-    const widgetsScript = document.createElement('script');
-    widgetsScript.src = 'https://platform.twitter.com/widgets.js';
-    document.body.appendChild(widgetsScript);
-
-    return () => {
-      document.body.removeChild(bookmarkButtonScript);
-      document.body.removeChild(widgetsScript);
-    };
-  }, [router]);
-
-  const article = entries?.items.reduce((prev, cur) => {
+  const article = entries.items.reduce((prev, cur) => {
     if (cur.fields.slug === slug) return cur;
     return prev;
   });
+  const articleIndex = entries.items.indexOf(article);
 
-  if (!article || !article?.sys.id)
+  const prevArticle =
+    articleIndex !== -1 && articleIndex < entries.items.length - 1
+      ? entries.items[articleIndex + 1]
+      : null;
+
+  const nextArticle =
+    articleIndex !== -1 && articleIndex > 0
+      ? entries.items[articleIndex - 1]
+      : null;
+
+  if (!article || !article?.sys.id || !entryItems)
     return <ErrorPage statusCode={404} message="not found" />;
 
   return (
@@ -82,12 +52,7 @@ const BlogPost: React.FC<Props> = (props) => {
         {...article}
         metadata={(article as unknown as { metadata: Metadata }).metadata}
       />
-      <Nav
-        prevSlug={prevSlug}
-        nextSlug={nextSlug}
-        prevTitle={prevTitle}
-        nextTitle={nextTitle}
-      />
+      <Nav prevArticle={prevArticle} nextArticle={nextArticle} />
     </>
   );
 };
@@ -95,7 +60,7 @@ const BlogPost: React.FC<Props> = (props) => {
 export const getStaticProps = async () => {
   const entries = await getBlogPost();
 
-  const navData = entries?.items.map((item) => {
+  const entryItems = entries?.items.map((item) => {
     return {
       slug: item.fields.slug,
       title: item.fields.title,
@@ -103,7 +68,7 @@ export const getStaticProps = async () => {
   });
 
   if (entries != null) {
-    return { props: { entries, navData } };
+    return { props: { entries, entryItems } };
   }
 };
 
