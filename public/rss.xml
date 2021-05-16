@@ -5,11 +5,11 @@
     <link>https://blog.did0es.me</link>
     <description>{ appearance: none } は did0es のブログ</description>
     <language>ja</language>
-    <lastBuildDate>Sun, 16 May 2021 04:45:25 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 16 May 2021 04:46:49 GMT</lastBuildDate>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <atom:link href="https://blog.did0es.me/rss.xml" rel="self" type="application/rss+xml" />
  <item>
-    <title>ブログをNetlifyからCloudflare Pagesに移行させた</title>
+    <title>ブログをNetlifyからCloudflare Pagesに移行した</title>
     <link>https://blog.did0es.me/entry/netlify-cloudflare-pages</link>
     <guid>https://blog.did0es.me/entry/netlify-cloudflare-pages</guid>
     <pubDate>Sun, 16 May 2021 04:34:12 GMT</pubDate>
