@@ -5,9 +5,15 @@
     <link>https://blog.did0es.me</link>
     <description>{ appearance: none } は did0es のブログ</description>
     <language>ja</language>
-    <lastBuildDate>Thu, 10 Jun 2021 15:38:29 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Jul 2021 14:44:30 GMT</lastBuildDate>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <atom:link href="https://blog.did0es.me/rss.xml" rel="self" type="application/rss+xml" />
+ <item>
+    <title>TSとPHPでFormDataの型を共有する</title>
+    <link>https://blog.did0es.me/entry/share-types-of-formdata-php-ts</link>
+    <guid>https://blog.did0es.me/entry/share-types-of-formdata-php-ts</guid>
+    <pubDate>Sat, 03 Jul 2021 14:43:52 GMT</pubDate>
+  </item>
  <item>
     <title>「OSSのすすめ」というLTを行った</title>
     <link>https://blog.did0es.me/entry/recommendation-of-oss</link>
