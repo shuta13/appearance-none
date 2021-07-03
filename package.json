@@ -15,7 +15,8 @@
     "deploy:static": "yarn build && yarn export",
     "serve": "serve out",
     "tcm": "tcm -p 'src/components/**/*.module.scss'",
-    "rssgen": "yarn ts-node -O '{\"module\":\"commonjs\"}' scripts/rss.ts"
+    "rssgen": "yarn ts-node -O '{\"module\":\"commonjs\"}' scripts/rss.ts",
+    "new-post": "yarn rssgen && gta . && gtc -m \"chore: new post\" && gtp origin main"
   },
   "dependencies": {
     "contentful": "^8.2.0",
