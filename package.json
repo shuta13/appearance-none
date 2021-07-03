@@ -16,7 +16,7 @@
     "serve": "serve out",
     "tcm": "tcm -p 'src/components/**/*.module.scss'",
     "rssgen": "yarn ts-node -O '{\"module\":\"commonjs\"}' scripts/rss.ts",
-    "new-post": "yarn rssgen && gta . && gtc -m \"chore: new post\" && gtp origin main"
+    "new-post": "yarn rssgen && git add . && git commit -m \"chore: new post\" && git push origin main"
   },
   "dependencies": {
     "contentful": "^8.2.0",
