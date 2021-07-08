@@ -13,6 +13,7 @@ import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import gfm from 'remark-gfm';
 import { TagLinkContainer } from '../TagLinkContainer';
 import { ToC } from '../ToC';
+import rehypeRaw from 'rehype-raw';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
@@ -42,14 +43,16 @@ const Article: React.FC<Props> = (props) => {
       <h2 className={styles.toc}>目次</h2>
       {fields?.body && <ToC fields={fields} />}
       <ReactMarkdown
-        // allowDangerousHtml={true}
+        rehypePlugins={[rehypeRaw]}
         className={styles.blog_article}
         remarkPlugins={[gfm]}
         components={{
           a: ({ children, href }) => {
+            // @ts-ignore
             if (href?.match('http')) {
               return (
                 <a
+                  // @ts-ignore
                   href={href}
                   target="_blank"
                   rel="nofollow noreferrer noopener"
@@ -58,6 +61,7 @@ const Article: React.FC<Props> = (props) => {
                 </a>
               );
             }
+            // @ts-ignore
             return <a href={href}>{children}</a>;
           },
           code: ({ node, inline, className, children, ...props }) => {
@@ -91,6 +95,7 @@ const Article: React.FC<Props> = (props) => {
             </h3>
           ),
           img: ({ src, alt }) => {
+            // @ts-ignore
             return <img width={560} src={src} alt={alt} loading="lazy" />;
           },
         }}

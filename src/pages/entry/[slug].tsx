@@ -50,6 +50,7 @@ const BlogPost: React.FC<Props> = (props) => {
     <>
       <Template
         {...article}
+        // @ts-ignore
         metadata={(article as unknown as { metadata: Metadata }).metadata}
       />
       <Nav prevArticle={prevArticle} nextArticle={nextArticle} />
