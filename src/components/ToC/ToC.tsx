@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ToC.module.scss';
 import type { Node } from 'unist';
-import visit from 'unist-util-visit';
+import { visit } from 'unist-util-visit';
 import remark from 'remark';
 import type { Slug } from '../../types/contentful-types';
 

@@ -42,60 +42,55 @@ const Article: React.FC<Props> = (props) => {
       <h2 className={styles.toc}>目次</h2>
       {fields?.body && <ToC fields={fields} />}
       <ReactMarkdown
-        allowDangerousHtml={true}
+        // allowDangerousHtml={true}
         className={styles.blog_article}
-        plugins={[gfm]}
-        renderers={{
-          link: (props) => {
-            if (props.href?.match('http')) {
+        remarkPlugins={[gfm]}
+        components={{
+          a: ({ children, href }) => {
+            if (href?.match('http')) {
               return (
                 <a
-                  href={props.href}
+                  href={href}
                   target="_blank"
                   rel="nofollow noreferrer noopener"
                 >
-                  {props.children}
+                  {children}
                 </a>
               );
             }
-            return <a href={props.href}>{props.children}</a>;
+            return <a href={href}>{children}</a>;
           },
-          code: ({ language, value }) => {
-            return (
+          code: ({ node, inline, className, children, ...props }) => {
+            const match = /language-(\w+)/.exec(className || '');
+            return !inline && match ? (
               <SyntaxHighlighter
                 style={tomorrow}
-                language={language}
-                children={value}
+                language={match[1]}
+                children={String(children).replace(/\n$/, '')}
+                {...props}
               />
+            ) : (
+              <code className={className} {...props}>
+                {children}
+              </code>
             );
           },
-          heading: (props) => {
-            const { node } = props;
-            switch (node.depth) {
-              case 1:
-                return (
-                  <h1>
-                    <Heading node={node} />
-                  </h1>
-                );
-              case 2:
-                return (
-                  <h2 id={`#${node.children[0].value}`}>
-                    <Heading node={node} />
-                  </h2>
-                );
-              case 3:
-                return (
-                  <h3 id={`#${node.children[0].value}`}>
-                    <Heading node={node} />
-                  </h3>
-                );
-              default:
-                return <></>;
-            }
-          },
-          image: (props) => {
-            const { alt, src } = props;
+          h1: ({ node, ...props }) => (
+            <h1 {...props}>
+              <Heading node={node} />
+            </h1>
+          ),
+          h2: ({ node, ...props }) => (
+            <h2 id={`#${node.children[0].value}`} {...props}>
+              <Heading node={node} />
+            </h2>
+          ),
+          h3: ({ node, ...props }) => (
+            <h3 id={`#${node.children[0].value}`} {...props}>
+              <Heading node={node} />
+            </h3>
+          ),
+          img: ({ src, alt }) => {
             return <img width={560} src={src} alt={alt} loading="lazy" />;
           },
         }}
