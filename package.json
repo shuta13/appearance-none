@@ -16,7 +16,8 @@
     "serve": "serve out",
     "tcm": "tcm -p 'src/components/**/*.module.scss'",
     "rssgen": "yarn ts-node -O '{\"module\":\"commonjs\"}' scripts/rss.ts",
-    "new-post": "yarn rssgen && git add . && git commit -m \"chore: new post\" && git push origin main"
+    "new-post": "yarn rssgen && git add . && git commit -m \"chore: new post\" && git push origin main",
+    "ncu": "npm-check-updates"
   },
   "dependencies": {
     "contentful": "^8.4.2",
@@ -47,6 +48,7 @@
     "@types/react-syntax-highlighter": "^13.5.2",
     "@types/remove-markdown": "^0.3.0",
     "dotenv": "^10.0.0",
+    "npm-check-updates": "^16.0.6",
     "serve": "^12.0.0",
     "typed-css-modules": "^0.7.0",
     "typescript": "^4.3.5",
