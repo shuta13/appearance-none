@@ -5,15 +5,7 @@
 
 .container {
   display: block;
-  border: solid 1px var(--theme-color-secondary);
   padding: 1rem;
-  // sourced: https://codepen.io/navenoc13/pen/YzpXrOg
-  background: linear-gradient(
-    to top right,
-    var(--theme-color-primary) calc(50% - 1px),
-    var(--theme-color-secondary),
-    var(--theme-color-primary) calc(50% + 1px)
-  );
 }
 
 .title {
