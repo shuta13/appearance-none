@@ -18,7 +18,7 @@ export const TagsMap = {
   webgl: 'WebGL',
   vj: 'VJ',
   nextjs: 'Next.js',
-  personal_search: '自由研究',
+  personal_research: '自由研究',
   others: 'その他',
 };
 
