@@ -5,8 +5,15 @@
 
 .container {
   display: block;
-  border: solid 0.15rem var(--theme-color-secondary);
-  padding: 2rem;
+  border: solid 1px var(--theme-color-secondary);
+  padding: 1rem;
+  // sourced: https://codepen.io/navenoc13/pen/YzpXrOg
+  background: linear-gradient(
+    to top right,
+    var(--theme-color-primary) calc(50% - 1px),
+    var(--theme-color-secondary),
+    var(--theme-color-primary) calc(50% + 1px)
+  );
 }
 
 .title {
@@ -14,11 +21,16 @@
   width: 80%;
   cursor: pointer;
   fill: var(--theme-color-secondary);
+  background: var(--theme-color-primary);
+  margin-top: 1rem;
 }
 
 .desc {
+  max-width: 260px;
+  width: 80%;
   color: var(--theme-color-secondary);
   font-size: var(--font-size-sub-title);
   font-family: var(--font-family-sans-serif);
-  margin-top: 1rem;
+  margin: 1rem auto;
+  background: var(--theme-color-primary);
 }
