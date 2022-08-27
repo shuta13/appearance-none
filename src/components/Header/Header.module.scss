@@ -3,9 +3,22 @@
   margin: 4em 0;
 }
 
+.container {
+  display: block;
+  border: solid 0.15rem var(--theme-color-secondary);
+  padding: 2rem;
+}
+
 .title {
   max-width: 320px;
   width: 80%;
   cursor: pointer;
   fill: var(--theme-color-secondary);
+}
+
+.desc {
+  color: var(--theme-color-secondary);
+  font-size: var(--font-size-sub-title);
+  font-family: var(--font-family-sans-serif);
+  margin-top: 1rem;
 }

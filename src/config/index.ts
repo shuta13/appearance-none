@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 
 export const BlogTitle = '{ appearance: none }';
 
-export const BlogDescription = '{ appearance: none } は did0es のブログ';
+export const BlogDescription = '何も見えない';
 
 export const BlogHost = 'https://blog.did0es.me';
 
@@ -18,6 +18,7 @@ export const TagsMap = {
   webgl: 'WebGL',
   vj: 'VJ',
   nextjs: 'Next.js',
+  personal_search: '自由研究',
   others: 'その他',
 };
 
