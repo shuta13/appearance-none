@@ -16,6 +16,8 @@
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --margin-button: 0 0.5em;
   --animate-duration-fast: 0.1s;
+  --z-index-top: 2147483647;
+  --z-index-bottom: -2147483647;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -59,7 +61,8 @@ body {
   }
 }
 
-*:focus-visible {
+*:focus-visible,
+img:focus-visible {
   outline: solid 4px var(--accent-light-blue);
 }
 
@@ -99,7 +102,9 @@ code {
 }
 
 img {
+  object-fit: cover;
   max-width: 560px;
+  height: 315px;
   width: 100%;
 }
 
@@ -131,6 +136,6 @@ iframe {
   margin: auto;
   max-width: 880px;
   height: 100%;
-  width: 98%;
+  width: 100%;
   padding: 2em;
 }

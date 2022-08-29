@@ -4,6 +4,7 @@ declare const styles: {
   readonly "heading": string;
   readonly "blog_article": string;
   readonly "toc": string;
+  readonly "image": string;
 };
 export = styles;
 

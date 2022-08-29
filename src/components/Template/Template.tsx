@@ -14,6 +14,8 @@ import gfm from 'remark-gfm';
 import { TagLinkContainer } from '../TagLinkContainer';
 import { ToC } from '../ToC';
 import rehypeRaw from 'rehype-raw';
+import { useCallback, useState } from 'react';
+import { PreviewImage } from '../PreviewImage';
 
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
@@ -34,6 +36,22 @@ const Heading: React.FC<{ node: any }> = (props) => {
 
 const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys } = props;
+
+  const [clickedImage, setClickedImage] = useState(false);
+  const [clickedImageProps, setClickedImageProps] = useState({
+    src: '',
+    alt: '',
+  });
+  const handleClickImage = useCallback(
+    ({ src, alt }: { src: string; alt: string }) => {
+      setClickedImageProps({ src, alt });
+      setClickedImage((prev) => !prev);
+    },
+    [setClickedImageProps, setClickedImage]
+  );
+  const handleClickClosePreview = useCallback(() => {
+    setClickedImage(false);
+  }, [setClickedImage]);
 
   return (
     <article className={styles.wrap}>
@@ -95,14 +113,34 @@ const Article: React.FC<Props> = (props) => {
             </h3>
           ),
           img: ({ src, alt }) => {
-            // @ts-ignore
-            return <img width={560} src={src} alt={alt} loading="lazy" />;
+            if (typeof src !== 'string' || typeof alt !== 'string') return null;
+            return (
+              <>
+                <img
+                  width={560}
+                  height={315}
+                  src={src}
+                  alt={alt}
+                  loading="lazy"
+                  onClick={() => handleClickImage({ src, alt })}
+                  tabIndex={0}
+                  className={styles.image}
+                />
+              </>
+            );
           },
         }}
       >
         {fields.body}
       </ReactMarkdown>
       <ShareButtonContainer title={fields.title} slug={fields.slug} />
+      {clickedImage && (
+        <PreviewImage
+          src={clickedImageProps.src}
+          alt={clickedImageProps.alt}
+          onClick={handleClickClosePreview}
+        />
+      )}
     </article>
   );
 };

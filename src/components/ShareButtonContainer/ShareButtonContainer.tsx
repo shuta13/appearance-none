@@ -5,7 +5,7 @@ type Props = Omit<Slug, 'body'>;
 
 export const ShareButtonContainer: React.FC<Props> = (props) => {
   return (
-    <p className={styles.wrap}>
+    <div className={styles.wrap}>
       <a
         href="https://twitter.com/share?ref_src=twsrc%5Etfw"
         className="twitter-share-button"
@@ -29,6 +29,6 @@ export const ShareButtonContainer: React.FC<Props> = (props) => {
           style={{ border: 'none' }}
         />
       </a>
-    </p>
+    </div>
   );
 };

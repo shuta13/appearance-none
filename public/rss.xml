@@ -5,9 +5,33 @@
     <link>https://blog.did0es.me</link>
     <description>{ appearance: none } は did0es のブログ</description>
     <language>ja</language>
-    <lastBuildDate>Thu, 08 Jul 2021 08:14:19 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 29 Aug 2022 23:47:48 GMT</lastBuildDate>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <atom:link href="https://blog.did0es.me/rss.xml" rel="self" type="application/rss+xml" />
+ <item>
+    <title>タオルを煮る</title>
+    <link>https://blog.did0es.me/entry/boiling-towel</link>
+    <guid>https://blog.did0es.me/entry/boiling-towel</guid>
+    <pubDate>Sat, 27 Aug 2022 05:58:12 GMT</pubDate>
+  </item>
+ <item>
+    <title>卒論を支えた技術</title>
+    <link>https://blog.did0es.me/entry/background-of-graduation-thesis</link>
+    <guid>https://blog.did0es.me/entry/background-of-graduation-thesis</guid>
+    <pubDate>Mon, 17 Jan 2022 01:14:27 GMT</pubDate>
+  </item>
+ <item>
+    <title>独り立ちの話</title>
+    <link>https://blog.did0es.me/entry/go-on-my-way</link>
+    <guid>https://blog.did0es.me/entry/go-on-my-way</guid>
+    <pubDate>Tue, 21 Dec 2021 06:19:31 GMT</pubDate>
+  </item>
+ <item>
+    <title>近況報告 - OSS, 卒論, 他</title>
+    <link>https://blog.did0es.me/entry/current-status-2021-11-15</link>
+    <guid>https://blog.did0es.me/entry/current-status-2021-11-15</guid>
+    <pubDate>Mon, 15 Nov 2021 10:40:28 GMT</pubDate>
+  </item>
  <item>
     <title>TSとPHPでFormDataの型を共有する</title>
     <link>https://blog.did0es.me/entry/share-types-of-formdata-php-ts</link>
