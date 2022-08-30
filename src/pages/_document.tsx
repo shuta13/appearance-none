@@ -1,8 +1,8 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
-export const config = {
-  unstable_runtimeJS: false,
-};
+// export const config = {
+//   unstable_runtimeJS: false,
+// };
 class BlogDocument extends Document {
   render() {
     return (
