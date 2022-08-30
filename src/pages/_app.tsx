@@ -9,9 +9,9 @@ import { Footer } from '../components/Footer';
 //   console.log(metric);
 // };
 
-export const config = {
-  unstable_runtimeJS: false,
-};
+// export const config = {
+//   unstable_runtimeJS: false,
+// };
 
 const BlogApp = ({ Component, pageProps }: AppProps) => {
   return (

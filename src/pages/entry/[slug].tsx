@@ -16,9 +16,9 @@ type Props = {
     | undefined;
 };
 
-export const config = {
-  unstable_runtimeJS: false,
-};
+// export const config = {
+//   unstable_runtimeJS: false,
+// };
 
 const BlogPost: React.FC<Props> = (props) => {
   const { entries, entryItems } = props;
