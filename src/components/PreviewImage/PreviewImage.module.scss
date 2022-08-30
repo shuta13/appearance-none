@@ -14,17 +14,18 @@
 
 .image {
   height: auto;
+  width: 100%;
+  max-width: 560px;
 }
 
 .clase_button {
   position: absolute;
-  bottom: 2rem;
+  top: 2rem;
   right: 2rem;
   border: none;
-  background: transparent;
-  color: var(--theme-color-secondary);
+  background: var(--theme-color-secondary);
+  color: var(--theme-color-primary);
   font-family: var(--font-family-sans-serif);
-  border: solid 1px var(--theme-color-secondary);
   padding: 0.5rem 1rem;
   cursor: pointer;
 }

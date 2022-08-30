@@ -14,7 +14,7 @@ import gfm from 'remark-gfm';
 import { TagLinkContainer } from '../TagLinkContainer';
 import { ToC } from '../ToC';
 import rehypeRaw from 'rehype-raw';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { PreviewImage } from '../PreviewImage';
 
 type Props = EntryCollection<Slug>['items'][number] & {
@@ -37,6 +37,8 @@ const Heading: React.FC<{ node: any }> = (props) => {
 const Article: React.FC<Props> = (props) => {
   const { metadata, fields, sys } = props;
 
+  const articleRef = useRef<HTMLElement | null>(null);
+
   const [clickedImage, setClickedImage] = useState(false);
   const [clickedImageProps, setClickedImageProps] = useState({
     src: '',
@@ -53,8 +55,13 @@ const Article: React.FC<Props> = (props) => {
     setClickedImage(false);
   }, [setClickedImage]);
 
+  useEffect(() => {
+    // @ts-expect-error
+    twttr.widgets.load(articleRef.current);
+  }, []);
+
   return (
-    <article className={styles.wrap}>
+    <article className={styles.wrap} ref={articleRef}>
       <Day sys={sys} />
       <h1 className={styles.title}>{fields.title}</h1>
       <TagLinkContainer metadata={metadata} />

@@ -103,9 +103,6 @@ code {
 
 img {
   object-fit: cover;
-  max-width: 560px;
-  height: 315px;
-  width: 100%;
 }
 
 blockquote {
