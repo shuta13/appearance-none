@@ -17,6 +17,12 @@ import rehypeRaw from 'rehype-raw';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { PreviewImage } from '../PreviewImage';
 
+declare global {
+  interface Window {
+    twttr: any;
+  }
+}
+
 type Props = EntryCollection<Slug>['items'][number] & {
   metadata: Metadata;
 };
@@ -56,8 +62,9 @@ const Article: React.FC<Props> = (props) => {
   }, [setClickedImage]);
 
   useEffect(() => {
-    // @ts-expect-error
-    twttr.widgets.load(articleRef.current);
+    if (typeof window !== 'undefined' && window.twttr != null) {
+      window.twttr.widgets.load(articleRef.current);
+    }
   }, []);
 
   return (

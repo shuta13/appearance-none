@@ -7,7 +7,7 @@ import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 declare global {
   interface Window {
-    twttr: () => Window['twttr'];
+    twttr: any;
   }
 }
 
@@ -31,11 +31,8 @@ class BlogDocument extends Document {
                 js.src = 'https://platform.twitter.com/widgets.js';
                 fjs.parentNode?.insertBefore(js, fjs);
 
-                // @ts-expect-error
                 t._e = [];
-                // @ts-expect-error
-                t.ready = function (f) {
-                  // @ts-expect-error
+                t.ready = function (f: any) {
                   t._e.push(f);
                 };
 
