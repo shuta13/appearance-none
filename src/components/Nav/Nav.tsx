@@ -15,14 +15,14 @@ export const Nav: React.FC<{
         <span>
           {prevArticle && (
             <Link href={prevArticle.fields.slug}>
-              <a>{generateSnippet(prevArticle.fields.title, 20)}</a>
+              {generateSnippet(prevArticle.fields.title, 20)}
             </Link>
           )}
         </span>
         <span>
           {nextArticle && (
             <Link href={nextArticle.fields.slug}>
-              <a>{generateSnippet(nextArticle.fields.title, 20)}</a>
+              {generateSnippet(nextArticle.fields.title, 20)}
             </Link>
           )}
         </span>

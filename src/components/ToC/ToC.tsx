@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './ToC.module.scss';
 import type { Node } from 'unist';
 import { visit } from 'unist-util-visit';
-import remark from 'remark';
+import { remark } from 'remark';
 import type { Slug } from '../../types/contentful-types';
 
 type Props = { fields: Slug };
@@ -15,6 +15,7 @@ const createHeadingNodes = (fields: Slug) => {
     visit(mdast, 'heading', (child) => {
       const headingNode = {
         depth: child.depth as number,
+        // @ts-expect-error Children should have value.
         value: (child.children as Array<Node>)[0].value as string,
       };
       headingNodes.push(headingNode);

@@ -100,11 +100,13 @@ const Article: React.FC<Props> = (props) => {
             const match = /language-(\w+)/.exec(className || '');
             return !inline && match ? (
               <SyntaxHighlighter
+                // @ts-expect-error Avoid conflicting with JSX.IntrinsicElement types.
                 style={tomorrow}
                 language={match[1]}
-                children={String(children).replace(/\n$/, '')}
                 {...props}
-              />
+              >
+                {String(children).replace(/\n$/, '')}
+              </SyntaxHighlighter>
             ) : (
               <code className={className} {...props}>
                 {children}
@@ -117,11 +119,13 @@ const Article: React.FC<Props> = (props) => {
             </h1>
           ),
           h2: ({ node, ...props }) => (
+            // @ts-expect-error Children should have value.
             <h2 id={`#${node.children[0].value}`} {...props}>
               <Heading node={node} />
             </h2>
           ),
           h3: ({ node, ...props }) => (
+            // @ts-expect-error Children should have value.
             <h3 id={`#${node.children[0].value}`} {...props}>
               <Heading node={node} />
             </h3>

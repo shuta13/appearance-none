@@ -4,14 +4,14 @@ import Title from './internal/Title';
 
 export const Header: React.FC = () => (
   <header className={styles.wrap}>
-    <Link href="/">
-      <a className={styles.container}>
-        <Title className={styles.title} viewBox="0 0 288 22" />
-        <div className={styles.desc}>何も見えない</div>
-        <div className={styles.desc}>
-          かつてはエンジニアを名乗っていました。
-        </div>
-      </a>
+    <Link href="/" className={styles.container}>
+
+      <Title className={styles.title} viewBox="0 0 288 22" />
+      <div className={styles.desc}>何も見えない</div>
+      <div className={styles.desc}>
+        かつてはエンジニアを名乗っていました。
+      </div>
+
     </Link>
   </header>
 );

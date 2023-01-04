@@ -1,6 +1,6 @@
 import '../assets/styles/global.css';
 import 'prismjs/themes/prism-tomorrow.css';
-import type { AppProps } from 'next/dist/next-server/lib/router/router';
+import type { AppProps } from 'next/app';
 import { Header } from '../components/Header/Header';
 import { Footer } from '../components/Footer';
 import { useEffect } from 'react';

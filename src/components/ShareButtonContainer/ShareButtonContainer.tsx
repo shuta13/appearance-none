@@ -1,9 +1,11 @@
+import Image from 'next/image';
 import type { Slug } from '../../types/contentful-types';
 import styles from './ShareButtonContainer.module.scss';
-
+import { useMount } from '~/utils/hooks';
 type Props = Omit<Slug, 'body'>;
 
 export const ShareButtonContainer: React.FC<Props> = (props) => {
+  const { mounted } = useMount();
   return (
     <div className={styles.wrap}>
       <a
@@ -14,21 +16,23 @@ export const ShareButtonContainer: React.FC<Props> = (props) => {
       >
         Tweet
       </a>
-      <a
-        href="https://b.hatena.ne.jp/entry/"
-        className="hatena-bookmark-button"
-        data-hatena-bookmark-layout="basic-label"
-        data-hatena-bookmark-lang="ja"
-        title="このエントリーをはてなブックマークに追加"
-      >
-        <img
-          src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png"
-          alt="このエントリーをはてなブックマークに追加"
-          width="20"
-          height="20"
-          style={{ border: 'none' }}
-        />
-      </a>
+      {mounted && (
+        <a
+          href="https://b.hatena.ne.jp/entry/"
+          className="hatena-bookmark-button"
+          data-hatena-bookmark-layout="basic-label"
+          data-hatena-bookmark-lang="ja"
+          title="このエントリーをはてなブックマークに追加"
+        >
+          <Image
+            src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png"
+            alt="このエントリーをはてなブックマークに追加"
+            width="20"
+            height="20"
+            style={{ border: 'none' }}
+          />
+        </a>
+      )}
     </div>
   );
 };

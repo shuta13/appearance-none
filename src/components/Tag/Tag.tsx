@@ -5,8 +5,8 @@ import styles from './Tag.module.scss';
 export const Tag: React.FC<{ tagName: keyof typeof TagsMap }> = (props) => {
   const { tagName } = props;
   return (
-    <Link href={`/tags/${tagName}`}>
-      <a className={styles.wrap}>{`#${TagsMap[tagName]}`}</a>
+    <Link href={`/tags/${tagName}`} className={styles.wrap}>
+      {`#${TagsMap[tagName]}`}
     </Link>
   );
 };

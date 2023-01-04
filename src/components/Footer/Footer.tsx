@@ -13,8 +13,8 @@ export const Footer: React.FC = () => (
         className={styles.icon}
       />
     </div>
-    <Link href="https://studio.did0es.me" passHref={true}>
-      <a className={styles.text}>© 2021 did0es</a>
+    <Link href="https://studio.did0es.me" passHref={true} className={styles.text}>
+      © 2021 did0es
     </Link>
   </footer>
 );
