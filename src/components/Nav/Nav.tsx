@@ -1,28 +1,28 @@
-import type { Entry } from 'contentful';
 import Link from 'next/link';
-import type { Slug } from '../../types/contentful-types';
-import { generateSnippet } from '../../utils/snippet';
+import { maskString } from '~/utils/maskString';
 import styles from './Nav.module.scss';
+import { Entries } from '~/usecases/getBlogData';
+
+const MAX_STRING_LENGTH = 20;
 
 export const Nav: React.FC<{
-  prevArticle: Entry<Slug> | null;
-  nextArticle: Entry<Slug> | null;
-}> = (props) => {
-  const { prevArticle, nextArticle } = props;
+  prevEntry: Entries[number] | null;
+  nextEntry: Entries[number] | null;
+}> = ({ prevEntry, nextEntry }) => {
   return (
     <nav>
       <div className={styles.wrap}>
         <span>
-          {prevArticle && (
-            <Link href={prevArticle.fields.slug}>
-              {generateSnippet(prevArticle.fields.title, 20)}
+          {prevEntry && (
+            <Link href={prevEntry.head.slug}>
+              {maskString(prevEntry.head.title, MAX_STRING_LENGTH)}
             </Link>
           )}
         </span>
         <span>
-          {nextArticle && (
-            <Link href={nextArticle.fields.slug}>
-              {generateSnippet(nextArticle.fields.title, 20)}
+          {nextEntry && (
+            <Link href={nextEntry.head.slug}>
+              {maskString(nextEntry.head.title, MAX_STRING_LENGTH)}
             </Link>
           )}
         </span>

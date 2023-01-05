@@ -1,11 +1,8 @@
-// import { Nav } from '../Nav/Nav';
-import type { EntryCollection } from 'contentful';
-import type { Slug, Metadata } from '../../types/contentful-types';
 import { BlogHost, DateNow, DefaultJsonId, OgImageUrl } from '../../config';
 import { Day } from '../Day';
 import styles from './Template.module.scss';
 import { SEO } from '../SEO';
-import { generateSnippet } from '../../utils/snippet';
+import { maskString } from '~/utils/maskString';
 import { ShareButtonContainer } from '../ShareButtonContainer';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -16,16 +13,14 @@ import { ToC } from '../ToC';
 import rehypeRaw from 'rehype-raw';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { PreviewImage } from '../PreviewImage';
+import { Entries } from '~/usecases/getBlogData';
+import Image from 'next/image';
 
 declare global {
   interface Window {
     twttr: any;
   }
 }
-
-type Props = EntryCollection<Slug>['items'][number] & {
-  metadata: Metadata;
-};
 
 const Heading: React.FC<{ node: any }> = (props) => {
   const { node } = props;
@@ -40,9 +35,7 @@ const Heading: React.FC<{ node: any }> = (props) => {
   );
 };
 
-const Article: React.FC<Props> = (props) => {
-  const { metadata, fields, sys } = props;
-
+const Article: React.FC<Entries[number]> = ({ head, body }) => {
   const articleRef = useRef<HTMLElement | null>(null);
 
   const [clickedImage, setClickedImage] = useState(false);
@@ -69,11 +62,11 @@ const Article: React.FC<Props> = (props) => {
 
   return (
     <article className={styles.wrap} ref={articleRef}>
-      <Day sys={sys} />
-      <h1 className={styles.title}>{fields.title}</h1>
-      <TagLinkContainer metadata={metadata} />
+      <Day head={head} />
+      <h1 className={styles.title}>{head.title}</h1>
+      <TagLinkContainer head={head} />
       <h2 className={styles.toc}>目次</h2>
-      {fields?.body && <ToC fields={fields} />}
+      <ToC body={body} />
       <ReactMarkdown
         rehypePlugins={[rehypeRaw]}
         className={styles.blog_article}
@@ -134,7 +127,7 @@ const Article: React.FC<Props> = (props) => {
             if (typeof src !== 'string' || typeof alt !== 'string') return null;
             return (
               <>
-                <img
+                <Image
                   width={560}
                   height={315}
                   src={src}
@@ -149,9 +142,9 @@ const Article: React.FC<Props> = (props) => {
           },
         }}
       >
-        {fields.body}
+        {body.content.toString()}
       </ReactMarkdown>
-      <ShareButtonContainer title={fields.title} slug={fields.slug} />
+      <ShareButtonContainer />
       {clickedImage && (
         <PreviewImage
           src={clickedImageProps.src}
@@ -163,16 +156,16 @@ const Article: React.FC<Props> = (props) => {
   );
 };
 
-export const Template: React.FC<Props> = (props) => {
-  const { fields } = props;
+export const Template: React.FC<Entries[number]> = (props) => {
+  const { head, body } = props;
 
-  const title = fields.title;
-  const description = generateSnippet(fields.body);
+  const title = head.title;
+  const description = maskString('' /** @todo serialize body.content */);
 
   const jsonLd: typeof DefaultJsonId = {
     title: title,
     description: description,
-    url: BlogHost + `/entry/${fields.slug}`,
+    url: BlogHost + `/entry/${head.slug}`,
     imageUrl: OgImageUrl,
     updated: DateNow,
   };

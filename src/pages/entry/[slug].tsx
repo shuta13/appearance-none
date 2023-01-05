@@ -1,89 +1,58 @@
-import { EntryCollection } from 'contentful';
 import { Template } from '../../components/Template';
-import { useRouter } from 'next/router';
-import type { Metadata, Slug } from '../../types/contentful-types';
-import ErrorPage from '../../pages/_error';
 import { Nav } from '../../components/Nav';
-import { getBlogPost } from '../../utils/contentful-client';
+import { getBlogData } from '~/usecases/getBlogData';
+import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next';
 
-type Props = {
-  entries: EntryCollection<Slug> | undefined;
-  entryItems:
-    | {
-        slug: string;
-        title: string;
-      }[]
-    | undefined;
-};
-
-// export const config = {
-//   unstable_runtimeJS: false,
-// };
-
-const BlogPost: React.FC<Props> = (props) => {
-  const { entries, entryItems } = props;
-  const router = useRouter();
-  const { slug } = router.query;
-
-  if (!entries) return <ErrorPage statusCode={404} message="not found" />;
-
-  const article = entries.items.reduce((prev, cur) => {
-    if (cur.fields.slug === slug) return cur;
-    return prev;
-  });
-  const articleIndex = entries.items.indexOf(article);
-
-  const prevArticle =
-    articleIndex !== -1 && articleIndex < entries.items.length - 1
-      ? entries.items[articleIndex + 1]
-      : null;
-
-  const nextArticle =
-    articleIndex !== -1 && articleIndex > 0
-      ? entries.items[articleIndex - 1]
-      : null;
-
-  if (!article || !article?.sys.id || !entryItems)
-    return <ErrorPage statusCode={404} message="not found" />;
+const BlogPost: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (
+  props
+) => {
+  const { entry, prevEntry, nextEntry } = props;
 
   return (
     <>
-      <Template
-        {...article}
-        // @ts-ignore
-        metadata={(article as unknown as { metadata: Metadata }).metadata}
-      />
-      <Nav prevArticle={prevArticle} nextArticle={nextArticle} />
+      <Template {...entry} />
+      <Nav prevEntry={prevEntry} nextEntry={nextEntry} />
     </>
   );
 };
 
-export const getStaticProps = async () => {
-  const entries = await getBlogPost();
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const data = await getBlogData();
 
-  const entryItems = entries?.items.map((item) => {
+  const entry = data.find((d) => d.head.slug === context.params?.slug)!;
+  const currentIndex = data.indexOf(entry);
+  const prevEntry =
+    currentIndex !== -1 && currentIndex < data.length - 1
+      ? data[currentIndex + 1]
+      : null;
+  const nextEntry =
+    currentIndex !== -1 && currentIndex > 0 ? data[currentIndex - 1] : null;
+
+  if (entry != null) {
+    return { props: { entry, prevEntry, nextEntry } };
+  } else {
     return {
-      slug: item.fields.slug,
-      title: item.fields.title,
+      notFound: true,
     };
-  });
-
-  if (entries != null) {
-    return { props: { entries, entryItems } };
   }
 };
 
 export const getStaticPaths = async () => {
-  const entries = await getBlogPost();
+  const data = await getBlogData();
 
-  if (entries != null) {
-    const paths = entries.items.map((item) => ({
+  if (data != null) {
+    const paths = data.map((d) => ({
       params: {
-        slug: item.fields.slug,
+        slug: d.head.slug,
       },
     }));
-    return { paths, fallback: false };
-  } else throw new Error();
+    return {
+      paths,
+      fallback: false,
+    };
+  } else {
+    throw new Error();
+  }
 };
 
 export default BlogPost;

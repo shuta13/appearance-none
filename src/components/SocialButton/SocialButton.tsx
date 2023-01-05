@@ -4,18 +4,21 @@ import {
   FontAwesomeIconProps,
 } from '@fortawesome/react-fontawesome';
 import styles from './SocialButton.module.scss';
+import { useMount } from '~/utils/hooks';
 
 type Props = { href: string; icon: FontAwesomeIconProps['icon'] };
 
 export const SocialButton: React.FC<Props> = (props) => {
   const { href, icon } = props;
+  const { mounted } = useMount();
+  if (!mounted) return null;
   return (
-    (<Link
+    <Link
       href={href}
       rel="nofollow noreferrer noopener"
       target="_blank"
-      className={styles.wrap}>
-
+      className={styles.wrap}
+    >
       <span className={styles.box}>
         <FontAwesomeIcon
           icon={icon}
@@ -25,7 +28,6 @@ export const SocialButton: React.FC<Props> = (props) => {
           title={href}
         />
       </span>
-
-    </Link>)
+    </Link>
   );
 };

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './PreviewImage.module.scss';
 
 type Props = {
@@ -17,7 +18,7 @@ export const PreviewImage: React.FC<Props> = ({
 }) => {
   return (
     <div className={styles.wrapper}>
-      <img
+      <Image
         src={src}
         alt={alt}
         width={width}

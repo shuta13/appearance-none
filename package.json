@@ -18,12 +18,12 @@
     "serve": "serve out",
     "tcm": "tcm -p 'src/components/**/*.module.scss'",
     "tcm:watch": "tcm -p 'src/components/**/*.module.scss' -w",
-    "rssgen": "yarn ts-node -O '{\"module\":\"commonjs\"}' scripts/rss.ts",
+    "rssgen": "npx ts-node -O '{\"module\": \"commonjs\"}' scripts/rss.ts",
     "new-post": "yarn rssgen && git add . && git commit -m \"chore: new post\" && git push origin main",
     "ncu": "npm-check-updates"
   },
   "dependencies": {
-    "contentful": "^9.2.14",
+    "@notionhq/client": "^2.2.3",
     "dayjs": "^1.11.7",
     "next": "^13.1.1",
     "next-transpile-modules": "^8.0.0",

@@ -1,16 +1,15 @@
-import type { Metadata } from '../../types/contentful-types';
+import { Entries } from '~/usecases/getBlogData';
 import { Tag } from '../Tag';
 import styles from './TagLinkContainer.module.scss';
 
-type Props = { metadata: Metadata };
-
-export const TagLinkContainer: React.FC<Props> = (props) => {
-  const { metadata } = props;
+export const TagLinkContainer: React.FC<{ head: Entries[number]['head'] }> = ({
+  head: { tags },
+}) => {
   return (
     <>
-      {metadata.tags.map((tag) => (
-        <span className={styles.wrap} key={tag.sys.id}>
-          <Tag tagName={tag.sys.id} />
+      {tags.map((tag) => (
+        <span className={styles.wrap} key={tag}>
+          <Tag tagName={tag} />
         </span>
       ))}
     </>

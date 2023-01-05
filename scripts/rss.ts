@@ -1,29 +1,26 @@
 // https://github.com/emilioschepis/website/blob/main/pages/blog.tsx
 import * as dotenv from 'dotenv';
-dotenv.config();
 import * as fs from 'fs';
-
-import { Entry, EntryCollection } from 'contentful';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
-import { BlogHost, BlogTitle } from '../src/config';
-import type { Slug } from '../src/types/contentful-types';
-import { getBlogPost } from '../src/utils/contentful-client';
+import { BlogHost, BlogTitle } from '~/config';
+import { Entries, getBlogData } from '~/usecases/getBlogData';
 
+dotenv.config();
 dayjs.locale(ja);
 
 const entryUrl = `${BlogHost}/entry`;
 const rssUrl = `${BlogHost}/rss.xml`;
 
-const createFeed = (item: Entry<Slug>) => ` <item>
-    <title>${item.fields.title}</title>
-    <link>${entryUrl}/${item.fields.slug}</link>
-    <guid>${entryUrl}/${item.fields.slug}</guid>
-    <pubDate>${dayjs(item.sys.createdAt).toString()}</pubDate>
+const createFeed = (entry: Entries[number]) => ` <item>
+    <title>${entry.head.title}</title>
+    <link>${entryUrl}/${entry.head.slug}</link>
+    <guid>${entryUrl}/${entry.head.slug}</guid>
+    <pubDate>${dayjs(entry.head.created).toString()}</pubDate>
   </item>`;
 
-export const generateRss = (entries: EntryCollection<Slug>) => {
-  const feeds = entries.items.map((item) => createFeed(item));
+export const generateRss = (data: Entries) => {
+  const feeds = data.map((d) => createFeed(d));
   const lastBuildData = dayjs().toString();
 
   const rss = `<?xml version="1.0" ?>
@@ -44,8 +41,8 @@ ${feeds.join('\n')}
 };
 
 (async () => {
-  const entries = await getBlogPost();
+  const data = await getBlogData();
 
-  const rss = generateRss(entries);
+  const rss = generateRss(data);
   await fs.promises.writeFile(process.cwd() + '/public/rss.xml', rss);
 })();

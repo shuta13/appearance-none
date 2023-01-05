@@ -1,28 +1,17 @@
 import type { InferGetStaticPropsType } from 'next';
-import type { Metadata } from '../types/contentful-types';
 import { Card } from '../components/Card';
 import { SocialButtonContainer } from '../components/SocialButtonContainer';
 import { SEO } from '../components/SEO';
-import { getBlogPost } from '../utils/contentful-client';
+import { getBlogData } from '~/usecases/getBlogData';
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>;
-
-// export const config = {
-//   unstable_runtimeJS: false,
-// };
-
-const Home: React.FC<Props> = (props) => {
-  const { entries } = props;
-
+const Home: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  data,
+}) => {
   return (
     <>
       <SEO />
-      {entries.items.map((item, i) => (
-        <Card
-          item={item}
-          key={i}
-          metadata={(item as unknown as { metadata: Metadata }).metadata}
-        />
+      {data.map((d, i) => (
+        <Card {...d} key={i} />
       ))}
       <SocialButtonContainer />
     </>
@@ -30,10 +19,10 @@ const Home: React.FC<Props> = (props) => {
 };
 
 export const getStaticProps = async () => {
-  const entries = await getBlogPost();
+  const data = await getBlogData();
 
-  if (entries != null) {
-    return { props: { entries } };
+  if (data != null) {
+    return { props: { data } };
   } else throw new Error();
 };
 

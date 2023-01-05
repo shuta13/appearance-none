@@ -1,19 +1,18 @@
-import { Sys } from 'contentful';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
+import { Entries } from '~/usecases/getBlogData';
 import styles from './Day.module.scss';
 
 dayjs.locale(ja);
 
-type Props = { sys: Sys };
-
-export const Day: React.FC<Props> = (props) => {
-  const { sys } = props;
+export const Day: React.FC<{ head: Entries[number]['head'] }> = ({
+  head: { created },
+}) => {
   return (
     <p className={styles.wrap}>
       <span>
-        <time dateTime={dayjs(sys.createdAt).format('YYYY-MM-DD')}>
-          {dayjs(sys.createdAt).format('YYYY/MM/DD')}
+        <time dateTime={dayjs(created).format('YYYY-MM-DD')}>
+          {dayjs(created).format('YYYY/MM/DD')}
         </time>
       </span>
     </p>

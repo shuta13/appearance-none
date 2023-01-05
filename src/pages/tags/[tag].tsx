@@ -1,72 +1,52 @@
-import type { InferGetStaticPropsType } from 'next';
-import type { Metadata, Slug } from '../../types/contentful-types';
+import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { Card } from '../../components/Card';
 import { SocialButtonContainer } from '../../components/SocialButtonContainer';
 import { SEO } from '../../components/SEO';
-import { useRouter } from 'next/router';
-import ErrorPage from '../_error';
-import { getBlogPost } from '../../utils/contentful-client';
+import { getBlogData } from '~/usecases/getBlogData';
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>;
-
-// export const config = {
-//   unstable_runtimeJS: false,
-// };
-
-const BlogTag: React.FC<Props> = (props) => {
-  const { entries } = props;
-
-  const router = useRouter();
-  const tag = router.query.tag;
-
-  if (!entries) return <ErrorPage statusCode={404} message="not found" />;
-
-  const items = entries.items.filter((item) =>
-    (item as unknown as { metadata: Metadata }).metadata.tags.some(
-      (t) => t.sys.id === tag
-    )
-  );
-
+const BlogTag: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  entries,
+}) => {
   return (
     <>
       <SEO />
-      {items.map((item, i) => (
-        <Card
-          item={item}
-          key={i}
-          metadata={(item as unknown as { metadata: Metadata }).metadata}
-        />
+      {entries.map((entry, i) => (
+        <Card key={i} {...entry} />
       ))}
       <SocialButtonContainer />
     </>
   );
 };
 
-export const getStaticProps = async () => {
-  const entries = await getBlogPost();
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const data = await getBlogData();
+  const entries = data.filter((d) =>
+    d.head.tags.includes(context.params!.tag as string)
+  );
 
-  if (entries != null) {
+  if (entries.length > 0) {
     return { props: { entries } };
-  } else throw new Error();
+  } else {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export const getStaticPaths = async () => {
-  const entries = await getBlogPost();
+  const data = await getBlogData();
 
-  if (entries != null) {
-    const entryItemTags = entries.items.flatMap(
-      (item) => (item as unknown as { metadata: Metadata }).metadata.tags
-    );
-    const tagNames = [
-      ...new Set(entryItemTags.map((entryItemTag) => entryItemTag.sys.id)),
-    ];
-    const paths = tagNames.map((tag) => ({
+  if (data != null) {
+    const tags = [...new Set(data.map((d) => d.head.tags).flat())];
+    const paths = tags.map((tag) => ({
       params: {
         tag,
       },
     }));
     return { paths, fallback: false };
-  } else throw new Error();
+  } else {
+    throw new Error();
+  }
 };
 
 export default BlogTag;

@@ -1,36 +1,28 @@
-import type { EntryCollection } from 'contentful';
-import type { Metadata, Slug } from '../../types/contentful-types';
 import Link from 'next/link';
 import { Day } from '../Day';
 import styles from './Card.module.scss';
-import { generateSnippet } from '../../utils/snippet';
-
-type Props = { item: EntryCollection<Slug>['items'][number] } & {
-  metadata: Metadata;
-};
+import { maskString } from '~/utils/maskString';
+import { Entries } from '~/usecases/getBlogData';
 
 const Snippet: React.FC<{ body: string }> = (props) => {
   const { body } = props;
   return (
     <div
       dangerouslySetInnerHTML={{
-        __html: generateSnippet(body),
+        __html: maskString(body),
       }}
       className={styles.snippet}
     />
   );
 };
 
-export const Card: React.FC<Props> = (props) => {
-  const { item } = props;
+export const Card: React.FC<Entries[number]> = ({ head, body }) => {
   return (
     <div className={styles.wrap}>
-      <Link href={`/entry/${item.fields.slug}`} className={styles.box}>
-
-        <Day sys={item.sys} />
-        <h2 className={styles.title}>{item.fields.title}</h2>
-        <Snippet body={item.fields.body} />
-
+      <Link href={`/entry/${head.slug}`} className={styles.box}>
+        <Day head={head} />
+        <h2 className={styles.title}>{head.title}</h2>
+        <Snippet body={body.content.toString()} /** @todo */ />
       </Link>
     </div>
   );

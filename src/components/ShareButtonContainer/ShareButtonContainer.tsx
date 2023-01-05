@@ -1,10 +1,8 @@
 import Image from 'next/image';
-import type { Slug } from '../../types/contentful-types';
 import styles from './ShareButtonContainer.module.scss';
 import { useMount } from '~/utils/hooks';
-type Props = Omit<Slug, 'body'>;
 
-export const ShareButtonContainer: React.FC<Props> = (props) => {
+export const ShareButtonContainer: React.FC = () => {
   const { mounted } = useMount();
   return (
     <div className={styles.wrap}>
