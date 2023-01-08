@@ -1,0 +1,16 @@
+.wrap {
+  margin-top: 4em;
+  border-radius: 50%;
+  width: 10.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.box {
+  padding: 0;
+  margin: var(--margin-button);
+  margin-left: 0;
+  border: none;
+  background-color: transparent;
+  outline: inherit;
+}

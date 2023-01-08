@@ -1,0 +1,25 @@
+{
+  "name": "website",
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "run-p dev:next tcm:watch",
+    "dev:next": "next dev",
+    "build": "next build",
+    "lint": "next lint",
+    "start": "next start",
+    "export": "next export",
+    "deploy:static": "yarn build && yarn export",
+    "serve": "serve out",
+    "tcm": "tcm -p 'src/components/**/*.module.scss'",
+    "tcm:watch": "tcm -p 'src/components/**/*.module.scss' -w",
+    "rssgen": "npx ts-node -O '{\"module\": \"commonjs\"}' scripts/rss.ts",
+    "new-post": "yarn rssgen && git add . && git commit -m \"chore: new post\" && git push origin main",
+    "ncu": "npm-check-updates"
+  },
+  "dependencies": {
+    "utils": "*"
+  }
+}

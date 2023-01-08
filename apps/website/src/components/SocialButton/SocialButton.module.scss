@@ -1,0 +1,19 @@
+.wrap {
+  margin: var(--margin-button);
+}
+
+.box {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background: transparent;
+  overflow: hidden;
+  background: var(--theme-color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  color: var(--theme-color-secondary);
+}
