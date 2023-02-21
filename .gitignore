@@ -43,10 +43,10 @@ jspm_packages/
 .env*
 
 # next.js build output
-.next/**
-out/**
-build/**
-dist/**
+*/.next/
+*/out/
+*/build/
+*/dist/
 
 # Turborepo
 .turbo

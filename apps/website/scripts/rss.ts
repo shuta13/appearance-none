@@ -4,7 +4,8 @@ import * as fs from 'fs';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
 import { BlogHost, BlogTitle } from '~/config';
-import { Entries, getBlogData } from '~/usecases/getBlogData';
+import { Articles } from '~/repositories/article';
+import { getArticles } from '~/usecases/getArticles';
 
 dotenv.config();
 dayjs.locale(ja);
@@ -12,14 +13,14 @@ dayjs.locale(ja);
 const entryUrl = `${BlogHost}/entry`;
 const rssUrl = `${BlogHost}/rss.xml`;
 
-const createFeed = (entry: Entries[number]) => ` <item>
+const createFeed = (entry: Articles[number]) => ` <item>
     <title>${entry.head.title}</title>
     <link>${entryUrl}/${entry.head.slug}</link>
     <guid>${entryUrl}/${entry.head.slug}</guid>
     <pubDate>${dayjs(entry.head.created).toString()}</pubDate>
   </item>`;
 
-export const generateRss = (data: Entries) => {
+export const generateRss = (data: Articles) => {
   const feeds = data.map((d) => createFeed(d));
   const lastBuildData = dayjs().toString();
 
@@ -41,7 +42,7 @@ ${feeds.join('\n')}
 };
 
 (async () => {
-  const data = await getBlogData();
+  const data = await getArticles().invoke();
 
   const rss = generateRss(data);
   await fs.promises.writeFile(process.cwd() + '/public/rss.xml', rss);
