@@ -38,13 +38,13 @@ export const Template: React.FC<Articles[number]> = (props) => {
     <>
       <SEO title={title} description={description} propsJsonLd={jsonLd} />
       <article className="space-y-20" ref={articleRef}>
-        <div className="space-y-4 mt-20">
+        <div className="space-y-4 mt-8">
           <Day head={head} />
           <h1>{head.title}</h1>
           <TagLinkContainer head={head} />
         </div>
         <ToC body={body} />
-        <div>
+        <div className="template">
           {body.map(
             (article, index) =>
               article.content !== null && (

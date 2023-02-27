@@ -67,12 +67,6 @@ img:focus-visible {
   outline: solid 4px var(--accent-light-blue);
 }
 
-a {
-  text-decoration: none;
-  color: var(--accent-blue);
-  word-break: break-all;
-}
-
 h1 {
   font-size: var(--font-size-h1);
 }
@@ -92,18 +86,25 @@ h6 {
 }
 
 p {
-  margin: 1rem 0;
   font-size: var(--font-size-article);
+}
+
+.template {
+  @apply space-y-4;
+}
+
+.template img {
+  @apply aspect-video max-w-media object-cover;
+}
+
+.template a {
+  @apply: appearance-nono border-b border-secondary;
 }
 
 code {
   font-family: var(--font-family-code);
   padding: 4px;
   border-radius: 4px;
-}
-
-img {
-  object-fit: cover;
 }
 
 blockquote {

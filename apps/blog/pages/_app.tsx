@@ -17,11 +17,13 @@ const courierPrime = Courier_Prime({
   subsets: ['latin'],
   weight: '400',
   variable: '--font-courier-prime',
+  display: 'swap',
 });
 const sourceSansPro = Source_Sans_Pro({
   subsets: ['latin'],
   weight: ['400', '700'],
   variable: '--font-source-sans-pro',
+  display: 'swap',
 });
 
 const BlogApp = ({ Component, pageProps }: AppPropsWithLayout) => {
