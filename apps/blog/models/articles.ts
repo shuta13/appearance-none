@@ -17,6 +17,7 @@ type ArticlesModel = Readonly<Articles[number]>;
 namespace ArticlesModel {
   export function transform(result: Articles[number]): ArticlesModel {
     return {
+      meta: result.meta,
       head: result.head,
       body: normalizeList(result.body),
     };

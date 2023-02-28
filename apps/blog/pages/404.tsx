@@ -1,3 +1,8 @@
-const Blog404: React.FC = () => <p>404 - Page not found</p>;
+import { getErrorLayout } from '~/components/Layouts/ErrorLayout';
+import { NextPageWithLayout } from './_app';
 
-export default Blog404;
+const Custom404: NextPageWithLayout = () => <p>Not found.</p>;
+
+Custom404.getLayout = getErrorLayout;
+
+export default Custom404;

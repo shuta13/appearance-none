@@ -1,24 +1,19 @@
 import { Template } from '~/components/Template';
-import { Nav } from '~/components/Nav';
+import { getArticle } from '~/usecases/getArticle';
 import { getArticles } from '~/usecases/getArticles';
 import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { NextPageWithLayout } from '../_app';
 import { getBaseLayout } from '~/components/Layouts/BaseLayout';
+import { SEO } from '~/components/SEO';
+import { summarize } from 'utils/str';
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const data = await getArticles().invoke();
+  const article = await getArticle().invoke({
+    id: context.params?.slug as string,
+  });
 
-  const entry = data.find((d) => d.head.slug === context.params?.slug)!;
-  const currentIndex = data.indexOf(entry);
-  const prevEntry =
-    currentIndex !== -1 && currentIndex < data.length - 1
-      ? data[currentIndex + 1]
-      : null;
-  const nextEntry =
-    currentIndex !== -1 && currentIndex > 0 ? data[currentIndex - 1] : null;
-
-  if (entry != null) {
-    return { props: { entry, prevEntry, nextEntry } };
+  if (article != null) {
+    return { props: { article } };
   } else {
     return {
       notFound: true,
@@ -27,12 +22,12 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 };
 
 export const getStaticPaths = async () => {
-  const data = await getArticles().invoke();
+  const articles = await getArticles().invoke();
 
-  if (data != null) {
-    const paths = data.map((d) => ({
+  if (articles != null) {
+    const paths = articles.map((article) => ({
       params: {
-        slug: d.head.slug,
+        slug: article.meta.id,
       },
     }));
     return {
@@ -46,12 +41,17 @@ export const getStaticPaths = async () => {
 
 const Slug: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
   (props) => {
-    const { entry, prevEntry, nextEntry } = props;
+    const { article } = props;
 
     return (
       <>
-        <Template {...entry} />
-        <Nav prevEntry={prevEntry} nextEntry={nextEntry} />
+        <SEO
+          title={article.head.title}
+          description={summarize(
+            article.body.map((data) => data.htmlStr).join('')
+          )}
+        />
+        <Template {...article} />
       </>
     );
   };

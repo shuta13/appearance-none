@@ -1,28 +1,26 @@
 import type { InferGetStaticPropsType } from 'next';
 import { Card } from '~/components/Card';
-import { SocialButtonContainer } from '~/components/SocialButtonContainer';
 import { SEO } from '~/components/SEO';
 import { getArticles } from '~/usecases/getArticles';
 import { getBaseLayout } from '~/components/Layouts/BaseLayout';
 import { NextPageWithLayout } from './_app';
 
 export const getStaticProps = async () => {
-  const data = await getArticles().invoke();
+  const articles = await getArticles().invoke();
 
-  if (data != null) {
-    return { props: { data } };
+  if (articles != null) {
+    return { props: { articles } };
   } else throw new Error();
 };
 
 const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
-  ({ data }) => {
+  ({ articles }) => {
     return (
       <>
         <SEO />
-        {data.map((d, i) => (
-          <Card {...d} key={i} />
+        {articles.map((article, i) => (
+          <Card {...article} key={i} />
         ))}
-        <SocialButtonContainer />
       </>
     );
   };

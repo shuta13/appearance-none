@@ -1,10 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
-// export const config = {
-//   unstable_runtimeJS: false,
-// };
-//
-
 declare global {
   interface Window {
     twttr: any;

@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { TagsMap } from '../../config';
 import styles from './Tag.module.scss';
 
 export const Tag: React.FC<{ tagName: string }> = ({ tagName }) => {

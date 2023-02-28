@@ -1,12 +1,6 @@
 import Head from 'next/head';
 import { BlogDescription, BlogTitle, DefaultJsonId } from '../config';
 
-type Props = {
-  title?: string;
-  description?: string;
-  propsJsonLd?: typeof DefaultJsonId;
-};
-
 // see: https://github.com/vercel/next.js/issues/2213#issuecomment-307478160
 // see: https://technicalseo.com/tools/schema-markup-generator/
 const jsonLd = (args: typeof DefaultJsonId) => {
@@ -62,11 +56,15 @@ const jsonLd = (args: typeof DefaultJsonId) => {
   return JSON.stringify(json);
 };
 
-export const SEO: React.FC<Props> = (props) => {
+export const SEO: React.FC<{
+  title?: string;
+  description?: string;
+  linkedData?: typeof DefaultJsonId;
+}> = (props) => {
   const {
     title = BlogTitle,
     description = BlogDescription,
-    propsJsonLd = DefaultJsonId,
+    linkedData = DefaultJsonId,
   } = props;
 
   return (
@@ -106,7 +104,7 @@ export const SEO: React.FC<Props> = (props) => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: jsonLd({ ...propsJsonLd }),
+          __html: jsonLd({ ...linkedData }),
         }}
       />
     </Head>

@@ -15,6 +15,9 @@ export type PagePropsResults = GetPageResponse & {
 };
 
 export type Articles = {
+  meta: {
+    id: string;
+  };
   head: {
     slug: string;
     tags: string[];
@@ -30,10 +33,44 @@ export type Articles = {
 }[];
 
 interface ArticleRepository {
+  getArticle(params: { id: string }): Promise<Articles[number]>;
   getArticles(): Promise<Articles>;
 }
 
 const article: ArticleRepository = {
+  async getArticle({ id }) {
+    const client = createNotionClient();
+    try {
+      const pageProps = (
+        (await client.pages.retrieve({
+          page_id: id,
+        })) as unknown as PagePropsResults
+      ).properties;
+      const pageContents = await client.blocks.children.list({
+        block_id: id,
+      });
+      return {
+        meta: {
+          id,
+        },
+        head: {
+          slug: pageProps.Slug.rich_text[0].plain_text,
+          tags: pageProps.Tags.multi_select.map(
+            ({ name }: { name: string }) => name
+          ),
+          created: pageProps.Created.created_time,
+          updated: pageProps.Updated.last_edited_time,
+          title: pageProps.Name.title[0].plain_text,
+          coverImageUrl: pageProps.cover?.external.url ?? null,
+        },
+        body: (pageContents.results as BlockObjectResponse[]).map(
+          articlesBodyModel.transform
+        ),
+      };
+    } catch (e) {
+      throw e;
+    }
+  },
   async getArticles() {
     const client = createNotionClient();
     const databaseId = process.env.NOTION_DATABASE_ID!;
@@ -62,6 +99,9 @@ const article: ArticleRepository = {
           block_id: result.id,
         });
         entries.push({
+          meta: {
+            id: result.id,
+          },
           head: {
             slug: pageProps.Slug.rich_text[0].plain_text,
             tags: pageProps.Tags.multi_select.map(
