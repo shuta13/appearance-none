@@ -31,7 +31,7 @@ const BlogApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   return (
     <div
-      className={`${courierPrime.variable} ${sourceSansPro.variable} font-sans`}
+      className={`${courierPrime.variable} ${sourceSansPro.variable} font-sans h-full`}
     >
       {getLayout(<Component {...pageProps} />)}
     </div>

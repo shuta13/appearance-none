@@ -37,6 +37,7 @@ import {
   VideoBlockObjectResponse,
   RichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints';
+import { Tweet } from 'react-tweet';
 
 export namespace CustomBlockObjectResponse {
   export type BulletedList = {
@@ -53,11 +54,12 @@ export namespace CustomBlockObjectResponse {
   } & Omit<UnsupportedBlockObjectResponse, 'type'>;
 }
 
-export type BlockObjectResponse =
+export type BlockObjectResponse = (
   | OriginalBlockObjectResponse
   | CustomBlockObjectResponse.BulletedList
   | CustomBlockObjectResponse.NumberedList
-  | CustomBlockObjectResponse.TodoList;
+  | CustomBlockObjectResponse.TodoList
+) & { children?: { content: BlockObjectResponse; htmlStr: string }[] };
 
 export function isParagraph(
   block: BlockObjectResponse
@@ -397,11 +399,6 @@ export function switcher(block: BlockObjectResponse): SwitcherReturn {
   }
 }
 
-/** twitter embedカードを正しく表示する。 */
-function isTwitterHref(itemHref: string) {
-  return itemHref.includes('//t.co') || itemHref.includes('twitter.com');
-}
-
 function getTextContent(items: RichTextItemResponse[] | RichTextItemResponse) {
   let isIframe = false;
   function itemFilter(item: RichTextItemResponse) {
@@ -409,8 +406,10 @@ function getTextContent(items: RichTextItemResponse[] | RichTextItemResponse) {
     if (item.plain_text.includes('<iframe')) {
       isIframe = true;
     }
-    if (item.href != null && !isTwitterHref(item.href) && !isIframe) {
-      return `<a href="${item.href}" target="_blank" rel="noopener noreferrer">${item.plain_text}</a>`;
+    if (item.href != null && !isIframe) {
+      return `<a href="${item.href}" target="_blank" rel="noopener noreferrer" style="
+        border-bottom: 1px solid var(--theme-color-secondary);
+      ">${item.plain_text}</a>`;
     } else {
       return item.plain_text;
     }
@@ -427,9 +426,6 @@ export function renderer(block: BlockObjectResponse) {
   const Element = `${tagName}` as keyof JSX.IntrinsicElements;
 
   if (isParagraph(block)) {
-    if (hasChildren(block)) {
-      return <Element>{block.children.map(renderer)}</Element>;
-    }
     return (
       <Element
         dangerouslySetInnerHTML={{
@@ -440,39 +436,54 @@ export function renderer(block: BlockObjectResponse) {
   } else if (isHeading1(block)) {
     const content = getTextContent(block.heading_1.rich_text);
     return (
-      <Element
-        id={content}
-        href={`#${content}`}
-        dangerouslySetInnerHTML={{
-          __html: content,
-        }}
-      />
+      <Element id={content}>
+        <a
+          href={`#${content}`}
+          dangerouslySetInnerHTML={{
+            __html: content,
+          }}
+        />
+      </Element>
     );
   } else if (isHeading2(block)) {
     const content = getTextContent(block.heading_2.rich_text);
     return (
-      <Element
-        id={content}
-        href={`#${content}`}
-        dangerouslySetInnerHTML={{
-          __html: content,
-        }}
-      />
+      <Element id={content}>
+        <a
+          href={`#${content}`}
+          dangerouslySetInnerHTML={{
+            __html: content,
+          }}
+        />
+      </Element>
     );
   } else if (isHeading3(block)) {
     const content = getTextContent(block.heading_3.rich_text);
     return (
-      <Element
-        id={content}
-        href={`#${content}`}
-        dangerouslySetInnerHTML={{
-          __html: content,
-        }}
-      />
+      <Element id={content}>
+        <a
+          href={`#${content}`}
+          dangerouslySetInnerHTML={{
+            __html: content,
+          }}
+        />
+      </Element>
     );
   } else if (isBulletList(block)) {
     return <Element>{block.items.map(renderer)}</Element>;
   } else if (isBulletListItem(block)) {
+    if (hasChildren(block)) {
+      return (
+        <Element key={block.id}>
+          {getTextContent(block.bulleted_list_item.rich_text)}
+          <ul
+            dangerouslySetInnerHTML={{
+              __html: block.children.map((child) => child.htmlStr).join(''),
+            }}
+          />
+        </Element>
+      );
+    }
     return (
       <Element
         key={block.id}
@@ -484,6 +495,13 @@ export function renderer(block: BlockObjectResponse) {
   } else if (isNumberedList(block)) {
     return <Element>{block.items.map(renderer)}</Element>;
   } else if (isNumberedListItem(block)) {
+    if (hasChildren(block)) {
+      return (
+        <Element key={block.id}>
+          <ol>{block.children.map((child) => renderer(child.content))}</ol>
+        </Element>
+      );
+    }
     return (
       <Element
         key={block.id}
@@ -535,6 +553,12 @@ export function renderer(block: BlockObjectResponse) {
   } else if (isTableRow(block)) {
     return <Element></Element>;
   } else if (isEmbed(block)) {
+    const { embed } = block;
+    if (embed.url.match(/twitter.com/)) {
+      const ids = new URL(embed.url).pathname.split('/');
+      const id = ids[ids.length - 1];
+      return <Tweet id={id} />;
+    }
     return <Element></Element>;
   } else if (isBookmark(block)) {
     return <Element></Element>;

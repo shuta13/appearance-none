@@ -1,40 +1,28 @@
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import type { GetServerSidePropsContext, InferGetStaticPropsType } from 'next';
 import { Card } from '~/components/Card';
-import { SocialButtonContainer } from '~/components/SocialButtonContainer';
 import { SEO } from '~/components/SEO';
 import { getArticles } from '~/usecases/getArticles';
+import { getBaseLayout } from '~/components/Layouts/BaseLayout';
+import { NextPageWithLayout } from '../_app';
 
-const BlogTag: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
-  entries,
-}) => {
-  return (
-    <>
-      <SEO />
-      {entries.map((entry, i) => (
-        <Card key={i} {...entry} />
-      ))}
-      <SocialButtonContainer />
-    </>
-  );
-};
-
-export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const data = await getArticles().invoke();
-  const entries = data.filter((d) =>
-    d.head.tags.includes(context.params!.tag as string)
-  );
-
-  if (entries.length > 0) {
-    return { props: { entries } };
-  } else {
+export const getStaticProps = async (context: GetServerSidePropsContext) => {
+  const data = await getArticles().invoke({
+    tag: (context.params?.tag as string) ?? 'all',
+  });
+  if (!data) {
     return {
       notFound: true,
     };
   }
+  return {
+    props: {
+      data,
+    },
+  };
 };
 
 export const getStaticPaths = async () => {
-  const data = await getArticles().invoke();
+  const data = await getArticles().invoke({ tag: 'all' });
 
   if (data != null) {
     const tags = [...new Set(data.map((d) => d.head.tags).flat())];
@@ -49,4 +37,26 @@ export const getStaticPaths = async () => {
   }
 };
 
-export default BlogTag;
+const Tags: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
+  ({ data }) => {
+    return (
+      <>
+        <SEO />
+        <article>
+          <nav>
+            <ul className="space-y-4">
+              {data.map((article) => (
+                <li key={article.meta.id} className="space-y-4">
+                  <Card {...article} />
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </article>
+      </>
+    );
+  };
+
+Tags.getLayout = getBaseLayout;
+
+export default Tags;

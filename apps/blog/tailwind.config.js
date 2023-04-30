@@ -11,6 +11,7 @@ module.exports = {
       colors: {
         primary: 'var(--theme-color-primary)',
         secondary: 'var(--theme-color-secondary)',
+        link: 'var(--accent-blue)',
       },
       maxWidth: {
         media: '800px',

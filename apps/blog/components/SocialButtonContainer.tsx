@@ -45,6 +45,7 @@ const SocialButton: React.FC<{
       rel="nofollow noreferrer noopener"
       target="_blank"
       className="w-[32px] h-[32px] flex place-content-center place-items-center bg-secondary text-primary rounded-full"
+      prefetch={false}
     >
       <FontAwesomeIcon icon={icon} width={32} height={32} title={href} />
     </Link>

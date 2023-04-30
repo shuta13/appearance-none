@@ -42,7 +42,7 @@ ${feeds.join('\n')}
 };
 
 (async () => {
-  const data = await getArticles().invoke();
+  const data = await getArticles().invoke({ tag: 'all' });
 
   const rss = generateRss(data);
   await fs.promises.writeFile(process.cwd() + '/public/rss.xml', rss);

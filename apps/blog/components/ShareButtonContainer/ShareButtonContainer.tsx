@@ -1,11 +1,13 @@
+import cn from 'classnames';
 import Image from 'next/image';
-import styles from './ShareButtonContainer.module.scss';
 import { useMount } from 'utils/hooks';
 
-export const ShareButtonContainer: React.FC = () => {
+export const ShareButtonContainer: React.FC<{ className?: string }> = ({
+  className,
+}) => {
   const { mounted } = useMount();
   return (
-    <div className={styles.wrap}>
+    <div className={cn('flex space-x-4', className)}>
       {mounted && (
         <>
           <a

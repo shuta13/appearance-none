@@ -23,7 +23,9 @@ namespace ArticlesModel {
     };
   }
 
-  function normalizeList(body: Articles[number]['body']) {
+  export function normalizeList(
+    body: (Articles[number]['body'][number] | null)[]
+  ): ArticlesModel['body'] {
     const bulletedListItems: {
       item: BulletedListItemBlockObjectResponse;
       index: number;
@@ -37,24 +39,24 @@ namespace ArticlesModel {
       index: number;
     }[] = [];
 
-    body.forEach((item, index) => {
-      if (isBlockObject(item.content)) {
+    body.forEach((item) => {
+      if (item !== null && isBlockObject(item.content)) {
         if (isBulletListItem(item.content)) {
           bulletedListItems.push({
             item: item.content,
-            index,
+            index: body.indexOf(item),
           });
         }
         if (isNumberedListItem(item.content)) {
           numberedListItems.push({
             item: item.content,
-            index,
+            index: body.indexOf(item),
           });
         }
         if (isTodo(item.content)) {
           todoListItems.push({
             item: item.content,
-            index,
+            index: body.indexOf(item),
           });
         }
       }
@@ -77,12 +79,20 @@ namespace ArticlesModel {
           items: items.map((value) => value.item),
         });
         if (last.index - first.index > 0) {
-          body.splice(first.index, last.index - first.index + 1, content);
+          for (let i = 0; i < last.index - first.index + 1; i++) {
+            const currentIndex = first.index + i;
+            if (i === 0) {
+              body[currentIndex] = content;
+            } else {
+              // 元の配列の長さを維持するため、nullを詰める。
+              body[currentIndex] = null;
+            }
+          }
         }
       });
     });
 
-    return body;
+    return body.filter((item) => item !== null) as ArticlesModel['body'];
   }
 
   function groupByNumbering<T extends Record<string, any>>(arr: T[]) {

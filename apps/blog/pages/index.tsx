@@ -6,21 +6,37 @@ import { getBaseLayout } from '~/components/Layouts/BaseLayout';
 import { NextPageWithLayout } from './_app';
 
 export const getStaticProps = async () => {
-  const articles = await getArticles().invoke();
+  const data = await getArticles().invoke({ tag: 'all' });
 
-  if (articles != null) {
-    return { props: { articles } };
-  } else throw new Error();
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      data,
+    },
+  };
 };
 
 const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
-  ({ articles }) => {
+  ({ data }) => {
     return (
       <>
         <SEO />
-        {articles.map((article, i) => (
-          <Card {...article} key={i} />
-        ))}
+        <article>
+          <nav>
+            <ul className="space-y-4">
+              {data.map((article) => (
+                <li key={article.meta.id} className="space-y-4">
+                  <Card {...article} />
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </article>
       </>
     );
   };

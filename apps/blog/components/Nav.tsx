@@ -13,14 +13,14 @@ export const Nav: React.FC<{
       <div className="w-full flex place-content-between">
         <span>
           {prevEntry && (
-            <Link href={prevEntry.head.slug}>
+            <Link href={prevEntry.head.slug} prefetch={false}>
               {summarize(prevEntry.head.title, MAX_STRING_LENGTH)}
             </Link>
           )}
         </span>
         <span>
           {nextEntry && (
-            <Link href={nextEntry.head.slug}>
+            <Link href={nextEntry.head.slug} prefetch={false}>
               {summarize(nextEntry.head.title, MAX_STRING_LENGTH)}
             </Link>
           )}

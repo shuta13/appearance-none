@@ -12,7 +12,11 @@ const config = {
       },
     ],
   },
-  transpilePackages: ['utils'],
+  transpilePackages: [
+    'utils',
+    /** @see https://github.com/vercel-labs/react-tweet/tree/main/apps/next-app#troubleshooting */
+    'react-tweet',
+  ],
   compiler: {
     removeConsole:
       process.env.NODE_ENV === 'production'
