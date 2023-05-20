@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --theme-color-primary: #1e1e1e;
+    --theme-color-secondary: #f2f2f2;
+    --accent-blue: #6890c4;
+    --accent-light-blue: #88abda;
+    --accent-purple: #8868c4;
+    --font-size-h1: 1.6rem;
+    --font-size-h2: 1.4rem;
+    --font-size-article: 1.1rem;
+    --font-size-header-xl: 1.6rem;
+    --font-size-header-md: 1.6rem;
+    --font-size-header-xs: 1.3rem;
+    --font-size-sub-title: 0.8rem;
+    --margin-button: 0 0.5em;
+    --animate-duration-fast: 0.1s;
+    --z-index-top: 2147483647;
+    --z-index-bottom: -2147483647;
+  }
+
+  * {
+    transition: outline var(--animate-duration-fast) ease-in-out;
+  }
+
+  a {
+    @apply hover:opacity-80;
+    transition: opacity 200ms ease-in-out;
+  }
+
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    background: var(--theme-color-primary);
+    color: var(--theme-color-secondary);
+    font-family: var(--font-family-sans-serif);
+    letter-spacing: 0.05em;
+  }
+
+  #__next {
+    height: 100%;
+  }
+
+  *:focus-visible,
+  img:focus-visible {
+    outline: solid 4px var(--accent-light-blue);
+  }
+}
+
+@layer utilities {
+  .template {
+    @apply space-y-4 whitespace-pre-wrap;
+  }
+
+  .template img {
+    @apply aspect-video max-w-media object-cover;
+  }
+
+  .template a {
+    @apply appearance-none;
+  }
+
+  .template h1 {
+    @apply text-xl font-bold;
+  }
+
+  .template h2 {
+    @apply text-lg font-bold;
+  }
+
+  .template h3 {
+    @apply text-base font-bold;
+  }
+
+  .template ul {
+    @apply list-disc ml-6;
+  }
+
+  .template ol {
+    @apply list-decimal ml-6;
+  }
+
+  .template code {
+    font-family: var(--font-family-code);
+    padding: 4px;
+    border-radius: 4px;
+  }
+
+  .template blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #dfe2e5;
+  }
+
+  .template blockquote > :first-child {
+    margin-top: 0;
+  }
+
+  .template blockquote > :last-child {
+    margin-bottom: 0;
+  }
+
+  .template blockquote > p {
+    font-style: italic;
+  }
+
+  /* youtube embed */
+  .template iframe {
+    max-width: 560px;
+    width: 100%;
+  }
+}
