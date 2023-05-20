@@ -50,3 +50,6 @@ dist
 
 # Turborepo
 .turbo
+
+# macOS
+.DS_Store
