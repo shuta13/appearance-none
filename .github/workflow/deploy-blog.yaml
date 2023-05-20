@@ -1,0 +1,45 @@
+name: Deploy Blog
+
+on:
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  build-and-upload:
+    name: Build and upload
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      deployments: write
+
+    strategy:
+      matrix:
+        node-version: '18'
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: volta-cli/actions@4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install
+        run: npm ci .
+
+      - name: Build
+        run: npm run --prefix apps/blog build
+
+      - name: Export
+        run: npm run --prefix apps/blog export
+
+      - name: Upload
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: blog
+          directory: ./apps/blog/out
+          # Optional: Enable this if you want to have GitHub Deployments triggered
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
