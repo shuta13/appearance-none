@@ -69,7 +69,7 @@ export const SEO: React.FC<{
 
   return (
     <Head>
-      <link rel="icon" href="/images/icon.png" />
+      <link rel="icon" href="/images/icon.svg" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta name="description" content={`${description}`} />
       <meta name="twitter:card" content="summary_large_image" />

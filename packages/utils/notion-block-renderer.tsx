@@ -557,9 +557,16 @@ export function renderer(block: BlockObjectResponse) {
     if (embed.url.match(/twitter.com/)) {
       const ids = new URL(embed.url).pathname.split('/');
       const id = ids[ids.length - 1];
-      return <Tweet id={id} />;
+      return (
+        <blockquote>
+          <a href={embed.url} target="_blank" rel="noopener">
+            {embed.url}
+          </a>
+        </blockquote>
+      );
+      return <Tweet id={id} /> /* 動かない... */;
     }
-    return <Element></Element>;
+    return <Element src={embed.url} />;
   } else if (isBookmark(block)) {
     return <Element></Element>;
   } else if (isImage(block)) {
@@ -568,18 +575,20 @@ export function renderer(block: BlockObjectResponse) {
         return {
           src: block.image.external.url,
           alt: block.image.caption.map((text) => text.plain_text).join(''),
+          'data-x-image-type': block.image.type,
         };
       } else {
         return {
           src: block.image.file.url,
           alt: block.image.caption.map((text) => text.plain_text).join(''),
+          'data-x-image-type': block.image.type,
         };
       }
     })();
     return (
       <picture>
         <source srcSet={meta.src} />
-        <Element {...meta}></Element>
+        <Element {...meta} className="w-full"></Element>
       </picture>
     );
   } else if (isVideo(block)) {

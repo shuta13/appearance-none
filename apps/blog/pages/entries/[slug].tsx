@@ -4,9 +4,6 @@ import { GetServerSidePropsContext, InferGetStaticPropsType } from 'next';
 import { NextPageWithLayout } from '~/pages/_app';
 import { getBaseLayout } from '~/components/Layouts/BaseLayout';
 import { SEO } from '~/components/SEO';
-import { summarize } from 'utils/str';
-import { useRouter } from 'next/router';
-import { useCallback } from 'react';
 import { getArticles } from '~/usecases/getArticles';
 
 export const getStaticProps = async (context: GetServerSidePropsContext) => {
@@ -42,15 +39,10 @@ export const getStaticPaths = async () => {
 const Slug: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
   (props) => {
     const { article } = props;
-    const router = useRouter();
-    const handleOnClickBackButton = useCallback(() => {
-      router.back();
-    }, [router]);
 
     return (
       <>
         <SEO title={article.head.title} description={article.head.title} />
-        <button onClick={handleOnClickBackButton}>Back</button>
         <Template {...article} />
       </>
     );

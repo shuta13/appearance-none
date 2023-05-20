@@ -15,6 +15,7 @@ module.exports = {
       },
       maxWidth: {
         media: '800px',
+        content: '768px',
       },
     },
   },

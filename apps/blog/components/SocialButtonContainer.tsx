@@ -38,7 +38,6 @@ const SocialButton: React.FC<{
 }> = (props) => {
   const { href, icon } = props;
   const { mounted } = useMount();
-  if (!mounted) return null;
   return (
     <Link
       href={href}
@@ -47,7 +46,7 @@ const SocialButton: React.FC<{
       className="w-[32px] h-[32px] flex place-content-center place-items-center bg-secondary text-primary rounded-full"
       prefetch={false}
     >
-      <FontAwesomeIcon icon={icon} width={32} height={32} title={href} />
+      {mounted && <FontAwesomeIcon icon={icon} title={href} />}
     </Link>
   );
 };

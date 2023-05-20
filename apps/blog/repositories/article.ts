@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import {
   GetPageResponse,
   PartialBlockObjectResponse,
@@ -129,6 +131,11 @@ const article: ArticleRepository = {
   // },
   async getArticle({ id }) {
     const client = createNotionClient();
+    const imagePathName = '/notion-images';
+    const imageBasePath = path.join('public', imagePathName);
+    const isImageExist = (name: string) => {
+      return fs.existsSync(path.join(imageBasePath, `/${name}.png`));
+    };
     try {
       const pageProps = (
         (await client.pages.retrieve({
@@ -145,6 +152,23 @@ const article: ArticleRepository = {
           });
           pageContents.results[pageContents.results.indexOf(item)] = item;
         }
+
+        // Inspired: https://github.com/0si43/shetommy.com/pull/36/files
+        if (item.type === 'image' && item.image.type === 'file') {
+          if (!isImageExist(item.id)) {
+            const blob = await fetch(item.image.file.url).then((res) =>
+              res.blob()
+            );
+            const binary = (await blob.arrayBuffer()) as ArrayBuffer;
+            const buffer = Buffer.from(binary);
+            fs.writeFileSync(
+              path.join(imageBasePath, `/${item.id}.png`),
+              buffer
+            );
+          }
+          item.image.file.url = `${imagePathName}/${item.id}.png`;
+          pageContents.results[pageContents.results.indexOf(item)] = item;
+        }
       }
       return {
         meta: {
@@ -155,7 +179,7 @@ const article: ArticleRepository = {
           tags: pageProps.Tags.multi_select.map(
             ({ name }: { name: string }) => name
           ),
-          created: pageProps.Created.created_time,
+          created: pageProps.Created.date.start,
           updated: pageProps.Updated.last_edited_time,
           title: pageProps.Name.title[0].plain_text,
           coverImageUrl: pageProps.cover?.external.url ?? null,
@@ -196,6 +220,12 @@ const article: ArticleRepository = {
                 },
               },
               {
+                property: 'isTag',
+                checkbox: {
+                  equals: false,
+                },
+              },
+              {
                 or,
               },
             ],
@@ -229,7 +259,7 @@ const article: ArticleRepository = {
             tags: pageProps.Tags.multi_select.map(
               ({ name }: { name: string }) => name
             ),
-            created: pageProps.Created.created_time,
+            created: pageProps.Created.date.start,
             updated: pageProps.Updated.last_edited_time,
             title: pageProps.Name.title[0].plain_text,
             coverImageUrl: pageProps.cover?.external.url ?? null,
