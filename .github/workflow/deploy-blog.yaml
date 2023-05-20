@@ -6,7 +6,7 @@ on:
       - 'main'
 
 jobs:
-  build-and-upload:
+  build-and-publish:
     name: Build and upload
     runs-on: ubuntu-latest
 
