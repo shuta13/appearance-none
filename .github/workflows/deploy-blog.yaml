@@ -29,6 +29,15 @@ jobs:
 
       - name: Build
         run: npm run --prefix apps/blog build
+        env:
+          SPACE_ID: ${{ secrets.SPACE_ID }}
+          DELIVERY_KEY: ${{ secrets.DELIVERY_KEY }}
+          ENTRY_ID: ${{ secrets.ENTRY_ID }}
+          NOTION_ACCESS_TOKEN: ${{ secrets.NOTION_ACCESS_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          NOTION_DATABASE_VIEW_ID: ${{ secrets.NOTION_DATABASE_VIEW_ID }}
+          NOTION_RNX_AUTH_TOKEN: ${{ secrets.NOTION_RNX_AUTH_TOKEN }}
+          NOTION_RNX_ACTIVE_USER: ${{ secrets.NOTION_RNX_ACTIVE_USER }}
 
       - name: Export
         run: npm run --prefix apps/blog export
