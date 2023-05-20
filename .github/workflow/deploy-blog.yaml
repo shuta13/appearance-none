@@ -34,7 +34,7 @@ jobs:
       - name: Export
         run: npm run --prefix apps/blog export
 
-      - name: Upload
+      - name: Publish
         uses: cloudflare/pages-action@1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
