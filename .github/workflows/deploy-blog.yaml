@@ -1,6 +1,9 @@
 name: Deploy Blog
 
-on: ['push']
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build-and-publish:
@@ -13,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: '18'
+        node-version: ['18']
 
     steps:
       - uses: actions/checkout@v3
