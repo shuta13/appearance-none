@@ -586,7 +586,7 @@ export function renderer(block: BlockObjectResponse) {
     return (
       <picture>
         <source srcSet={meta.src} />
-        <Element {...meta} className="w-full"></Element>
+        <Element {...meta} className="object-contain"></Element>
       </picture>
     );
   } else if (isVideo(block)) {

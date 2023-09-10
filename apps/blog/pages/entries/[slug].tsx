@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import { BlogHost, DateNow, DefaultJsonId, OgImageUrl } from '~/config';
 import { Day } from '~/components/Day';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export const getStaticProps = async (context: GetServerSidePropsContext) => {
   const article = await getArticle().invoke({
@@ -66,19 +67,24 @@ const Slug: NextPageWithLayout<
         description={article.head.title}
         linkedData={jsonLd}
       />
-      <article ref={articleRef} className="space-y-10">
+      <article ref={articleRef} className="space-y-8">
         <div className="space-y-4">
           <Day head={article.head} />
-          <h1>{article.head.title}</h1>
+          <h1 className="text-24 md:text-32 font-bold">{article.head.title}</h1>
         </div>
         <ToC body={article.body} />
         <div
-          className="template"
+          className="template border-y-2 border-white/20 pb-4"
           dangerouslySetInnerHTML={{
             __html: article.body.map((article) => article.htmlStr).join(''),
           }}
         />
         <Share url={url} text={title} />
+        <div>
+          <Link href="/" className="text-14">
+            記事一覧へ戻る
+          </Link>
+        </div>
       </article>
     </>
   );

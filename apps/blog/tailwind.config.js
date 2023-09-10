@@ -28,7 +28,8 @@ module.exports = {
       colors: {
         primary: 'var(--theme-color-primary)',
         secondary: 'var(--theme-color-secondary)',
-        link: 'var(--accent-blue)',
+        'accent-blue': 'var(--accent-blue)',
+        'accent-purple': 'var(--accent-purple)',
       },
       maxWidth: {
         media: '800px',

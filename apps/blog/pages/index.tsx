@@ -21,25 +21,26 @@ export const getStaticProps = async () => {
   };
 };
 
-const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
-  ({ data }) => {
-    return (
-      <>
-        <SEO />
-        <article>
-          <nav>
-            <ul className="space-y-4">
-              {data.map((article) => (
-                <li key={article.meta.id} className="space-y-4">
-                  <Card {...article} />
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </article>
-      </>
-    );
-  };
+const Home: NextPageWithLayout<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ data }) => {
+  return (
+    <>
+      <SEO />
+      <article>
+        <nav>
+          <ul className="grid md:grid-cols-2 gap-4 md:gap-8">
+            {data.map((article) => (
+              <li key={article.meta.id} className="space-y-4">
+                <Card {...article} />
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </article>
+    </>
+  );
+};
 
 Home.getLayout = getBaseLayout;
 

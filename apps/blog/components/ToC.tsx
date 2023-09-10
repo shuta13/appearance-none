@@ -69,9 +69,9 @@ const renderToC = (depth: number, value: string) => {
 export const ToC: React.FC<{ body: Articles[number]['body'] }> = ({ body }) => {
   const html = body.map((value) => value.htmlStr).join('');
   return (
-    <details className="space-y-2">
+    <details className="space-y-2" open={true}>
       <summary className="cursor-pointer">
-        <h1 className="inline">目次</h1>
+        <h2 className="inline">目次</h2>
       </summary>
       <ul className="space-y-2 pl-4">
         {createHeadingNodes(html)?.map((node, i) => (

@@ -7,8 +7,9 @@
     --theme-color-primary: #1e1e1e;
     --theme-color-secondary: #f2f2f2;
     --accent-blue: #6890c4;
-    --accent-light-blue: #88abda;
     --accent-purple: #8868c4;
+    --accent-light-blue: #1df2dd;
+    --accent-pink: #bf267a;
     --font-size-h1: 1.6rem;
     --font-size-h2: 1.4rem;
     --font-size-article: 1.1rem;
@@ -56,11 +57,11 @@
 
 @layer utilities {
   .template {
-    @apply space-y-4 whitespace-pre-wrap;
+    @apply space-y-4 whitespace-pre-wrap break-words;
   }
 
   .template img {
-    @apply aspect-video max-w-media object-cover;
+    @apply max-h-[400px];
   }
 
   .template a {
