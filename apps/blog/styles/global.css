@@ -27,8 +27,8 @@
   }
 
   a {
-    @apply hover:opacity-80;
-    transition: opacity 200ms ease-in-out;
+    @apply hover:underline;
+    color: var(--accent-blue);
   }
 
   html,
@@ -77,6 +77,12 @@
 
   .template h3 {
     @apply text-base font-bold;
+  }
+
+  .template h1 > a,
+  .template h2 > a,
+  .template h3 > a {
+    @apply text-secondary before:content-["#"];
   }
 
   .template ul {

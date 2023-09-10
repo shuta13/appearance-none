@@ -2,11 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import {
   GetPageResponse,
-  PartialBlockObjectResponse,
   QueryDatabaseResponse,
 } from '@notionhq/client/build/src/api-endpoints';
-import { createNotionApi, createNotionClient } from 'utils/notion';
-import { BlockObjectResponse } from '~/../../packages/utils/notion-block-renderer';
+import { createN2M, createNotionClient } from 'utils/notion';
+import { BlockObjectResponse } from 'utils/notion-block-renderer';
 import model from '~/models/articles';
 import articlesBodyModel from '~/models/articleBody';
 import ArticlesModel from '~/models/articles';
@@ -42,93 +41,16 @@ export type ArticlesForRNX = (Pick<Articles[number], 'meta' | 'head'> & {
 })[];
 
 interface ArticleRepository {
-  // getArticleForRNX(params: { id: string }): Promise<ArticlesForRNX[number]>;
-  // getArticlesForRNX(params: {
-  //   size?: number;
-  //   tag?: string;
-  // }): Promise<ArticlesForRNX>;
   getArticle(params: { id: string }): Promise<Articles[number]>;
   getArticles(params: { size?: number; tag?: string }): Promise<Articles>;
   getChildren(params: {
     id: string;
     size?: number;
   }): Promise<Articles[number]['body']>;
+  getNotionMD(params: { id: string }): Promise<string>;
 }
 
 const article: ArticleRepository = {
-  // async getArticleForRNX({ id }) {
-  //   const client = createNotionApi();
-  //   try {
-  //     const page = await client.getPage(id);
-  //     const pageProps = page.block[0].value.properties;
-  //     return {
-  //       meta: {
-  //         id,
-  //       },
-  //       head: {
-  //         slug: pageProps.Slug.rich_text[0].plain_text,
-  //         tags: pageProps.Tags.multi_select.map(
-  //           ({ name }: { name: string }) => name
-  //         ),
-  //         created: pageProps.Created.created_time,
-  //         updated: pageProps.Updated.last_edited_time,
-  //         title: pageProps.Name.title[0].plain_text,
-  //         coverImageUrl: pageProps.cover?.external.url ?? null,
-  //       },
-  //       body: page,
-  //     };
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // },
-  // async getArticlesForRNX({ size = 100, tag = 'all' }) {
-  //   const client = createNotionApi();
-  //   const databaseId = process.env.NOTION_DATABASE_ID!;
-  //   const databaseViewId = process.env.NOTION_DATABASE_VIEW_ID!;
-
-  //   try {
-  //     const or = [];
-  //     if (tag !== 'all') {
-  //       or.push({
-  //         property: 'Tags',
-  //         multi_select: {
-  //           contains: tag,
-  //         },
-  //       });
-  //     }
-  //     const databaseResults = (
-  //       await client.getCollectionData(databaseId, databaseViewId, {})
-  //     ).result;
-
-  //     const { blockIds } = databaseResults;
-
-  //     const entries: ArticlesForRNX = [];
-  //     for (const id of blockIds) {
-  //       const page = await client.getPage(id);
-  //       const pageProps = page.block[0].value.properties;
-  //       entries.push({
-  //         meta: {
-  //           id,
-  //         },
-  //         head: {
-  //           slug: pageProps.Slug.rich_text[0].plain_text,
-  //           tags: pageProps.Tags.multi_select.map(
-  //             ({ name }: { name: string }) => name
-  //           ),
-  //           created: pageProps.Created.created_time,
-  //           updated: pageProps.Updated.last_edited_time,
-  //           title: pageProps.Name.title[0].plain_text,
-  //           coverImageUrl: pageProps.cover?.external.url ?? null,
-  //         },
-  //         body: page,
-  //       });
-  //     }
-
-  //     return entries;
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // },
   async getArticle({ id }) {
     const client = createNotionClient();
     const imagePathName = '/notion-images';
@@ -284,6 +206,12 @@ const article: ArticleRepository = {
     return (children.results as BlockObjectResponse[]).map(
       articlesBodyModel.transform
     );
+  },
+  async getNotionMD({ id }) {
+    const n2m = createN2M();
+    const blocks = await n2m.pageToMarkdown(id);
+    const objects = n2m.toMarkdownString(blocks);
+    return objects.parent;
   },
 };
 

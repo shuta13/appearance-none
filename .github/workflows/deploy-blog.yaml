@@ -1,9 +1,12 @@
 name: Deploy Blog
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      tag:
+        type: string
+        description: 'Target Version (例: 0.0.1)'
+        required: true
 
 jobs:
   build-and-publish:
