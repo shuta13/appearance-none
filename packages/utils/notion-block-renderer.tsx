@@ -407,9 +407,7 @@ function getTextContent(items: RichTextItemResponse[] | RichTextItemResponse) {
       isIframe = true;
     }
     if (item.href != null && !isIframe) {
-      return `<a href="${item.href}" target="_blank" rel="noopener noreferrer" style="
-        border-bottom: 1px solid var(--theme-color-secondary);
-      ">${item.plain_text}</a>`;
+      return `<a href="${item.href}" target="_blank" rel="noopener noreferrer">${item.plain_text}</a>`;
     } else {
       return item.plain_text;
     }

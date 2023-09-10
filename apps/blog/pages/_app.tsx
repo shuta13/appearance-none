@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { Courier_Prime, Source_Sans_Pro } from '@next/font/google';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
+import NextTopLoader from 'nextjs-toploader';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -33,6 +34,8 @@ const BlogApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     <div
       className={`${courierPrime.variable} ${sourceSansPro.variable} font-sans h-full`}
     >
+      {/* TODO: colorを可変にする。*/}
+      <NextTopLoader showSpinner={false} shadow={false} color="#f2f2f2" />
       {getLayout(<Component {...pageProps} />)}
     </div>
   );
