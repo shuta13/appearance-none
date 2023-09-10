@@ -23,6 +23,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: 'v${{github.event.inputs.tag}}'
       - uses: volta-cli/action@v4
         with:
           node-version: ${{ matrix.node-version }}
