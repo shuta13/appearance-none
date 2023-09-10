@@ -1,12 +1,6 @@
 name: Deploy Blog
 
-on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        type: string
-        description: 'Target Version (例: 0.0.1)'
-        required: true
+on: [workflow_dispatch]
 
 jobs:
   build-and-publish:
