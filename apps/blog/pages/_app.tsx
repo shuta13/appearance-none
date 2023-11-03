@@ -34,8 +34,11 @@ const BlogApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     <div
       className={`${courierPrime.variable} ${sourceSansPro.variable} font-sans h-full`}
     >
-      {/* TODO: colorを可変にする。*/}
-      <NextTopLoader showSpinner={false} shadow={false} color="#f2f2f2" />
+      <NextTopLoader
+        showSpinner={false}
+        shadow={false}
+        color="var(--theme-color-secondary)"
+      />
       {getLayout(<Component {...pageProps} />)}
     </div>
   );

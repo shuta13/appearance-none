@@ -6,10 +6,8 @@
   :root {
     --theme-color-primary: #1e1e1e;
     --theme-color-secondary: #f2f2f2;
-    --accent-blue: #6890c4;
-    --accent-purple: #8868c4;
-    --accent-light-blue: #1df2dd;
-    --accent-pink: #bf267a;
+    --accent-green: #9cff2e;
+    --accent-pink: #ff4b91;
     --font-size-h1: 1.6rem;
     --font-size-h2: 1.4rem;
     --font-size-article: 1.1rem;
@@ -29,7 +27,7 @@
 
   a {
     @apply hover:underline;
-    color: var(--accent-blue);
+    color: var(--accent-green);
   }
 
   html,
@@ -51,7 +49,7 @@
 
   *:focus-visible,
   img:focus-visible {
-    outline: solid 4px var(--accent-light-blue);
+    outline: solid 4px var(--accent-green);
   }
 }
 

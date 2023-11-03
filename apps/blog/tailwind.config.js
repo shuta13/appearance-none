@@ -28,8 +28,8 @@ module.exports = {
       colors: {
         primary: 'var(--theme-color-primary)',
         secondary: 'var(--theme-color-secondary)',
-        'accent-blue': 'var(--accent-blue)',
-        'accent-purple': 'var(--accent-purple)',
+        'accent-green': 'var(--accent-green)',
+        'accent-pink': 'var(--accent-pink)',
       },
       maxWidth: {
         media: '800px',

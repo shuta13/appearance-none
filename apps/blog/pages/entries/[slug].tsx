@@ -69,8 +69,8 @@ const Slug: NextPageWithLayout<
       />
       <article ref={articleRef} className="space-y-8">
         <div className="space-y-4">
-          <Day head={article.head} />
           <h1 className="text-24 md:text-32 font-bold">{article.head.title}</h1>
+          <Day head={article.head} />
         </div>
         <ToC body={article.body} />
         <div

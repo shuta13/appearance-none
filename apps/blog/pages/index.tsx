@@ -29,7 +29,7 @@ const Home: NextPageWithLayout<
       <SEO />
       <article>
         <nav>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-0 gap-y-4 md:gap-8">
+          <ul className="">
             {data.map((article) => (
               <li key={article.meta.id} className="space-y-4">
                 <Card {...article} />
