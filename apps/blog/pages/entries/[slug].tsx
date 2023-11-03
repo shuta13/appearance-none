@@ -48,7 +48,7 @@ const Slug: NextPageWithLayout<
   const { article } = props;
 
   const title = article.head.title;
-  const url = BlogHost + `/entry/${article.head.slug}`;
+  const url = BlogHost + `/entry/${article.meta.id}`;
 
   const jsonLd: typeof DefaultJsonId = {
     title,
@@ -103,6 +103,8 @@ export const Share: React.FC<{
         <a
           href={`https://twitter.com/share?url=${url}&text=${text}&via=did0es`}
           className="rounded bg-black w-[40px] h-[40px] p-2"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <svg
             viewBox="0 0 1200 1227"
