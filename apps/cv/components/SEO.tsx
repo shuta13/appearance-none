@@ -28,7 +28,7 @@ const jsonLd = (args: typeof DefaultJsonId) => {
         url: 'https://did0es.me',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://blog.did0es.me/images/icon.png',
+          url: 'https://did0es.me/images/icon.png',
         },
       },
       datePublished: updated,
@@ -42,7 +42,7 @@ const jsonLd = (args: typeof DefaultJsonId) => {
           '@type': 'ListItem',
           position: 1,
           name: Title,
-          item: 'https://blog.did0es.me',
+          item: 'https://did0es.me',
         },
         {
           '@type': 'ListItem',
@@ -74,24 +74,18 @@ export const SEO: React.FC<{
       <meta name="description" content={`${description}`} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={`${title}`} />
-      <meta
-        name="twitter:image"
-        content="https://blog.did0es.me/images/og.png"
-      />
+      <meta name="twitter:image" content="https://did0es.me/images/og.png" />
       <meta name="twitter:description" content={`${description}`} />
       <meta property="og:locale" content="ja_JP" />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://blog.did0es.me" />
+      <meta property="og:url" content="https://did0es.me" />
       <meta property="og:title" content={`${title}`} />
       <meta property="og:site_name" content={`${title}`} />
       <meta property="og:description" content={`${description}`} />
-      <meta
-        property="og:image"
-        content="https://blog.did0es.me/images/og.png"
-      />
+      <meta property="og:image" content="https://did0es.me/images/og.png" />
       <meta
         property="og:image:secure_url"
-        content="https://blog.did0es.me/images/og.png"
+        content="https://did0es.me/images/og.png"
       />
       <meta property="og:image:type" content="image/png" />
       <meta property="og:image:width" content="1200" />
