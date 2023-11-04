@@ -35,14 +35,13 @@ module.exports = {
         media: '800px',
         content: '768px',
       },
-      // TODO: 順番直す
       spacing: {
-        ...createConfig(SPACING),
         ...spacing,
+        ...createConfig(SPACING),
       },
       fontSize: {
-        ...createConfig(FONT_SIZE),
         ...fontSize,
+        ...createConfig(FONT_SIZE),
       },
     },
   },

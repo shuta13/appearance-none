@@ -231,6 +231,11 @@ export function isLinkPreview(
 ): block is LinkPreviewBlockObjectResponse {
   return block.type === 'link_preview';
 }
+export function isToggle(
+  block: BlockObjectResponse
+): block is ToggleBlockObjectResponse {
+  return block.type === 'toggle';
+}
 export function isUnsupported(
   block: BlockObjectResponse
 ): block is UnsupportedBlockObjectResponse {
@@ -266,7 +271,7 @@ export function switcher(block: BlockObjectResponse): SwitcherReturn {
     };
   } else if (isHeading3(block)) {
     return {
-      tagName: 'p',
+      tagName: 'h3',
     };
   } else if (isBulletList(block)) {
     return {
@@ -387,6 +392,10 @@ export function switcher(block: BlockObjectResponse): SwitcherReturn {
   } else if (isLinkPreview(block)) {
     return {
       tagName: 'a',
+    };
+  } else if (isToggle(block)) {
+    return {
+      tagName: 'details',
     };
   } else if (isUnsupported(block)) {
     return {
@@ -599,6 +608,25 @@ export function renderer(block: BlockObjectResponse) {
     return <Element></Element>;
   } else if (isLinkPreview(block)) {
     return <Element></Element>;
+  } else if (isToggle(block)) {
+    const content = getTextContent(block.toggle.rich_text);
+    if (hasChildren(block)) {
+      return (
+        <Element key={block.id}>
+          <summary>{content}</summary>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: block.children.map((child) => child.htmlStr).join(''),
+            }}
+          />
+        </Element>
+      );
+    }
+    return (
+      <Element>
+        <summary>{content}</summary>
+      </Element>
+    );
   } else if (isUnsupported(block)) {
     return <Element></Element>;
   } else {

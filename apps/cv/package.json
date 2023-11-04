@@ -1,9 +1,9 @@
 {
-  "name": "blog",
-  "license": "MIT",
+  "name": "cv",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
+  "devDependencies": {},
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,8 +12,8 @@
     "export": "next export",
     "deploy:static": "npm run build && npm run export",
     "serve": "serve out",
-    "rssgen": "node -r @swc-node/register scripts/rss.ts",
-    "new-post": "npm run rssgen && git add . && git commit -m \"chore: new post\" && git push origin main",
+    "rssgen": "npx ts-node -O '{\"module\": \"commonjs\"}' scripts/rss.ts",
+    "new-post": "yarn rssgen && git add . && git commit -m \"chore: new post\" && git push origin main",
     "ncu": "npm-check-updates",
     "type-check": "tsc --noEmit"
   },

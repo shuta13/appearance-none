@@ -15,8 +15,8 @@ const rssUrl = `${BlogHost}/rss.xml`;
 
 const createFeed = (entry: Articles[number]) => ` <item>
     <title>${entry.head.title}</title>
-    <link>${entryUrl}/${entry.head.slug}</link>
-    <guid>${entryUrl}/${entry.head.slug}</guid>
+    <link>${entryUrl}/${entry.meta.id}</link>
+    <guid>${entryUrl}/${entry.meta.id}</guid>
     <pubDate>${dayjs(entry.head.created).toString()}</pubDate>
   </item>`;
 

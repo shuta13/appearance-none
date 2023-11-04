@@ -1,0 +1,48 @@
+name: Deploy CV
+
+on: [workflow_dispatch]
+
+jobs:
+  build-and-publish:
+    name: Build and upload
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      deployments: write
+
+    strategy:
+      matrix:
+        node-version: ['18']
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: volta-cli/action@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install
+        run: npm ci .
+
+      - name: Build
+        run: npm run --prefix apps/cv build
+        env:
+          SPACE_ID: ${{ secrets.SPACE_ID }}
+          DELIVERY_KEY: ${{ secrets.DELIVERY_KEY }}
+          ENTRY_ID: ${{ secrets.ENTRY_ID }}
+          NOTION_ACCESS_TOKEN: ${{ secrets.NOTION_ACCESS_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          NOTION_DATABASE_VIEW_ID: ${{ secrets.NOTION_DATABASE_VIEW_ID }}
+          PAGE_ID: ${{ secrets.PAGE_ID }}
+
+      - name: Export
+        run: npm run --prefix apps/cv export
+
+      - name: Publish
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: cv
+          directory: ./apps/cv/out
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
