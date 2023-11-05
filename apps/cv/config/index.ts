@@ -16,7 +16,7 @@ export const DateNow = dayjs().toISOString();
 
 export const DefaultJsonId = {
   title: Title,
-  description: Description.join(' '),
+  description: Description.join(' | '),
   url: Host,
   imageUrl: OgImageUrl,
   updated: DateNow,

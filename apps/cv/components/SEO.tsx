@@ -63,7 +63,7 @@ export const SEO: React.FC<{
 }> = (props) => {
   const {
     title = Title,
-    description = Description.join(' '),
+    description = Description.join(' | '),
     linkedData = DefaultJsonId,
   } = props;
 

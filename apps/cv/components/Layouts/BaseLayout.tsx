@@ -15,15 +15,15 @@ export const BaseLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="tracking-wider h-full px-16">
       <div className="mx-auto max-w-content h-full space-y-32">
-        <header className="py-16 inset-0 grid grid-cols-4 gap-x-16">
+        <header className="py-16 inset-0 grid grid-cols-12 gap-16">
           <Image
             alt="Shuta Hirai"
             src="/images/me.jpg"
             width={160}
             height={160}
-            className="col-span-1"
+            className="md:col-span-3 col-span-4"
           />
-          <div className="col-span-3 space-y-8">
+          <div className="md:col-span-9 col-span-8 space-y-8">
             <h1 className="text-24">{Title}</h1>
             <ul className="flex gap-x-8">
               <li>
@@ -67,7 +67,7 @@ export const BaseLayout: FC<PropsWithChildren> = ({ children }) => {
                 </Link>
               </li>
             </ul>
-            <ul>
+            <ul className="hidden md:block">
               {Description.map((value) => (
                 <li key={value} className="text-16">
                   {value}
@@ -75,6 +75,13 @@ export const BaseLayout: FC<PropsWithChildren> = ({ children }) => {
               ))}
             </ul>
           </div>
+          <ul className="md:hidden col-span-full">
+            {Description.map((value) => (
+              <li key={value} className="text-16">
+                {value}
+              </li>
+            ))}
+          </ul>
         </header>
         <main>{children}</main>
         <footer className="sticky top-[100vh] py-16 text-center">

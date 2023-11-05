@@ -29,9 +29,9 @@ const Home: NextPageWithLayout<
       <SEO />
       <article>
         <nav>
-          <ul>
+          <ul className="space-y-8">
             {data.map((article) => (
-              <li key={article.meta.id} className="space-y-4">
+              <li key={article.meta.id}>
                 <Card {...article} />
               </li>
             ))}

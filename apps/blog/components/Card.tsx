@@ -7,7 +7,7 @@ export const Card: React.FC<Articles[number]> = ({ meta, head, body }) => {
   return (
     <Link
       href={`/entries/${meta.id}`}
-      className="block text-secondary hover:bg-white/10 focus:bg-white/10 transition p-4 hover:no-underline space-y-2"
+      className="block text-secondary hover:no-underline space-y-2"
       prefetch={false}
     >
       <h2 className="text-md font-bold">{head.title}</h2>
