@@ -72,11 +72,11 @@ export const SEO: React.FC<{
       <link rel="icon" href="/images/icon.svg" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta name="description" content={`${description}`} />
-      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content={`${title}`} />
       <meta
         name="twitter:image"
-        content="https://blog.did0es.me/images/og.png"
+        content="https://blog.did0es.me/images/og_square.png"
       />
       <meta name="twitter:description" content={`${description}`} />
       <meta property="og:locale" content="ja_JP" />
@@ -87,11 +87,11 @@ export const SEO: React.FC<{
       <meta property="og:description" content={`${description}`} />
       <meta
         property="og:image"
-        content="https://blog.did0es.me/images/og.png"
+        content="https://blog.did0es.me/images/og_square.png"
       />
       <meta
         property="og:image:secure_url"
-        content="https://blog.did0es.me/images/og.png"
+        content="https://blog.did0es.me/images/og_square.png"
       />
       <meta property="og:image:type" content="image/png" />
       <meta property="og:image:width" content="1200" />

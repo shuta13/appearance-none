@@ -6,7 +6,7 @@ export const BlogDescription = 'Blog - { appearance: none }';
 
 export const BlogHost = 'https://blog.did0es.me';
 
-export const OgImageUrl = 'https://blog.did0es.me/images/og.png';
+export const OgImageUrl = 'https://blog.did0es.me/images/og_square.png';
 
 export const DateNow = dayjs().toISOString();
 
