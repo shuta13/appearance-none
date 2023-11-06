@@ -81,7 +81,7 @@
   .template h1 > a,
   .template h2 > a,
   .template h3 > a {
-    @apply text-secondary before:content-["#"];
+    @apply text-secondary;
   }
 
   .template ul {

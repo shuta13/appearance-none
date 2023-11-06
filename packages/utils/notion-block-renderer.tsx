@@ -38,6 +38,8 @@ import {
   RichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 import { Tweet } from 'react-tweet';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 export namespace CustomBlockObjectResponse {
   export type BulletedList = {
@@ -540,7 +542,18 @@ export function renderer(block: BlockObjectResponse) {
   } else if (isEquation(block)) {
     return <Element></Element>;
   } else if (isCode(block)) {
-    return <Element></Element>;
+    return (
+      <SyntaxHighlighter
+        language={block.code.language}
+        style={a11yDark}
+        codeTagProps={{
+          /** @see https://github.com/react-syntax-highlighter/react-syntax-highlighter/issues/222#issuecomment-547092957 */
+          style: { fontSize: '0.875rem', lineHeight: '1.25rem' },
+        }}
+      >
+        {block.code.rich_text.map((text) => text.plain_text).join('\n')}
+      </SyntaxHighlighter>
+    );
   } else if (isCallout(block)) {
     return <Element></Element>;
   } else if (isDivider(block)) {

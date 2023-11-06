@@ -17,6 +17,8 @@ const config = {
     'utils',
     /** @see https://github.com/vercel-labs/react-tweet/tree/main/apps/next-app#troubleshooting */
     'react-tweet',
+    /** @see https://github.com/react-syntax-highlighter/react-syntax-highlighter/issues/230#issuecomment-566917807 */
+    'react-syntax-highlighter',
   ],
   compiler: {
     removeConsole:
