@@ -79,7 +79,7 @@ const Slug: NextPageWithLayout<
           src={article.head.coverImageUrl}
           width={1600}
           height={900}
-          className="object-cover object-center w-full h-[400px]"
+          className="object-cover object-center w-full h-[400px] mb-8"
         />
       )}
       <article ref={articleRef} className="space-y-8">
