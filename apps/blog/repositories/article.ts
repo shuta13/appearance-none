@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import {
   GetPageResponse,
+  ListBlockChildrenResponse,
+  PageObjectResponse,
   QueryDatabaseResponse,
 } from '@notionhq/client/build/src/api-endpoints';
 import { createN2M, createNotionClient } from 'utils/notion';
@@ -10,13 +12,15 @@ import model from '~/models/articles';
 import articlesBodyModel from '~/models/articleBody';
 import ArticlesModel from '~/models/articles';
 import { ExtendedRecordMap } from 'notion-types';
+import { Client } from '@notionhq/client';
 
 export type DatabaseResults = (QueryDatabaseResponse['results'][number] & {
   properties: Record<string, any>;
 })[];
-export type PagePropsResults = GetPageResponse & {
-  properties: Record<string, any>;
-};
+export type PagePropsResults = GetPageResponse &
+  PageObjectResponse & {
+    properties: Record<string, any>;
+  };
 
 export type Articles = {
   meta: {
@@ -28,7 +32,7 @@ export type Articles = {
     created: string;
     updated: string;
     title: string;
-    coverImageUrl: string | null;
+    coverImageUrl: string;
   };
   body: {
     content: BlockObjectResponse;
@@ -50,6 +54,24 @@ interface ArticleRepository {
   getNotionMD(params: { id: string }): Promise<string>;
 }
 
+async function getPageResultsRecursively(
+  client: Client,
+  id: string,
+  contents: ListBlockChildrenResponse
+) {
+  if (contents.has_more) {
+    const nextPageContents = await client.blocks.children.list({
+      block_id: id,
+      start_cursor: contents.next_cursor || '',
+    });
+    contents.results = contents.results.concat(nextPageContents.results);
+    await getPageResultsRecursively(client, id, nextPageContents);
+    return contents;
+  } else {
+    return contents;
+  }
+}
+
 const article: ArticleRepository = {
   async getArticle({ id }) {
     const client = createNotionClient();
@@ -59,14 +81,38 @@ const article: ArticleRepository = {
       return fs.existsSync(path.join(imageBasePath, `/${name}.png`));
     };
     try {
-      const pageProps = (
+      const { properties: pageProps, ...pageData } =
         (await client.pages.retrieve({
           page_id: id,
-        })) as unknown as PagePropsResults
-      ).properties;
-      const pageContents = await client.blocks.children.list({
+        })) as unknown as PagePropsResults;
+      const contents = await client.blocks.children.list({
         block_id: id,
       });
+      const pageContents = await getPageResultsRecursively(
+        client,
+        id,
+        contents
+      );
+      let coverImageUrl = '';
+      if (
+        pageData.cover?.type === 'file' &&
+        !isImageExist(pageData.cover.file.url)
+      ) {
+        const blob = await fetch(pageData.cover.file.url).then((res) =>
+          res.blob()
+        );
+        const binary = (await blob.arrayBuffer()) as ArrayBuffer;
+        const buffer = Buffer.from(binary);
+        fs.writeFileSync(
+          path.join(imageBasePath, `/${pageData.id}_cover.png`),
+          buffer
+        );
+        coverImageUrl = path.join(imagePathName, `/${pageData.id}_cover.png`);
+      }
+      if (pageData.cover?.type === 'external') {
+        coverImageUrl = pageData.cover.external.url;
+      }
+
       for (const item of pageContents.results as BlockObjectResponse[]) {
         if (item.has_children) {
           item.children = await this.getChildren({
@@ -104,7 +150,7 @@ const article: ArticleRepository = {
           created: pageProps.Created.date.start,
           updated: pageProps.Updated.last_edited_time,
           title: pageProps.Name.title[0].plain_text,
-          coverImageUrl: pageProps.cover?.external.url ?? null,
+          coverImageUrl,
         },
         body: ArticlesModel.normalizeList(
           (pageContents.results as BlockObjectResponse[]).map(
@@ -169,9 +215,14 @@ const article: ArticleRepository = {
             page_id: result.id,
           })) as unknown as PagePropsResults
         ).properties;
-        const pageContents = await client.blocks.children.list({
+        const contents = await client.blocks.children.list({
           block_id: result.id,
         });
+        const pageContents = await getPageResultsRecursively(
+          client,
+          result.id,
+          contents
+        );
         entries.push({
           meta: {
             id: result.id,

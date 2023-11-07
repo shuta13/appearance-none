@@ -6,11 +6,12 @@ import { getBaseLayout } from '~/components/Layouts/BaseLayout';
 import { SEO } from '~/components/SEO';
 import { getArticles } from '~/usecases/getArticles';
 import { ToC } from '~/components/ToC';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { BlogHost, DateNow, DefaultJsonId, OgImageUrl } from '~/config';
 import { Day } from '~/components/Day';
 import Image from 'next/image';
 import Link from 'next/link';
+import { summarize } from 'utils/str';
 
 export const getStaticProps = async (context: GetServerSidePropsContext) => {
   const article = await getArticle().invoke({
@@ -60,13 +61,27 @@ const Slug: NextPageWithLayout<
 
   const articleRef = useRef<HTMLElement | null>(null);
 
+  const htmlStr = useMemo(
+    () => article.body.map((value) => value.htmlStr).join(''),
+    [article]
+  );
+
   return (
     <>
       <SEO
         title={article.head.title}
-        description={article.head.title}
+        description={summarize(htmlStr)}
         linkedData={jsonLd}
       />
+      {article.head.coverImageUrl && (
+        <Image
+          alt={`${title} Cover`}
+          src={article.head.coverImageUrl}
+          width={1600}
+          height={900}
+          className="object-cover object-center w-full h-[400px]"
+        />
+      )}
       <article ref={articleRef} className="space-y-8">
         <div className="space-y-4">
           <h1 className="text-24 md:text-32 font-bold">{article.head.title}</h1>
@@ -76,7 +91,7 @@ const Slug: NextPageWithLayout<
         <div
           className="template border-y-2 border-white/20 pb-4"
           dangerouslySetInnerHTML={{
-            __html: article.body.map((article) => article.htmlStr).join(''),
+            __html: htmlStr,
           }}
         />
         <Share url={url} text={title} />
