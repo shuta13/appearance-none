@@ -49,7 +49,7 @@ const Slug: NextPageWithLayout<
   const { article } = props;
 
   const title = article.head.title;
-  const url = BlogHost + `/entry/${article.meta.id}`;
+  const url = BlogHost + `/entries/${article.meta.id}`;
 
   const jsonLd: typeof DefaultJsonId = {
     title,
