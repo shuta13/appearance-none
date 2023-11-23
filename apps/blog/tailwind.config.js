@@ -33,7 +33,6 @@ module.exports = {
       },
       maxWidth: {
         media: '800px',
-        content: '768px',
       },
       // TODO: 順番直す
       spacing: {
@@ -43,6 +42,9 @@ module.exports = {
       fontSize: {
         ...createConfig(FONT_SIZE),
         ...fontSize,
+      },
+      gridTemplateColumns: {
+        main: '1fr min(768px, calc(100% - 32px)) 1fr',
       },
     },
   },

@@ -133,4 +133,8 @@
   .template details > div {
     @apply px-16;
   }
+
+  .grid-main {
+    @apply grid grid-cols-main child:col-start-2 child:col-end-3;
+  }
 }

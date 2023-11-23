@@ -33,7 +33,6 @@ module.exports = {
       },
       maxWidth: {
         media: '800px',
-        content: '768px',
       },
       spacing: {
         ...spacing,
@@ -42,6 +41,9 @@ module.exports = {
       fontSize: {
         ...fontSize,
         ...createConfig(FONT_SIZE),
+      },
+      gridTemplateColumns: {
+        main: '1fr min(768px, calc(100% - 32px)) 1fr',
       },
     },
   },

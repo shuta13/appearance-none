@@ -121,4 +121,8 @@
     max-width: 560px;
     width: 100%;
   }
+
+  .grid-main {
+    @apply grid grid-cols-main child:col-start-2 child:col-end-3;
+  }
 }
