@@ -116,6 +116,19 @@
     font-style: italic;
   }
 
+  .template details,
+  .template details > div {
+    @apply space-y-4;
+  }
+
+  .template details > summary {
+    @apply cursor-pointer;
+  }
+
+  .template details > div {
+    @apply px-4;
+  }
+
   /* youtube embed */
   .template iframe {
     max-width: 560px;
