@@ -39,7 +39,8 @@
     font-size: 16px;
     background: var(--theme-color-primary);
     color: var(--theme-color-secondary);
-    font-family: var(--font-family-sans-serif);
+    font-family: var(--font-family-sans);
+    font-weight: 300;
     letter-spacing: 0.05em;
   }
 

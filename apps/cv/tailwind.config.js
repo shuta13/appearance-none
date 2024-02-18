@@ -22,7 +22,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-source-sans-pro)', ...fontFamily.sans],
+        sans: ['var(--font-source-sans)', ...fontFamily.sans],
         mono: ['var(--font-courier-prime)', ...fontFamily.mono],
       },
       colors: {

@@ -6,7 +6,7 @@ export const Footer: React.FC<{ className?: string }> = ({ className }) => (
   <footer className={classNames('space-y-4', className)}>
     <div className="flex gap-x-4 mt-8">
       <Link
-        href="https://cv.did0es.me"
+        href="https://did0.es"
         target="_blank"
         rel="noopener noreferrer"
         className="text-14 bg-secondary text-primary hover:opacity-80 hover:no-underline p-2"
