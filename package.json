@@ -11,11 +11,10 @@
   "repository": "https://github.com/shuta13/appearance-none.git",
   "author": "shuta13(did0es)",
   "scripts": {
-    "build": "turbo run build",
-    "export": "turbo run export",
-    "lint": "turbo run lint",
-    "dev": "turbo run dev",
-    "type-check": "turbo run type-check"
+    "build": "npm run build --workspaces --if-present",
+    "export": "npm run export --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "type-check": "npm run type-check --workspaces --if-present"
   },
   "dependencies": {
     "@next/font": "^13.1.1",
@@ -70,7 +69,6 @@
     "serve": "^14.1.2",
     "tailwind-children": "^0.5.0",
     "tailwindcss": "^3.2.4",
-    "turbo": "^1.6.3",
     "typed-css-modules": "^0.7.2",
     "typescript": "^4.9.4",
     "typescript-styled-plugin": "^0.18.2"
