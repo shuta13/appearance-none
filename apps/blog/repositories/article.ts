@@ -57,7 +57,7 @@ interface ArticleRepository {
 async function getPageResultsRecursively(
   client: Client,
   id: string,
-  contents: ListBlockChildrenResponse
+  contents: ListBlockChildrenResponse,
 ) {
   if (contents.has_more) {
     const nextPageContents = await client.blocks.children.list({
@@ -91,21 +91,22 @@ const article: ArticleRepository = {
       const pageContents = await getPageResultsRecursively(
         client,
         id,
-        contents
+        contents,
       );
+
       let coverImageUrl = '';
       if (
         pageData.cover?.type === 'file' &&
         !isImageExist(pageData.cover.file.url)
       ) {
         const blob = await fetch(pageData.cover.file.url).then((res) =>
-          res.blob()
+          res.blob(),
         );
         const binary = (await blob.arrayBuffer()) as ArrayBuffer;
         const buffer = Buffer.from(binary);
         fs.writeFileSync(
           path.join(imageBasePath, `/${pageData.id}_cover.png`),
-          buffer
+          buffer,
         );
         coverImageUrl = path.join(imagePathName, `/${pageData.id}_cover.png`);
       }
@@ -125,13 +126,13 @@ const article: ArticleRepository = {
         if (item.type === 'image' && item.image.type === 'file') {
           if (!isImageExist(item.id)) {
             const blob = await fetch(item.image.file.url).then((res) =>
-              res.blob()
+              res.blob(),
             );
             const binary = (await blob.arrayBuffer()) as ArrayBuffer;
             const buffer = Buffer.from(binary);
             fs.writeFileSync(
               path.join(imageBasePath, `/${item.id}.png`),
-              buffer
+              buffer,
             );
           }
           item.image.file.url = `${imagePathName}/${item.id}.png`;
@@ -145,7 +146,7 @@ const article: ArticleRepository = {
         head: {
           slug: pageProps.Slug.rich_text[0].plain_text,
           tags: pageProps.Tags.multi_select.map(
-            ({ name }: { name: string }) => name
+            ({ name }: { name: string }) => name,
           ),
           created: pageProps.Created.date.start,
           updated: pageProps.Updated.last_edited_time,
@@ -154,8 +155,8 @@ const article: ArticleRepository = {
         },
         body: ArticlesModel.normalizeList(
           (pageContents.results as BlockObjectResponse[]).map(
-            articlesBodyModel.transform
-          )
+            articlesBodyModel.transform,
+          ),
         ),
       };
     } catch (e) {
@@ -221,7 +222,7 @@ const article: ArticleRepository = {
         const pageContents = await getPageResultsRecursively(
           client,
           result.id,
-          contents
+          contents,
         );
         entries.push({
           meta: {
@@ -230,7 +231,7 @@ const article: ArticleRepository = {
           head: {
             slug: pageProps.Slug.rich_text[0].plain_text,
             tags: pageProps.Tags.multi_select.map(
-              ({ name }: { name: string }) => name
+              ({ name }: { name: string }) => name,
             ),
             created: pageProps.Created.date.start,
             updated: pageProps.Updated.last_edited_time,
@@ -238,7 +239,7 @@ const article: ArticleRepository = {
             coverImageUrl: pageProps.cover?.external.url ?? null,
           },
           body: (pageContents.results as BlockObjectResponse[]).map(
-            articlesBodyModel.transform
+            articlesBodyModel.transform,
           ),
         });
       }
@@ -254,9 +255,16 @@ const article: ArticleRepository = {
       block_id: id,
       page_size: size,
     });
-    return (children.results as BlockObjectResponse[]).map(
-      articlesBodyModel.transform
-    );
+    const results = children.results as BlockObjectResponse[];
+    for (const item of results) {
+      if (item.has_children) {
+        item.children = await this.getChildren({
+          id: item.id,
+        });
+        results[results.indexOf(item)] = item;
+      }
+    }
+    return results.map(articlesBodyModel.transform);
   },
   async getNotionMD({ id }) {
     const n2m = createN2M();

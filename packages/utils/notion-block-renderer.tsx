@@ -64,193 +64,193 @@ export type BlockObjectResponse = (
 ) & { children?: { content: BlockObjectResponse; htmlStr: string }[] };
 
 export function isParagraph(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is ParagraphBlockObjectResponse {
   return block.type === 'paragraph';
 }
 export function isHeading1(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is Heading1BlockObjectResponse {
   return block.type === 'heading_1';
 }
 export function isHeading2(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is Heading2BlockObjectResponse {
   return block.type === 'heading_2';
 }
 export function isHeading3(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is Heading3BlockObjectResponse {
   return block.type === 'heading_3';
 }
 export function isBulletList(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is CustomBlockObjectResponse.BulletedList {
   return block.type === 'bulleted_list';
 }
 export function isBulletListItem(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is BulletedListItemBlockObjectResponse {
   return block.type === 'bulleted_list_item';
 }
 export function isNumberedList(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is CustomBlockObjectResponse.NumberedList {
   return block.type === 'numbered_list';
 }
 export function isNumberedListItem(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is NumberedListItemBlockObjectResponse {
   return block.type === 'numbered_list_item';
 }
 export function isQuote(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is QuoteBlockObjectResponse {
   return block.type === 'quote';
 }
 export function isTodoList(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is CustomBlockObjectResponse.TodoList {
   return block.type === 'todo_list';
 }
 export function isTodo(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is ToDoBlockObjectResponse {
   return block.type === 'to_do';
 }
 export function isTemplate(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is TemplateBlockObjectResponse {
   return block.type === 'template';
 }
 export function isSyncedBlock(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is SyncedBlockBlockObjectResponse {
   return block.type === 'synced_block';
 }
 export function isChildPage(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is ChildPageBlockObjectResponse {
   return block.type === 'child_page';
 }
 export function isChildDatabase(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is ChildDatabaseBlockObjectResponse {
   return block.type === 'child_database';
 }
 export function isEquation(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is EquationBlockObjectResponse {
   return block.type === 'equation';
 }
 export function isCode(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is CodeBlockObjectResponse {
   return block.type === 'code';
 }
 export function isCallout(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is CalloutBlockObjectResponse {
   return block.type === 'callout';
 }
 export function isDivider(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is DividerBlockObjectResponse {
   return block.type === 'divider';
 }
 export function isBreadcrumb(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is BreadcrumbBlockObjectResponse {
   return block.type === 'breadcrumb';
 }
 export function isTableOfContents(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is TableOfContentsBlockObjectResponse {
   return block.type === 'table_of_contents';
 }
 export function isColumnList(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is ColumnListBlockObjectResponse {
   return block.type === 'column_list';
 }
 export function isColumn(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is ColumnBlockObjectResponse {
   return block.type === 'column';
 }
 export function isLinkToPage(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is LinkToPageBlockObjectResponse {
   return block.type === 'link_to_page';
 }
 export function isTable(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is TableBlockObjectResponse {
   return block.type === 'table';
 }
 export function isTableRow(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is TableRowBlockObjectResponse {
   return block.type === 'table_row';
 }
 export function isEmbed(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is EmbedBlockObjectResponse {
   return block.type === 'embed';
 }
 export function isBookmark(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is BookmarkBlockObjectResponse {
   return block.type === 'bookmark';
 }
 export function isImage(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is ImageBlockObjectResponse {
   return block.type === 'image';
 }
 export function isVideo(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is VideoBlockObjectResponse {
   return block.type === 'video';
 }
 export function isPdf(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is PdfBlockObjectResponse {
   return block.type === 'pdf';
 }
 export function isFile(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is FileBlockObjectResponse {
   return block.type === 'file';
 }
 export function isAudio(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is AudioBlockObjectResponse {
   return block.type === 'audio';
 }
 export function isLinkPreview(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is LinkPreviewBlockObjectResponse {
   return block.type === 'link_preview';
 }
 export function isToggle(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is ToggleBlockObjectResponse {
   return block.type === 'toggle';
 }
 export function isUnsupported(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is UnsupportedBlockObjectResponse {
   return block.type === 'unsupported';
 }
 
 export function isBlockObject(
-  object: ListBlockChildrenResponse['results'][number]
+  object: ListBlockChildrenResponse['results'][number],
 ): object is BlockObjectResponse {
   return Object.prototype.hasOwnProperty.call(object, 'type');
 }
 export function hasChildren(
-  block: BlockObjectResponse
+  block: BlockObjectResponse,
 ): block is { children: Record<string, any> } & BlockObjectResponse {
   return Object.prototype.hasOwnProperty.call(block, 'children');
 }
